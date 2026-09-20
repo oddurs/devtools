@@ -53,6 +53,17 @@ gate on every push (`.github/workflows/verify.yml`).
 tint) in `src/lib/design/identity.ts`, and, when it can run in Linux, a story
 in `screens/manifest.mjs`, then `npm run screens -- <name>`.
 
+## What is left
+
+The pages are not finished: seven are shot and recorded, seven have screens
+and no recording, and ten have neither. [ROADMAP.md](ROADMAP.md) is the plan
+for the rest, kept as [cairn](https://github.com/oddurs/cairn) items in
+`cairn/items/` — one per tool, plus the site changes the pages need.
+
+    cairn board                   where every page is
+    cairn list --view pages       every tool, by where it stands
+    cairn list --view unshot      the ten with nothing to show yet
+
 ## Generated, and committed
 
     npm run theme      src/lib/terminal/ghostty.json   face, size, padding from ~/.config/ghostty/config

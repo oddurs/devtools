@@ -1,0 +1,198 @@
+# cairn.toml — the schema for finishing this site's content.
+#
+# The site is a rail of tools; each one has a page, and a page is finished when
+# it shows the tool running and says what it is for. That is what the items
+# here track: one per tool, plus the handful of site changes the pages need.
+#
+#   cairn board                   where every page is
+#   cairn list --view unshot      the pages with nothing to show yet
+#   cairn check                   validate every item against this file
+
+format = 3
+
+[project]
+name = "devtools"
+description = "The tools I build for my own terminal, each one running."
+dir = "cairn/items"
+id_width = 4
+default_type = "page"
+default_status = "backlog"
+url = "https://github.com/oddurs/devtools/blob/main"
+
+# ─── Item types ──────────────────────────────────────────────────────────────
+
+[[type]]
+name = "page"
+icon = "▣"
+color = "cyan"
+description = "One tool's page, finished: it shows the tool running and says what it is for"
+template = """
+## Where it stands
+
+## What it should show
+
+## Acceptance criteria
+
+- [ ] A four-beat story in `screens/manifest.mjs`: at a glance, getting started, in use, in depth
+- [ ] Four screenshots, shot in the current palette, none of them half empty
+- [ ] `record: true`, and the recording plays clean from a fresh build
+- [ ] Captions say what the beat shows, not what was typed
+- [ ] `line` and `more` finished, and the state and version true
+- [ ] A site link, if the tool has a site of its own
+"""
+
+[[type]]
+name = "feature"
+icon = "+"
+color = "green"
+description = "A change to the site itself"
+template = """
+## Problem
+
+## Proposal
+
+## Acceptance criteria
+
+- [ ]
+"""
+
+[[type]]
+name = "chore"
+icon = "~"
+color = "gray"
+
+[[type]]
+name = "docs"
+icon = "*"
+color = "blue"
+
+[[type]]
+name = "milestone"
+description = "a wave of the work"
+groups = "one"
+inverse = "scheduled"
+
+# ─── Statuses ────────────────────────────────────────────────────────────────
+
+[[status]]
+name = "backlog"
+category = "open"
+color = "gray"
+
+[[status]]
+name = "planned"
+category = "open"
+color = "blue"
+
+[[status]]
+name = "doing"
+label = "in progress"
+category = "active"
+color = "yellow"
+
+[[status]]
+name = "blocked"
+category = "active"
+color = "red"
+
+[[status]]
+name = "done"
+category = "done"
+color = "green"
+
+[[status]]
+name = "dropped"
+category = "dropped"
+color = "gray"
+board = false
+
+# ─── Custom fields ───────────────────────────────────────────────────────────
+
+[[field]]
+name = "priority"
+kind = "enum"
+values = ["p0", "p1", "p2", "p3"]
+default = "p2"
+column = true
+description = "p0 blocks the rest of the work"
+
+[[field]]
+name = "effort"
+kind = "enum"
+values = ["s", "m", "l", "xl"]
+description = "Rough size, not an estimate"
+
+[[field]]
+name = "tool"
+kind = "text"
+column = true
+description = "The tool whose page this is"
+
+[[field]]
+name = "section"
+kind = "enum"
+values = ["System", "Code", "Roadmap", "Reading", "Desk", "Science", "Web", "site"]
+description = "Where it sits in the rail; `site` for work on the site itself"
+
+[[field]]
+name = "shows"
+kind = "list"
+description = "How this page shows its tool: recording, screens, gallery, audio"
+
+[[field]]
+name = "due"
+kind = "date"
+description = "when a wave is meant to land"
+
+# ─── Saved views ─────────────────────────────────────────────────────────────
+
+[[view]]
+name = "now"
+description = "What is actually being worked on"
+filter = "category=active"
+sort = "priority,id"
+
+[[view]]
+name = "next"
+description = "Planned, nearest wave first"
+filter = "status=planned"
+sort = "priority,milestone"
+
+[[view]]
+name = "unshot"
+description = "Pages with nothing to show yet: no story, no screens"
+filter = "milestone=wave-3,category!=done"
+sort = "priority,id"
+
+[[view]]
+name = "pages"
+description = "Every tool page, by where it stands"
+filter = "type=page"
+sort = "milestone,tool"
+columns = ["id", "tool", "title", "status", "shows"]
+
+[[view]]
+name = "triage"
+description = "Items that still need a wave or a priority"
+filter = "milestone=,category!=done"
+columns = ["id", "type", "title", "created"]
+
+# ─── Hooks ───────────────────────────────────────────────────────────────────
+
+[hooks]
+after-create = "cairn render -q"
+after-change = "cairn render -q"
+after-remove = "cairn render -q"
+
+# ─── Rendered roadmap ────────────────────────────────────────────────────────
+
+[render]
+target = "ROADMAP.md"
+title = "Finishing the pages"
+group_by = "milestone"
+include = "category!=dropped"
+checkbox = true
+show_ids = true
+progress = true
+group_by_status = true
+link_items = true

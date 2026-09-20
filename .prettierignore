@@ -13,3 +13,8 @@ src/lib/data/projects.json
 src/lib/terminal/ghostty.json
 src/lib/data/screens.json
 screens/failed
+
+# cairn's own files: it rewrites an item on every `cairn set`, and renders
+# ROADMAP.md from them. Prettier would only fight it.
+cairn/items/
+ROADMAP.md
