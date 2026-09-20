@@ -60,8 +60,7 @@ describe('every tool', () => {
 		clackson: 'macOS only, and the page is a sound rather than a picture',
 		knit: 'needs more than one machine to be worth showing',
 		brevity: 'has no interface: a clipboard, a key and a chime',
-		rigor: 'needs a GitHub fixture with real pull requests',
-		turborust: 'needs a multi-service Rust workspace to orchestrate',
+		rigor: 'reads GitHub through an authenticated gh; the studio has no token',
 		triblenka: 'design stage: nothing is implemented yet'
 	};
 

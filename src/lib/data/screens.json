@@ -569,7 +569,7 @@
   "poptop": {
     "runner": "terminal",
     "commit": "0f25ff029c74",
-    "takenAt": "2026-09-20T05:28:35.424Z",
+    "takenAt": "2026-09-20T05:49:38.983Z",
     "background": "#0d0d0c",
     "shots": [
       {
@@ -588,7 +588,7 @@
       },
       {
         "beat": "use",
-        "caption": "Filtered to the node processes, the worker that keeps growing selected: its memory, its threads, what it is reading and writing.",
+        "caption": "Filtered to the node processes: the API server under load, the generator hitting it, and the worker whose memory keeps climbing.",
         "src": "/media/screens/poptop/03-use.webp",
         "width": 1600,
         "height": 1000
@@ -605,23 +605,23 @@
       "src": "/media/casts/poptop.cast",
       "cols": 125,
       "rows": 29,
-      "duration": 38.417,
-      "bytes": 185878,
+      "duration": 38.554,
+      "bytes": 184028,
       "markers": [
         [
-          9.186,
+          9.194,
           "hero"
         ],
         [
-          11.28,
+          11.304,
           "start"
         ],
         [
-          18.31,
+          18.336,
           "use"
         ],
         [
-          35.49,
+          35.631,
           "depth"
         ]
       ]
@@ -928,6 +928,67 @@
         [
           43.22,
           "depth"
+        ]
+      ]
+    }
+  },
+  "turborust": {
+    "runner": "terminal",
+    "commit": "46277fa8b57a",
+    "takenAt": "2026-09-20T05:50:24.355Z",
+    "background": "#0d0d0c",
+    "shots": [
+      {
+        "beat": "hero",
+        "caption": "Both services supervised, watching the crates they actually depend on.",
+        "src": "/media/screens/turborust/01-hero.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "start",
+        "caption": "`turborust init` reads the workspace and writes a config: one entry per crate that runs.",
+        "src": "/media/screens/turborust/02-start.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "use",
+        "caption": "The resolved graph, with the watch globs derived from cargo rather than written by hand: api depends on shared, so shared is watched for api.",
+        "src": "/media/screens/turborust/03-use.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "depth",
+        "caption": "`why` answers the question the others do not: would this run right now, and on account of what.",
+        "src": "/media/screens/turborust/04-depth.webp",
+        "width": 1600,
+        "height": 1000
+      }
+    ],
+    "cast": {
+      "src": "/media/casts/turborust.cast",
+      "cols": 125,
+      "rows": 29,
+      "duration": 16.946,
+      "bytes": 139772,
+      "markers": [
+        [
+          3.093,
+          "start"
+        ],
+        [
+          6.076,
+          "use"
+        ],
+        [
+          9.142,
+          "depth"
+        ],
+        [
+          16.702,
+          "hero"
         ]
       ]
     }

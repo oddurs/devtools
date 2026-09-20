@@ -57,19 +57,14 @@ Seven stories that need their missing beats filled and a recording made.
 
 ## wave-3 — The ten with nothing to show yet
 
-`#·········` 10% · 1 of 10 done · due 2026-11-22
+`###·······` 30% · 3 of 10 done · due 2026-11-22
 
 Ten tools with no story at all. This is the wave that gates the rest.
-
-### backlog
-
-- [ ] [`0027`](https://github.com/oddurs/devtools/blob/main/cairn/items/0027-rigor-a-story-from-nothing.md) rigor: a story from nothing <sup>page · p2 · rigor</sup>
-- [ ] [`0034`](https://github.com/oddurs/devtools/blob/main/cairn/items/0034-turborust-a-story-from-nothing.md) turborust: a story from nothing <sup>page · p2 · turborust</sup>
-- [ ] [`0035`](https://github.com/oddurs/devtools/blob/main/cairn/items/0035-triblenka-a-story-from-nothing.md) triblenka: a story from nothing <sup>page · p3 · triblenka</sup>
 
 ### blocked
 
 - [ ] [`0026`](https://github.com/oddurs/devtools/blob/main/cairn/items/0026-andy-a-story-from-nothing.md) andy: a story from nothing <sup>page · p1 · andy</sup>
+- [ ] [`0027`](https://github.com/oddurs/devtools/blob/main/cairn/items/0027-rigor-a-story-from-nothing.md) rigor: a story from nothing <sup>page · p2 · rigor</sup>
 - [ ] [`0029`](https://github.com/oddurs/devtools/blob/main/cairn/items/0029-brevity-a-story-from-nothing.md) brevity: a story from nothing <sup>page · p2 · brevity</sup>
 - [ ] [`0030`](https://github.com/oddurs/devtools/blob/main/cairn/items/0030-polkadot-a-story-from-nothing.md) polkadot: a story from nothing <sup>page · p1 · polkadot</sup>
 - [ ] [`0031`](https://github.com/oddurs/devtools/blob/main/cairn/items/0031-knit-a-story-from-nothing.md) knit: a story from nothing <sup>page · p2 · knit</sup>
@@ -79,18 +74,17 @@ Ten tools with no story at all. This is the wave that gates the rest.
 ### done
 
 - [x] [`0028`](https://github.com/oddurs/devtools/blob/main/cairn/items/0028-jerk-a-story-from-nothing.md) jerk: a story from nothing <sup>page · p2 · jerk</sup>
+- [x] [`0034`](https://github.com/oddurs/devtools/blob/main/cairn/items/0034-turborust-a-story-from-nothing.md) turborust: a story from nothing <sup>page · p2 · turborust</sup>
+- [x] [`0035`](https://github.com/oddurs/devtools/blob/main/cairn/items/0035-triblenka-a-story-from-nothing.md) triblenka: a story from nothing <sup>page · p3 · triblenka</sup>
 
 ## launch — Every page finished
 
-`#####·····` 50% · 1 of 2 done · due 2026-11-29
+`##########` 100% · 2 of 2 done · due 2026-11-29
 
 Reading all twenty-four pages side by side, looking for drift.
 
-### backlog
-
-- [ ] [`0036`](https://github.com/oddurs/devtools/blob/main/cairn/items/0036-a-pass-over-all-twenty-four-pages-side-by-side.md) A pass over all twenty-four pages, side by side <sup>chore · p0</sup>
-
 ### done
 
+- [x] [`0036`](https://github.com/oddurs/devtools/blob/main/cairn/items/0036-a-pass-over-all-twenty-four-pages-side-by-side.md) A pass over all twenty-four pages, side by side <sup>chore · p0</sup>
 - [x] [`0037`](https://github.com/oddurs/devtools/blob/main/cairn/items/0037-say-how-the-site-is-made-now-that-it-is-made.md) Say how the site is made, now that it is made <sup>docs · p2</sup>
 

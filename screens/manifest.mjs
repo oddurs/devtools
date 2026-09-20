@@ -1363,6 +1363,104 @@ cd ~/Code`,
 		]
 	},
 
+	turborust: {
+		build: cargo,
+		// A workspace with a real path-dependency closure, because that is the
+		// part turborust is about: api and worker both depend on shared, so a
+		// change to shared has to restart both, and turborust derives that
+		// from cargo metadata rather than from hand-written globs.
+		fixture: `
+mkdir -p shop/crates/shared/src shop/crates/api/src shop/crates/worker/src
+cd shop
+cat > Cargo.toml <<'TOML'
+[workspace]
+members = ["crates/*"]
+resolver = "2"
+TOML
+cat > crates/shared/Cargo.toml <<'TOML'
+[package]
+name = "shared"
+version = "0.1.0"
+edition = "2021"
+TOML
+cat > crates/shared/src/lib.rs <<'RS'
+pub fn greeting() -> String {
+    "orders".to_string()
+}
+RS
+cat > crates/api/Cargo.toml <<'TOML'
+[package]
+name = "api"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+shared = { path = "../shared" }
+TOML
+cat > crates/api/src/main.rs <<'RS'
+fn main() {
+    println!("api listening on :8788 serving {}", shared::greeting());
+    loop {
+        std::thread::sleep(std::time::Duration::from_millis(500));
+    }
+}
+RS
+cat > crates/worker/Cargo.toml <<'TOML'
+[package]
+name = "worker"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+shared = { path = "../shared" }
+TOML
+cat > crates/worker/src/main.rs <<'RS'
+fn main() {
+    println!("worker draining {}", shared::greeting());
+    loop {
+        std::thread::sleep(std::time::Duration::from_millis(500));
+    }
+}
+RS
+cargo build --offline -q 2>/dev/null || cargo build -q
+cd ..`,
+		stage: 'fixture',
+		record: true,
+		steps: [
+			{ hidden: 'cd shop' },
+			{ run: 'turborust init' },
+			{ sleep: '2s' },
+			{
+				shot: 'start',
+				caption:
+					'`turborust init` reads the workspace and writes a config: one entry per crate that runs.'
+			},
+			// No clear: short commands stack up the screen, so no shot is half empty.
+			{ run: 'turborust plan' },
+			{ sleep: '2.5s' },
+			{
+				shot: 'use',
+				caption:
+					'The resolved graph, with the watch globs derived from cargo rather than written by hand: api depends on shared, so shared is watched for api.'
+			},
+			{ run: 'turborust why api' },
+			{ sleep: '2.5s' },
+			{
+				shot: 'depth',
+				caption:
+					'`why` answers the question the others do not: would this run right now, and on account of what.'
+			},
+			{ run: 'clear; turborust up' },
+			{ sleep: '6s' },
+			{
+				shot: 'hero',
+				caption: 'Both services supervised, watching the crates they actually depend on.'
+			},
+			{ key: 'Ctrl+C' },
+			{ sleep: '1s' }
+		]
+	},
+
 	// ── macOS only: kept as they are until there is a macOS runner ─────────
 
 	andy: { runner: 'host' },

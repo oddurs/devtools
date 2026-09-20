@@ -1,8 +1,8 @@
 ---
 id: 35
-title: "triblenka: a story from nothing"
+title: 'triblenka: a story from nothing'
 type: page
-status: backlog
+status: done
 milestone: wave-3
 created: 2026-09-20
 updated: 2026-09-20
@@ -34,7 +34,17 @@ answer is that it waits for code.
 
 ## Acceptance criteria
 
-- [ ] A decision, written down: what a pre-release tool's page shows
-- [ ] Whatever that is, on the page
-- [ ] `line` and `more` finished
-- [ ] Nothing on the page implies the tool runs today
+- [x] A decision, written down: what a pre-release tool's page shows
+- [x] Whatever that is, on the page
+- [x] `line` and `more` finished
+- [x] Nothing on the page implies the tool runs today
+
+## 2026-09-20
+
+Decided: the page is the words, and that is correct rather than unfinished.
+
+triblenka is at design stage — its own readme says so: 'Nothing is implemented yet. DESIGN.md is the architecture; docs/ describes the v1 API we intend to build, written as real documentation so the API can be criticised before it is coded. Every snippet here is a proposal, not a promise.'
+
+There is therefore nothing to record, and recording something anyway would break the one rule this site has. The page already carries the pre-release notice, which says the same thing in the site's voice: designed in the open, documentation first, nothing to install yet. With the typed session gone (0006) the demo area now says 'Not photographed yet' instead, which is true.
+
+What would change this is code, not a runner. When triblenka builds something, it gets a story like any other tool.
