@@ -6,21 +6,24 @@ The tools I build for my own terminal, each one running.
 
 ## platform — The site can show what the tools need
 
-`··········` 0% · 0 of 6 done · due 2026-10-04
+`####······` 33% · 2 of 6 done · due 2026-10-04
 
 Two views, not three: a recording and the screens. The typed session goes.
 
 ### backlog
 
 - [ ] [`0007`](https://github.com/oddurs/devtools/blob/main/cairn/items/0007-take-the-typed-sessions-out-of-the-data-and-the-docs.md) Take the typed sessions out of the data and the docs <sup>chore · p1</sup>
-- [ ] [`0008`](https://github.com/oddurs/devtools/blob/main/cairn/items/0008-a-gallery-for-tools-whose-output-is-pictures.md) A gallery, for tools whose output is pictures <sup>feature · p0</sup>
-- [ ] [`0009`](https://github.com/oddurs/devtools/blob/main/cairn/items/0009-an-audio-sample-for-tools-you-hear.md) An audio sample, for tools you hear <sup>feature · p0</sup>
 - [ ] [`0010`](https://github.com/oddurs/devtools/blob/main/cairn/items/0010-link-every-tool-that-has-a-site-of-its-own.md) Link every tool that has a site of its own <sup>feature · p1</sup>
 - [ ] [`0011`](https://github.com/oddurs/devtools/blob/main/cairn/items/0011-bring-the-recordings-doc-up-to-date.md) Bring the recordings doc up to date <sup>docs · p2</sup>
 
 ### planned
 
 - [ ] [`0006`](https://github.com/oddurs/devtools/blob/main/cairn/items/0006-drop-the-typed-session-two-views-not-three.md) Drop the typed session: two views, not three <sup>feature · p0 · blocked-by-wave-3</sup>
+
+### done
+
+- [x] [`0008`](https://github.com/oddurs/devtools/blob/main/cairn/items/0008-a-gallery-for-tools-whose-output-is-pictures.md) A gallery, for tools whose output is pictures <sup>feature · p0</sup>
+- [x] [`0009`](https://github.com/oddurs/devtools/blob/main/cairn/items/0009-an-audio-sample-for-tools-you-hear.md) An audio sample, for tools you hear <sup>feature · p0</sup>
 
 ## wave-1 — The seven that are already shot
 

@@ -2,7 +2,7 @@
 id: 8
 title: A gallery, for tools whose output is pictures
 type: feature
-status: backlog
+status: done
 milestone: platform
 created: 2026-09-20
 updated: 2026-09-20
@@ -36,9 +36,13 @@ the same problem.
 
 ## Acceptance criteria
 
-- [ ] A `gallery` view, alongside `recording` and `screens`, offered only when
+- [x] A `gallery` view, alongside `recording` and `screens`, offered only when
       a tool has one
-- [ ] It reads from `screens.json`, validated by `screens.test.ts` like the rest
-- [ ] Animated output plays without a library, and does not autoplay under
+- [x] It reads from `screens.json`, validated by `screens.test.ts` like the rest
+- [x] Animated output plays without a library, and does not autoplay under
       `prefers-reduced-motion`
-- [ ] It works at phone width: the grid reflows rather than scrolling sideways
+- [x] It works at phone width: the grid reflows rather than scrolling sideways
+
+## 2026-09-20
+
+Built as Gallery.svelte: a contact sheet, not a window — the other two views are the tool running and belong in one; these are what it produced. A plate carries an optional `source` (what the tool was given) and an optional `still`, which is what shows for an animated plate until it is asked to play, and all it ever shows under reduced motion. Click enlarges; arrows and escape work in the lightbox. Validated in screens.test.ts, which also refuses a gif without a still. No tool has a gallery yet: gummyworm's plates come with 0016.

@@ -72,6 +72,50 @@ describe.each(entries)('%s', (name, entry) => {
 		}
 	);
 
+	const gallery = (entry.gallery ?? []) as Record<string, unknown>[];
+
+	it.runIf(gallery.length)('has a gallery worth comparing, all of it on disk', () => {
+		// One plate is not a comparison; a gallery exists to be read across.
+		expect(gallery.length).toBeGreaterThan(2);
+		for (const g of gallery) {
+			expect(g.caption).toEqual(expect.any(String));
+			expect(g.caption).not.toBe('');
+			expect(g.src).toEqual(expect.stringMatching(/^\/media\/gallery\/.+\.(webp|png|gif|svg)$/));
+			expect(inStatic(g.src as string), `${g.src} is missing from static/`).toBe(true);
+			expect(Number(g.width)).toBeGreaterThan(0);
+			expect(Number(g.height)).toBeGreaterThan(0);
+			// A plate that moves needs a still, or reduced motion has nothing to
+			// show and the plate plays whether it was asked to or not.
+			if (String(g.src).endsWith('.gif')) expect(g.still).toEqual(expect.any(String));
+			if (g.still) expect(inStatic(g.still as string), `${g.still} is missing`).toBe(true);
+		}
+		const srcs = gallery.map((g) => g.src);
+		expect(srcs).toHaveLength(new Set(srcs).size);
+	});
+
+	const audio = (entry.audio ?? []) as Record<string, unknown>[];
+
+	it.runIf(audio.length)('has samples on disk, each with a waveform of its own', () => {
+		for (const a of audio) {
+			expect(a.caption).toEqual(expect.any(String));
+			expect(a.caption).not.toBe('');
+			expect(a.src).toEqual(expect.stringMatching(/^\/media\/audio\/.+\.(m4a|mp3|ogg|wav)$/));
+			expect(inStatic(a.src as string), `${a.src} is missing from static/`).toBe(true);
+			// The page says how long a sample is before it starts, so it has to know.
+			expect(Number(a.seconds)).toBeGreaterThan(0);
+			const peaks = a.peaks as number[];
+			expect(Array.isArray(peaks)).toBe(true);
+			expect(peaks.length).toBeGreaterThan(8);
+			for (const v of peaks) expect(v).toBeGreaterThanOrEqual(0);
+			for (const v of peaks) expect(v).toBeLessThanOrEqual(1);
+			// A waveform measured off silence would draw a flat line and say
+			// nothing; something in the take has to have been loud.
+			expect(Math.max(...peaks)).toBeGreaterThan(0.2);
+		}
+		const srcs = audio.map((a) => a.src);
+		expect(srcs).toHaveLength(new Set(srcs).size);
+	});
+
 	const cast = entry.cast as Record<string, unknown> | undefined;
 
 	it.runIf(cast)('has a recording that is on disk and makes sense', () => {

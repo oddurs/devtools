@@ -7,8 +7,10 @@
 -->
 <script lang="ts">
 	import { Choice, Kbd } from '$lib/design';
+	import Gallery from '$lib/terminal/Gallery.svelte';
 	import Recording from '$lib/terminal/Recording.svelte';
 	import Screens from '$lib/terminal/Screens.svelte';
+	import Sound from '$lib/terminal/Sound.svelte';
 	import Session from '$lib/terminal/Session.svelte';
 	import Window from '$lib/terminal/Window.svelte';
 	import { prerelease, stills, views, type Project, type View } from '$lib/data/projects';
@@ -48,6 +50,8 @@
 	const viewLabel: Record<View, string> = {
 		recording: 'recording',
 		screens: 'screens',
+		gallery: 'gallery',
+		audio: 'sound',
 		session: 'session'
 	};
 	// The recording's chapters, with the caption of the screenshot each one is.
@@ -127,6 +131,8 @@
 					<Kbd>space</Kbd> play <Kbd>←</Kbd><Kbd>→</Kbd> chapters
 				{:else if view === 'screens' && shots.length > 1}
 					<Kbd>←</Kbd><Kbd>→</Kbd>
+				{:else if view === 'gallery'}
+					<Kbd>←</Kbd><Kbd>→</Kbd> in a plate
 				{:else if view === 'session'}
 					<Kbd>↵</Kbd> next <Kbd>tab</Kbd> complete
 				{/if}
@@ -159,6 +165,17 @@
 		<p class="caption">
 			{#each shot.caption.split('`') as part, i (i)}{#if i % 2}<code>{part}</code
 					>{:else}{part}{/if}{/each}
+		</p>
+	{:else if view === 'gallery'}
+		<Gallery plates={project.gallery} label="What {project.name} made" />
+		<p class="caption">
+			{project.gallery.length} outputs of {project.name}, made in the same run as the screens above.
+			Click one to see it whole.
+		</p>
+	{:else if view === 'audio'}
+		<Sound samples={project.audio} label="{project.name}, heard" />
+		<p class="caption">
+			Recorded from {project.name} itself. Nothing plays until you ask it to.
 		</p>
 	{:else if view === 'session'}
 		{#key project.name}

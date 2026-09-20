@@ -13,6 +13,36 @@ export type Shot = {
 	height: number;
 };
 
+// One picture a tool made. Some tools argue by their output rather than by
+// their interface — gummyworm draws images, fontina sets type — and four
+// screenshots in a carousel is the wrong shape for judging that. A plate is
+// one of those outputs, shown next to the others.
+export type Plate = {
+	src: string;
+	caption: string;
+	width: number;
+	height: number;
+	// What the tool was given: the source image, the typeface, the input.
+	source?: string;
+	// Set when `src` moves. The still is what shows until it is asked to play,
+	// and all it ever shows under prefers-reduced-motion.
+	still?: string;
+};
+
+// A sample of a tool you hear rather than see. clackson is a keyboard made
+// audible: nothing on a page of screenshots carries it, and a recording of a
+// terminal carries it least of all, the terminal being silent.
+export type Sample = {
+	src: string;
+	caption: string;
+	seconds: number;
+	// The waveform, as levels from 0 to 1, measured off the file by the runner
+	// so the page draws the sound rather than showing a picture of it.
+	peaks: number[];
+	// What was being typed while it was recorded.
+	typed?: string;
+};
+
 // A recorded session: asciicast v2, from the screens runner. `markers` are its
 // chapters, one per screenshot beat, as [seconds, beat].
 export type Cast = {
@@ -34,6 +64,8 @@ type Shots = {
 	background?: string;
 	shots: Shot[];
 	cast?: Cast;
+	gallery?: Plate[];
+	audio?: Sample[];
 };
 
 export type Project = Omit<Tool, 'install' | 'site' | 'recording' | 'poster'> & {
@@ -44,6 +76,8 @@ export type Project = Omit<Tool, 'install' | 'site' | 'recording' | 'poster'> & 
 	screens: Shot[];
 	screenBackground: string | null;
 	cast: Cast | null;
+	gallery: Plate[];
+	audio: Sample[];
 	commit: string | null;
 };
 
@@ -66,6 +100,8 @@ function project(t: Tool): Project {
 		screens: s?.shots ?? [],
 		screenBackground: s?.background ?? null,
 		cast: s?.cast ?? null,
+		gallery: s?.gallery ?? [],
+		audio: s?.audio ?? [],
 		commit: s?.commit ?? null
 	};
 }
@@ -106,7 +142,7 @@ export function prerelease(p: Project): boolean {
 
 // What the demo can show, in the order it prefers them: a recording of the
 // tool running, then its real screens, then the typed session.
-export type View = 'recording' | 'screens' | 'session';
+export type View = 'recording' | 'screens' | 'gallery' | 'audio' | 'session';
 
 export function stills(p: Project): Shot[] {
 	if (p.screens.length) return p.screens;
@@ -119,6 +155,8 @@ export function views(p: Project): View[] {
 	const out: View[] = [];
 	if (p.cast) out.push('recording');
 	if (stills(p).length) out.push('screens');
+	if (p.gallery.length) out.push('gallery');
+	if (p.audio.length) out.push('audio');
 	if (p.demo.length) out.push('session');
 	return out;
 }

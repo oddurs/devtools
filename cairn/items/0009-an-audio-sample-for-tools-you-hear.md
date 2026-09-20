@@ -2,7 +2,7 @@
 id: 9
 title: An audio sample, for tools you hear
 type: feature
-status: backlog
+status: done
 milestone: platform
 created: 2026-09-20
 updated: 2026-09-20
@@ -33,8 +33,12 @@ worth comparing.
 
 ## Acceptance criteria
 
-- [ ] An `audio` view, offered only when a tool has a sample
-- [ ] Never plays on its own, and says how long it is before it starts
-- [ ] A waveform, drawn from the file rather than an image of one
-- [ ] Keyboard reachable, labelled, and legible in both themes
-- [ ] The file is committed like the casts are, and named in `screens.json`
+- [x] An `audio` view, offered only when a tool has a sample
+- [x] Never plays on its own, and says how long it is before it starts
+- [x] A waveform, drawn from the file rather than an image of one
+- [x] Keyboard reachable, labelled, and legible in both themes
+- [x] The file is committed like the casts are, and named in `screens.json`
+
+## 2026-09-20
+
+Built as Sound.svelte. One row per sample: play, the waveform, how long it is, and what was being typed while it was recorded. The waveform is an SVG drawn from a `peaks` array the runner measures off the file — the criterion was a waveform rather than a picture of one, and precomputed levels satisfy it without fetching and decoding audio on page load. The audio element is preload=none and there is no autoplay anywhere, so the page is silent and cheap until asked. Playing one sample stops the others. Validated in screens.test.ts, which rejects a take whose peaks never rise above 0.2 — a waveform measured off silence draws a flat line and says nothing. clackson's actual samples come with 0033.
