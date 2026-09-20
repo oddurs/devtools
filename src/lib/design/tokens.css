@@ -1,0 +1,95 @@
+/*
+   The primitives. One scheme, and it is dark, for the same reason engine's
+   is: the page is mostly terminal, and a terminal is lit, not printed.
+
+   Greys carry everything. Colour is one system: twelve tints at one
+   lightness and chroma (below), which mark the tools, and of which two also
+   mark state, never decoration.
+
+     on the page    ink 15.6:1   muted 7.2:1   faint 4.5:1
+
+   Terminal colours are not here: the devtools scheme
+   (src/lib/terminal/scheme.js) is set on each terminal window itself.
+*/
+
+:root {
+	color-scheme: dark;
+
+	/* ground */
+	--paper: #121211;
+	--lifted: #181817;
+	--raised: #0a0a09;
+	--rule: #262523;
+	--mark: #423715;
+
+	/* ink */
+	--ink: #ebeae6;
+	--muted: #a1a09a;
+	--faint: #7e7d78;
+
+	/* state: two of the tints, by the job they do */
+	--amber: oklch(var(--tint-l) var(--tint-c) var(--tint-amber)); /* not ready yet */
+	--mint: oklch(var(--tint-l) var(--tint-c) var(--tint-mint)); /* released, healthy */
+
+	/* type: interface is set in the text face; monospace is only for what a
+	   terminal or a person at one would type */
+	--text: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+	--mono:
+		'JetBrains Mono', 'JetBrains Mono Variable', ui-monospace, SFMono-Regular, 'SF Mono', Menlo,
+		Consolas, monospace;
+
+	--size-xs: 0.75rem;
+	--size-s: 0.8125rem;
+	--size-m: 0.9375rem;
+	--size-body: 1.0625rem;
+	--size-lead: 1.1875rem;
+	--size-title: 2.25rem;
+
+	/* space: a 4px step, named by use rather than by number */
+	--space-1: 0.25rem;
+	--space-2: 0.5rem;
+	--space-3: 0.75rem;
+	--space-4: 1rem;
+	--space-6: 1.5rem;
+	--space-8: 2rem;
+	--space-12: 3rem;
+	--space-16: 4rem;
+
+	/* shape: things float rather than being boxed in, so the edge is a
+	   shadow and a hairline of light, never a drawn border */
+	--radius-s: 6px;
+	--radius-m: 12px;
+	--float:
+		0 0 0 1px rgb(255 255 255 / 0.035), 0 1px 1px rgb(0 0 0 / 0.25),
+		0 12px 32px -8px rgb(0 0 0 / 0.55), 0 32px 64px -24px rgb(0 0 0 / 0.5);
+
+	/* tints: every app's colour. Twelve hues, 30° apart, all at one
+	   lightness and one chroma, so no app's mark is louder than another's.
+	   Only the angle is chosen; identity.ts names which app gets which. */
+	--tint-l: 0.8;
+	--tint-c: 0.105;
+	--tint-rose: 15;
+	--tint-coral: 45;
+	--tint-amber: 75;
+	--tint-lime: 105;
+	--tint-green: 135;
+	--tint-mint: 165;
+	--tint-teal: 195;
+	--tint-cyan: 225;
+	--tint-sky: 255;
+	--tint-indigo: 285;
+	--tint-violet: 315;
+	--tint-orchid: 345;
+
+	/* layout */
+	/* The page's margins. The top is a little deeper than the sides — a page
+	   sits slightly low in its frame, the way a picture is hung — but nowhere
+	   near the ceiling it used to hang from. */
+	--gutter: clamp(1.25rem, 3vw, 2.5rem);
+	--gutter-top: clamp(1.75rem, 4vw, 3.5rem);
+	--measure: 42rem; /* the longest line of prose */
+	--rail: 15rem;
+
+	--quick: 120ms;
+	--ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}

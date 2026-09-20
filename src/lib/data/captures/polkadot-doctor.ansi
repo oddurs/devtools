@@ -1,0 +1,50 @@
+
+  [1mpolkadot[0m[2m  ·  a mac, the way I like it[0m
+
+  [34m──[0m [1mlinks[0m
+  [2m·[0m ~/.config/fish                                [2malready[0m [2mlinked[0m
+  [2m·[0m ~/.config/starship.toml                       [2malready[0m [2mlinked[0m
+  [2m·[0m ~/.config/ghostty/themes                      [2malready[0m [2mlinked[0m
+  [2m·[0m ~/.config/ghostty/config                      [2malready[0m [2mlinked[0m
+  [2m·[0m ~/.config/fresh/config.json                   [2malready[0m [2mlinked[0m
+  [2m·[0m ~/.config/nvim                                [2malready[0m [2mlinked[0m
+  [2m·[0m ~/.config/lazygit                             [2malready[0m [2mlinked[0m
+  [2m·[0m ~/.config/bat                                 [2malready[0m [2mlinked[0m
+  [2m·[0m ~/.config/atuin                               [2malready[0m [2mlinked[0m
+  [2m·[0m ~/.config/mise                                [2malready[0m [2mlinked[0m
+  [2m·[0m ~/.config/btop                                [2malready[0m [2mlinked[0m
+  [2m·[0m ~/.config/herdr                               [2malready[0m [2mlinked[0m
+  [2m·[0m ~/.config/ripgrep                             [2malready[0m [2mlinked[0m
+  [2m·[0m ~/.config/tmux/tmux.conf                      [2malready[0m [2mlinked[0m
+  [2m·[0m ~/Library/Application Support/Code/User/settings.json  [2malready[0m [2mlinked[0m
+  [2m·[0m ~/.zshrc                                      [2malready[0m [2mlinked[0m
+  [2m·[0m ~/.gitconfig                                  [2malready[0m [2mlinked[0m
+  [2m·[0m ~/.gitignore_global                           [2malready[0m [2mlinked[0m
+  [2m·[0m ~/.git_commit_template                        [2malready[0m [2mlinked[0m
+
+  [34m──[0m [1mbinaries[0m
+  [2m·[0m brew                                          [2malready[0m
+  [2m·[0m fish                                          [2malready[0m
+  [2m·[0m starship                                      [2malready[0m
+  [2m·[0m mise                                          [2malready[0m
+  [2m·[0m zoxide                                        [2malready[0m
+  [2m·[0m atuin                                         [2malready[0m
+  [2m·[0m nvim                                          [2malready[0m
+  [2m·[0m lazygit                                       [2malready[0m
+  [2m·[0m lazydocker                                    [2malready[0m
+  [2m·[0m btop                                          [2malready[0m
+  [2m·[0m gh                                            [2malready[0m
+  [2m·[0m fresh                                         [2malready[0m
+  [2m·[0m tmux                                          [2malready[0m
+  [2m·[0m claude                                        [2malready[0m
+  [2m·[0m codex                                         [2malready[0m
+  [2m·[0m opencode                                      [2malready[0m
+  [2m·[0m herdr                                         [2malready[0m
+
+  [34m──[0m [1mshell[0m
+  [2m·[0m login shell                                   [2malready[0m [2m/bin/zsh[0m
+
+  [34m──[0m [1mtheme[0m
+  [2m·[0m subway-seat                                   [2malready[0m [2mguimard[0m
+  [2m·[0m configs                                       [2malready[0m [2mall naming guimard[0m
+

@@ -1,0 +1,611 @@
+{
+  "brainiac": {
+    "runner": "terminal",
+    "commit": "65701fc0ee2b",
+    "takenAt": "2026-09-18T03:26:05.312Z",
+    "background": "#070a0f",
+    "shots": [
+      {
+        "beat": "hero",
+        "caption": "The repository’s skeleton, ranked by reference and sized to a token budget.",
+        "src": "/media/screens/brainiac/01-hero.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "start",
+        "caption": "Indexing a repository: files, symbols and the references between them.",
+        "src": "/media/screens/brainiac/02-start.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "use",
+        "caption": "A question answered with ranked file:line spans.",
+        "src": "/media/screens/brainiac/03-use.webp",
+        "width": 1600,
+        "height": 1000
+      }
+    ]
+  },
+  "cairn": {
+    "runner": "terminal",
+    "commit": "ad2e5d36499a",
+    "takenAt": "2026-09-18T03:25:50.934Z",
+    "background": "#070a0f",
+    "shots": [
+      {
+        "beat": "hero",
+        "caption": "The board: every item as a Markdown file, laid out by status.",
+        "src": "/media/screens/cairn/01-hero.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "start",
+        "caption": "A new item is a new file under a schema the project defines.",
+        "src": "/media/screens/cairn/02-start.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "use",
+        "caption": "`cairn next` shows what can actually be started, not everything that is open.",
+        "src": "/media/screens/cairn/03-use.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "depth",
+        "caption": "`cairn check` validates every item against the schema.",
+        "src": "/media/screens/cairn/04-depth.webp",
+        "width": 1600,
+        "height": 1000
+      }
+    ]
+  },
+  "caligula": {
+    "runner": "terminal",
+    "commit": "356751854c00",
+    "takenAt": "2026-09-18T03:23:57.161Z",
+    "background": "#070a0f",
+    "shots": [
+      {
+        "beat": "hero",
+        "caption": "Every worktree on the machine, grouped by repository, with what each one would lose.",
+        "src": "/media/screens/caligula/01-hero.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "use",
+        "caption": "Selecting a worktree shows its branch, its head, and the work that exists nowhere else.",
+        "src": "/media/screens/caligula/02-use.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "depth",
+        "caption": "Every action is one key: mark, fold, remove, prune, open a shell there.",
+        "src": "/media/screens/caligula/03-depth.webp",
+        "width": 1600,
+        "height": 1000
+      }
+    ]
+  },
+  "gummyworm": {
+    "runner": "terminal",
+    "commit": "fca7dbcf955d",
+    "takenAt": "2026-09-20T00:56:45.189Z",
+    "background": "#0d0d0c",
+    "shots": [
+      {
+        "beat": "hero",
+        "caption": "An image, as characters: every cell takes the glyph whose weight matches the pixels under it.",
+        "src": "/media/screens/gummyworm/01-hero.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "start",
+        "caption": "In colour, from the terminal’s own palette.",
+        "src": "/media/screens/gummyworm/02-start.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "use",
+        "caption": "A dozen palettes: blocks fill the cell, braille halves it again, standard keeps it to type.",
+        "src": "/media/screens/gummyworm/03-use.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "depth",
+        "caption": "Every palette it knows, and what each is for.",
+        "src": "/media/screens/gummyworm/04-depth.webp",
+        "width": 1600,
+        "height": 1000
+      }
+    ],
+    "cast": {
+      "src": "/media/casts/gummyworm.cast",
+      "cols": 125,
+      "rows": 29,
+      "duration": 24.62,
+      "bytes": 70596,
+      "markers": [
+        [
+          5.356,
+          "hero"
+        ],
+        [
+          11.492,
+          "start"
+        ],
+        [
+          18.761,
+          "use"
+        ],
+        [
+          24.62,
+          "depth"
+        ]
+      ]
+    }
+  },
+  "hackney": {
+    "runner": "terminal",
+    "commit": "4af97aa4c4e5",
+    "takenAt": "2026-09-20T00:02:28.295Z",
+    "background": "#0d0d0c",
+    "shots": [
+      {
+        "beat": "hero",
+        "caption": "The front page on the left, the thread you are on filling the right: moving down the list swaps the comments in.",
+        "src": "/media/screens/hackney/01-hero.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "start",
+        "caption": "Every key, in the app: the list, the thread, the feeds, and search.",
+        "src": "/media/screens/hackney/02-start.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "use",
+        "caption": "Seven feeds on the number keys: Top, New, Best, Ask, Show, Jobs, and search.",
+        "src": "/media/screens/hackney/03-use.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "depth",
+        "caption": "`z` gives the comments the whole width: replies hang from guide rails, the poster is marked, code and quotes drawn as written.",
+        "src": "/media/screens/hackney/04-depth.webp",
+        "width": 1600,
+        "height": 1000
+      }
+    ],
+    "cast": {
+      "src": "/media/casts/hackney.cast",
+      "cols": 125,
+      "rows": 29,
+      "duration": 43.354,
+      "bytes": 126886,
+      "markers": [
+        [
+          5.269,
+          "hero"
+        ],
+        [
+          15.177,
+          "start"
+        ],
+        [
+          31.42,
+          "use"
+        ],
+        [
+          41.837,
+          "depth"
+        ]
+      ]
+    }
+  },
+  "harrow": {
+    "runner": "terminal",
+    "commit": "3b0b78affab5",
+    "takenAt": "2026-09-18T03:25:31.862Z",
+    "background": "#070a0f",
+    "shots": [
+      {
+        "beat": "hero",
+        "caption": "A cairn backlog by milestone, with the selected item’s acceptance and fields.",
+        "src": "/media/screens/harrow/01-hero.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "use",
+        "caption": "Moving through the backlog; claim, status and close are single keys.",
+        "src": "/media/screens/harrow/02-use.webp",
+        "width": 1600,
+        "height": 1000
+      }
+    ]
+  },
+  "nun": {
+    "runner": "terminal",
+    "commit": "8e8fe98225e9",
+    "takenAt": "2026-09-18T03:25:39.982Z",
+    "background": "#070a0f",
+    "shots": [
+      {
+        "beat": "hero",
+        "caption": "The editor, in the terminal’s own colours, with one config file you will rarely open.",
+        "src": "/media/screens/nun/01-hero.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "depth",
+        "caption": "`nun config` prints the effective configuration and where each value came from.",
+        "src": "/media/screens/nun/02-depth.webp",
+        "width": 1600,
+        "height": 1000
+      }
+    ]
+  },
+  "poptop": {
+    "runner": "terminal",
+    "commit": "963e2a16877b",
+    "takenAt": "2026-09-19T13:50:00.319Z",
+    "background": "#0d0d0c",
+    "shots": [
+      {
+        "beat": "hero",
+        "caption": "Everything the machine is doing, and every sample of it kept: the menu bar, the tabs, the timeline, the process table.",
+        "src": "/media/screens/poptop/01-hero.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "start",
+        "caption": "Every command is in the menu bar, beside the key that also does it.",
+        "src": "/media/screens/poptop/02-start.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "use",
+        "caption": "Filtered to the node processes, one of them open in the inspector.",
+        "src": "/media/screens/poptop/03-use.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "depth",
+        "caption": "Rewound: click the graph, wheel back, step sample by sample. The process table is as it was then.",
+        "src": "/media/screens/poptop/04-depth.webp",
+        "width": 1600,
+        "height": 1000
+      }
+    ],
+    "cast": {
+      "src": "/media/casts/poptop.cast",
+      "cols": 125,
+      "rows": 35,
+      "duration": 65.815,
+      "bytes": 302658,
+      "markers": [
+        [
+          9.177,
+          "hero"
+        ],
+        [
+          16.626,
+          "start"
+        ],
+        [
+          33.974,
+          "use"
+        ],
+        [
+          62.144,
+          "depth"
+        ]
+      ]
+    }
+  },
+  "quarry": {
+    "runner": "terminal",
+    "commit": "baa318d91797",
+    "takenAt": "2026-09-19T13:46:51.307Z",
+    "background": "#0d0d0c",
+    "shots": [
+      {
+        "beat": "hero",
+        "caption": "Every server on this machine, grouped by the repository it was started in, each one probed for health.",
+        "src": "/media/screens/quarry/01-hero.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "start",
+        "caption": "Every key, from the bindings in effect: the help is generated from your config.",
+        "src": "/media/screens/quarry/02-start.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "use",
+        "caption": "`n` jumps to the next service that is not answering, and its detail says what it answered instead.",
+        "src": "/media/screens/quarry/03-use.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "depth",
+        "caption": "`quarry why` shows the evidence: what matched, what it scored, and what it lost to.",
+        "src": "/media/screens/quarry/04-depth.webp",
+        "width": 1600,
+        "height": 1000
+      }
+    ],
+    "cast": {
+      "src": "/media/casts/quarry.cast",
+      "cols": 125,
+      "rows": 29,
+      "duration": 46.173,
+      "bytes": 69241,
+      "markers": [
+        [
+          4.655,
+          "hero"
+        ],
+        [
+          12.259,
+          "start"
+        ],
+        [
+          16.603,
+          "use"
+        ],
+        [
+          46.173,
+          "depth"
+        ]
+      ]
+    }
+  },
+  "rsst": {
+    "runner": "terminal",
+    "commit": "422d3833949a",
+    "takenAt": "2026-09-18T03:25:09.291Z",
+    "background": "#070a0f",
+    "shots": [
+      {
+        "beat": "hero",
+        "caption": "Feeds, their entries, and the selected entry rendered as a document.",
+        "src": "/media/screens/rsst/01-hero.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "use",
+        "caption": "Moving through a feed swaps the entry below, links numbered against a reference list.",
+        "src": "/media/screens/rsst/02-use.webp",
+        "width": 1600,
+        "height": 1000
+      }
+    ]
+  },
+  "starward": {
+    "runner": "terminal",
+    "commit": "68db8d3b67f2",
+    "takenAt": "2026-09-20T00:58:01.170Z",
+    "background": "#0d0d0c",
+    "shots": [
+      {
+        "beat": "hero",
+        "caption": "The astronomical clocks, right now: Julian date, sidereal time, and the rest.",
+        "src": "/media/screens/starward/01-hero.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "start",
+        "caption": "Sunrise and sunset for a place on the Earth, with the twilights either side.",
+        "src": "/media/screens/starward/02-start.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "use",
+        "caption": "The Moon tonight: its phase, how lit it is, and when the next one falls.",
+        "src": "/media/screens/starward/03-use.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "depth",
+        "caption": "Every calculation can show its work: each step of it, and the number that comes out.",
+        "src": "/media/screens/starward/04-depth.webp",
+        "width": 1600,
+        "height": 1000
+      }
+    ],
+    "cast": {
+      "src": "/media/casts/starward.cast",
+      "cols": 125,
+      "rows": 29,
+      "duration": 23.209,
+      "bytes": 14161,
+      "markers": [
+        [
+          4.365,
+          "hero"
+        ],
+        [
+          11.265,
+          "start"
+        ],
+        [
+          15.771,
+          "use"
+        ],
+        [
+          23.209,
+          "depth"
+        ]
+      ]
+    }
+  },
+  "trafford": {
+    "runner": "terminal",
+    "commit": "4483f82422d5",
+    "takenAt": "2026-09-18T03:25:18.254Z",
+    "background": "#070a0f",
+    "shots": [
+      {
+        "beat": "hero",
+        "caption": "A markdown vault with its tree, the note being edited, and its links and backlinks.",
+        "src": "/media/screens/trafford/01-hero.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "start",
+        "caption": "`trafford init` lays out a vault with starter notes, a config and a git repo.",
+        "src": "/media/screens/trafford/02-start.webp",
+        "width": 1600,
+        "height": 1000
+      }
+    ]
+  },
+  "tsi": {
+    "runner": "terminal",
+    "commit": "c7107f6f0dea",
+    "takenAt": "2026-09-20T01:00:33.885Z",
+    "background": "#0d0d0c",
+    "shots": [
+      {
+        "beat": "hero",
+        "caption": "The staging that reaches a delta-v target: how many stages, which engines, and the propellant split between them.",
+        "src": "/media/screens/tsi/01-hero.webp",
+        "width": 1600,
+        "height": 1500
+      },
+      {
+        "beat": "start",
+        "caption": "Eleven real engines, with the numbers that decide what a stage can do.",
+        "src": "/media/screens/tsi/02-start.webp",
+        "width": 1600,
+        "height": 1500
+      },
+      {
+        "beat": "use",
+        "caption": "One stage, from an engine and a propellant load: delta-v, burn time, thrust to weight — and the same thing on one line, for a script.",
+        "src": "/media/screens/tsi/03-use.webp",
+        "width": 1600,
+        "height": 1500
+      },
+      {
+        "beat": "depth",
+        "caption": "The same design, run two thousand times against uncertain inputs: how often it still makes orbit.",
+        "src": "/media/screens/tsi/04-depth.webp",
+        "width": 1600,
+        "height": 1500
+      }
+    ],
+    "cast": {
+      "src": "/media/casts/tsi.cast",
+      "cols": 125,
+      "rows": 46,
+      "duration": 43.22,
+      "bytes": 29711,
+      "markers": [
+        [
+          9.446,
+          "hero"
+        ],
+        [
+          13.14,
+          "start"
+        ],
+        [
+          31.585,
+          "use"
+        ],
+        [
+          43.22,
+          "depth"
+        ]
+      ]
+    }
+  },
+  "yoghurt": {
+    "runner": "terminal",
+    "commit": "3897000cf88c",
+    "takenAt": "2026-09-19T16:32:52.221Z",
+    "background": "#0d0d0c",
+    "shots": [
+      {
+        "beat": "hero",
+        "caption": "Everything installed on this machine, from every package manager at once, grouped by where it came from.",
+        "src": "/media/screens/yoghurt/01-hero.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "start",
+        "caption": "Grouped by why it is here: what was asked for, what came with it, and what nothing needs.",
+        "src": "/media/screens/yoghurt/02-start.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "use",
+        "caption": "Why is this here: a library nobody asked for, and the thing that was asked for that needs it.",
+        "src": "/media/screens/yoghurt/03-use.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "depth",
+        "caption": "What nothing installed needs any more: the residue of an uninstall no package manager finished, and the command that clears it.",
+        "src": "/media/screens/yoghurt/04-depth.webp",
+        "width": 1600,
+        "height": 1000
+      }
+    ],
+    "cast": {
+      "src": "/media/casts/yoghurt.cast",
+      "cols": 125,
+      "rows": 29,
+      "duration": 36.419,
+      "bytes": 57094,
+      "markers": [
+        [
+          5.316,
+          "hero"
+        ],
+        [
+          8.81,
+          "start"
+        ],
+        [
+          16.952,
+          "use"
+        ],
+        [
+          27.471,
+          "depth"
+        ]
+      ]
+    }
+  }
+}

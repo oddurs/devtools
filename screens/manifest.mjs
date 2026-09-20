@@ -1,0 +1,884 @@
+// Screen stories: how each project is fetched, built, set up and photographed.
+// See screens/README.md for the four beats (hero, start, use, depth) and how
+// a story runs. Projects without a story here keep whatever they had.
+//
+// Terminal step kinds:
+//   { run: 'cmd' }          type a command and press enter
+//   { hidden: 'cmd' }       the same, off camera
+//   { type: 'text' }        type without pressing enter
+//   { key: 'Down', times }  press a key: Enter, Up, Down, Left, Right, Tab,
+//                           Escape, Space, Backspace, Ctrl+C, or any single key
+//   { wait: 'regex' }       wait until the screen shows it (timeout: '20s')
+//   { sleep: '2s' }
+//   { shot: beat, caption } take the screenshot for a beat
+// Mouse steps, for mouse-first programs (they go through xterm.js, so the
+// program gets real mouse reports only if it asked for them):
+//   { click: 'text' | { row, col }, button: 'left' | 'right' | 'middle' }
+//   { hover: target }   { scroll: lines, at: target }   { drag: target, to: target }
+// A target is text on screen (the first cell showing it) or a 0-based cell.
+//
+// A story may set `ref: 'feat/x'` to build a branch instead of the default.
+//
+// Recording: `record: true` also writes static/media/casts/<name>.cast (asciicast
+// v2) with a chapter marker per shot. `{ speed: 8 }` time-lapses what follows
+// until `{ speed: 1 }`; the player says so while it lasts.
+// A story may set `terminal: { height }` (or width) for a taller or wider
+// terminal than the default 1600×1000: a command-line tool that prints forty
+// lines is read in a forty-line terminal, not scrolled past in a 29-line one.
+// A story may set `user: 'name'` to run as that user, in their home, with the
+// environment it gives in `env` (PATH and the rest) and nothing of root's.
+// A terminal story may set `isolate: true` to run its shell in its own process
+// namespace, with `background` (a shell script) started inside it first.
+// Web step kinds: { wait: ms }, { waitFor: selector }, { click: selector,
+// optional }, { press: key, times }, { hold: key, ms }, { scroll: px },
+// { goto: relative-path }, { shot: beat, caption }.
+
+// Every terminal shot: 1600×1000 px, JetBrains Mono 20, ~125×38 cells.
+export const TERMINAL = { width: 1600, height: 1000, fontSize: 20, padding: 32 };
+
+const cargo = 'cargo build --release --locked 2>/dev/null || cargo build --release';
+const cargoAll =
+	'cargo build --release --workspace --bins --locked 2>/dev/null || cargo build --release --workspace --bins';
+
+// A small cairn backlog, shared by cairn and harrow.
+const cairnBacklog = `
+git init -q && git commit -q --allow-empty -m init
+cairn init
+cairn new "Support OAuth login" --type feature --set priority=p0 --label auth
+cairn new "Rate-limit the public API" --type feature --set priority=p1
+cairn new "Crash when the config has a BOM" --type bug --set priority=p0
+cairn new "Export the roadmap as JSON" --type feature --set priority=p2
+cairn new "Document the schema format" --type feature --set priority=p2
+cairn set 5 status=doing
+git add -A && git commit -qm "backlog"
+`;
+
+export const stories = {
+	// ── terminal apps ──────────────────────────────────────────────────────
+
+	caligula: {
+		build: cargo,
+		// A machine's worth of checkouts: repos with linked worktrees, some dirty,
+		// some with work that exists nowhere else.
+		fixture: `
+mkdir -p ~/Code && cd ~/Code
+for repo in orchard typeset ledger; do
+  mkdir $repo && cd $repo && git init -q
+  echo "# $repo" > README.md && git add -A && git commit -qm "start $repo"
+  for b in feat/search fix/login refactor/layout; do
+    git worktree add -q ../.worktrees/$repo/\${b//\\//-} -b $b
+    (cd ../.worktrees/$repo/\${b//\\//-} && echo wip >> notes.md && git add -A && git commit -qm "wip on $b")
+  done
+  echo "unsaved" > ../.worktrees/$repo/fix-login/scratch.txt
+  cd ..
+done`,
+		steps: [
+			{ run: 'caligula --root ~/Code' },
+			{ wait: 'worktrees' },
+			{ sleep: '1.5s' },
+			{
+				shot: 'hero',
+				caption:
+					'Every worktree on the machine, grouped by repository, with what each one would lose.'
+			},
+			{ key: 'Down', times: 2 },
+			{ sleep: '600ms' },
+			{
+				shot: 'use',
+				caption:
+					'Selecting a worktree shows its branch, its head, and the work that exists nowhere else.'
+			},
+			{ type: '?' },
+			{ sleep: '600ms' },
+			{
+				shot: 'depth',
+				caption: 'Every action is one key: mark, fold, remove, prune, open a shell there.'
+			}
+		]
+	},
+
+	poptop: {
+		build: cargo,
+		// Its own process namespace, with a believable machine for the monitor to
+		// watch: an API under steady load, a worker leaking memory, a release
+		// build every ten seconds, a database-ish fsync, an idle file server.
+		// All real programs doing real work, so every figure poptop shows is one
+		// it measured.
+		isolate: true,
+		background: `
+# The namespace's mounts are private: keep the binary, then drop the rig's
+# volumes from view.
+cp "$(command -v poptop)" /usr/local/bin/poptop
+umount -l /work/site /cache 2>/dev/null
+
+mkdir -p /srv/api /srv/jobs /srv/www /root/src/shop/src
+cat > /srv/api/server.js <<'JS'
+const http = require('http');
+let served = 0;
+http.createServer((req, res) => {
+  let x = 0;
+  for (let i = 0; i < 300000; i++) x += Math.sqrt(i) * Math.sin(i);
+  served++;
+  res.setHeader('content-type', 'application/json');
+  res.end(JSON.stringify({ served, x }));
+}).listen(3000);
+JS
+cat > /srv/api/loadgen.js <<'JS'
+const http = require('http');
+function hit() {
+  http.get('http://127.0.0.1:3000/orders', (r) => { r.resume(); r.on('end', () => setTimeout(hit, 20 + Math.random() * 60)); })
+    .on('error', () => setTimeout(hit, 500));
+}
+for (let i = 0; i < 4; i++) hit();
+JS
+cat > /srv/jobs/worker.js <<'JS'
+// A job queue that forgets to let go of finished jobs.
+const done = [];
+setInterval(() => {
+  for (let i = 0; i < 2000; i++) done.push({ id: done.length, result: 'x'.repeat(512) });
+  if (done.length > 650000) done.length = 0;
+}, 250);
+JS
+
+# A crate with enough in it that a release build takes a few seconds.
+cd /root/src/shop
+printf '[package]\nname = "shop"\nversion = "0.1.0"\nedition = "2021"\n' > Cargo.toml
+{
+  echo 'use std::hint::black_box;'
+  for i in $(seq 1 900); do
+    echo "fn f$i(x: u64) -> u64 { (0..x).map(|v| v.wrapping_mul($i) ^ (v >> 3)).filter(|v| v % 7 != 0).sum() }"
+  done
+  echo 'fn main() { let mut s = 0u64;'
+  for i in $(seq 1 900); do echo "  s = s.wrapping_add(f$i(black_box($i)));"; done
+  echo '  println!("{s}"); }'
+} > src/main.rs
+
+# Each started as a simple command, never 'cd x && prog &': that forks a
+# subshell to wait on it, and the subshell's command line is this script.
+cd /srv/api
+nohup node /srv/api/server.js </dev/null >/dev/null 2>&1 &
+sleep 0.3
+nohup node /srv/api/loadgen.js </dev/null >/dev/null 2>&1 &
+cd /srv/jobs
+nohup node /srv/jobs/worker.js </dev/null >/dev/null 2>&1 &
+cd /srv/www
+nohup python3 -m http.server 8080 </dev/null >/dev/null 2>&1 &
+cd /root/src/shop
+nohup bash -c 'while :; do touch src/main.rs; CARGO_TARGET_DIR=/tmp/shop-target cargo build --release --offline -q; sleep 4; done' </dev/null >/dev/null 2>&1 &
+cd /tmp
+nohup bash -c 'while :; do dd if=/dev/urandom of=/tmp/wal bs=1M count=48 conv=fsync 2>/dev/null; sleep 5; done' </dev/null >/dev/null 2>&1 &
+cd /`,
+		// The newest interface: the menu bar and the tab strip.
+		ref: 'feat/tab-strip',
+		record: true,
+		// Slow enough to follow: a person at a keyboard, not a script.
+		pace: { type: 110, key: 260 },
+		steps: [
+			{ run: 'poptop' },
+			{ sleep: '2s' },
+			// Forty seconds of history to scrub through, played back as a time-lapse.
+			{ speed: 8 },
+			{ sleep: '34s' },
+			{ speed: 1 },
+			{ sleep: '1.5s' },
+			{
+				shot: 'hero',
+				caption:
+					'Everything the machine is doing, and every sample of it kept: the menu bar, the tabs, the timeline, the process table.'
+			},
+
+			// The menu bar, from the keyboard: F10, across to View, down its items.
+			{ key: 'F10' },
+			{ sleep: '1.2s' },
+			{ key: 'Right' },
+			{ sleep: '900ms' },
+			{ key: 'Right' },
+			{ sleep: '1.2s' },
+			{ key: 'Down', times: 5 },
+			{ sleep: '1.2s' },
+			{
+				shot: 'start',
+				caption: 'Every command is in the menu bar, beside the key that also does it.'
+			},
+			{ key: 'Escape' },
+			{ sleep: '900ms' },
+
+			// And with the mouse: View, then the line graph.
+			{ click: 'View' },
+			{ sleep: '1.4s' },
+			{ click: 'Line' },
+			{ sleep: '2.5s' },
+
+			// The tabs: memory, where the leaking worker climbs to the top.
+			{ key: '2' },
+			{ sleep: '2.5s' },
+
+			// Filtering: just the node processes.
+			{ type: '/' },
+			{ sleep: '600ms' },
+			{ type: 'node' },
+			{ sleep: '900ms' },
+			{ key: 'Enter' },
+			{ sleep: '1.5s' },
+			{ key: 'Down' },
+			{ sleep: '700ms' },
+			{ key: 'Enter' },
+			{ sleep: '2s' },
+			{
+				shot: 'use',
+				caption: 'Filtered to the node processes, one of them open in the inspector.'
+			},
+			{ key: 'Enter' },
+			{ sleep: '900ms' },
+
+			// Edit, Clear filter, with the mouse: all eleven again.
+			{ click: 'Edit' },
+			{ sleep: '1.2s' },
+			{ click: 'Clear filter' },
+			{ sleep: '1.5s' },
+
+			// Back to CPU, as a tree: who started whom.
+			{ key: '1' },
+			{ sleep: '1s' },
+			{ key: 't' },
+			{ sleep: '3.5s' },
+			{ key: 't' },
+			{ sleep: '900ms' },
+
+			// Sorting: by the next column, and back.
+			{ key: 's' },
+			{ sleep: '1.6s' },
+			{ key: 's' },
+			{ sleep: '1.6s' },
+			{ key: 'S' },
+			{ sleep: '1.2s' },
+
+			// Rewind: click the graph to jump back to that moment, wheel over it,
+			// then step back sample by sample. (On the graph itself: the past/now
+			// row under it is a label, not time.)
+			{ click: { row: 7, col: 100 } },
+			{ sleep: '1.5s' },
+			{ scroll: -3, at: { row: 7, col: 100 } },
+			{ sleep: '1.2s' },
+			{ key: 'Left', times: 8 },
+			{ sleep: '1.8s' },
+			{
+				shot: 'depth',
+				caption:
+					'Rewound: click the graph, wheel back, step sample by sample. The process table is as it was then.'
+			},
+			{ sleep: '1s' },
+			{ key: 'End' },
+			{ sleep: '1.5s' },
+			{ key: 'q' },
+			{ sleep: '800ms' }
+		]
+	},
+
+	quarry: {
+		build: cargo,
+		// The newest line: every feature branch stacks under this one.
+		ref: 'feat/0046-degraded',
+		record: true,
+		pace: { type: 110, key: 260 },
+		// A developer's machine: five repositories, each running what it runs,
+		// all of it real. A Vite dev server, a second copy of the app in a linked
+		// worktree, Redis and a docs server for the ledger, nginx in front of the
+		// app, a service that answers every request with a 500, and one server
+		// started from /tmp, belonging to no project at all.
+		//
+		// Never press `a` in this story: showing system services shows the rig
+		// (ttyd's socket, Chromium's). And no bare JSON API: quarry files a Node
+		// server answering JSON on :3000 as `system`, hidden (a quarry issue to raise).
+		fixture: `
+mkdir -p ~/Code && cd ~/Code
+repo() { mkdir -p "$1" && (cd "$1" && git init -q && git commit -q --allow-empty -m "start $1"); }
+
+# orchard: the web app, on Vite.
+repo orchard
+cd orchard
+npm init -y >/dev/null
+npm install --silent --no-audit --no-fund vite@5 >/dev/null 2>&1
+printf '<!doctype html><title>orchard</title><h1>orchard</h1>\\n' > index.html
+git add -A >/dev/null && git commit -qm "app"
+git worktree add -q ../orchard-billing -b feat/billing
+ln -s ~/Code/orchard/node_modules ~/Code/orchard-billing/node_modules
+setsid nohup npx vite --port 5173 --strictPort --host 127.0.0.1 </dev/null >/dev/null 2>&1 &
+cd ~/Code/orchard-billing
+setsid nohup npx vite --port 5174 --strictPort --host 127.0.0.1 </dev/null >/dev/null 2>&1 &
+
+# ledger: the books. Redis for its cache, its docs served locally.
+cd ~/Code && repo ledger && cd ledger && mkdir -p docs && printf '<h1>ledger docs</h1>\\n' > docs/index.html
+setsid nohup redis-server --port 6379 --bind 127.0.0.1 --save '' </dev/null >/dev/null 2>&1 &
+cd docs
+setsid nohup python3 -m http.server 8020 --bind 127.0.0.1 </dev/null >/dev/null 2>&1 &
+
+# gateway: nginx in front of the app.
+cd ~/Code && repo gateway && cd gateway && mkdir -p logs
+cat > nginx.conf <<'CONF'
+worker_processes 1;
+pid logs/nginx.pid;
+error_log logs/error.log;
+events { worker_connections 64; }
+http {
+  access_log off;
+  server { listen 127.0.0.1:8080; location / { proxy_pass http://127.0.0.1:5173; } }
+}
+CONF
+setsid nohup nginx -p ~/Code/gateway -c nginx.conf -g 'daemon off;' </dev/null >/dev/null 2>&1 &
+
+# typeset: a service that is up and wrong. Every request, a 500.
+cd ~/Code && repo typeset && cd typeset
+cat > server.js <<'JS'
+require('http').createServer((req, res) => { res.statusCode = 500; res.end('render failed'); }).listen(4321, '127.0.0.1');
+JS
+setsid nohup node server.js </dev/null >/dev/null 2>&1 &
+
+# Started from /tmp, in no repository.
+cd /tmp
+setsid nohup python3 -m http.server 9000 --bind 127.0.0.1 </dev/null >/dev/null 2>&1 &
+sleep 3`,
+		steps: [
+			{ run: 'quarry' },
+			{ wait: 'listening' },
+			{ sleep: '3s' },
+			{
+				shot: 'hero',
+				caption:
+					'Every server on this machine, grouped by the repository it was started in, each one probed for health.'
+			},
+
+			// Around the list.
+			{ key: 'Down', times: 3 },
+			{ sleep: '1.4s' },
+			{ key: 'Down', times: 2 },
+			{ sleep: '1.4s' },
+
+			// The help is generated from the bindings in effect.
+			{ type: '?' },
+			{ sleep: '2.8s' },
+			{
+				shot: 'start',
+				caption: 'Every key, from the bindings in effect: the help is generated from your config.'
+			},
+			{ key: 'Escape' },
+			{ sleep: '1s' },
+
+			// Trouble first.
+			{ type: 'n' },
+			{ sleep: '2.4s' },
+			{
+				shot: 'use',
+				caption:
+					'`n` jumps to the next service that is not answering, and its detail says what it answered instead.'
+			},
+
+			// Filtering: by project.
+			{ type: '/' },
+			{ sleep: '500ms' },
+			{ type: '~orchard' },
+			{ sleep: '1.6s' },
+			{ key: 'Enter' },
+			{ sleep: '1.6s' },
+			{ key: 'Escape' },
+			{ sleep: '1s' },
+
+			// Grouped by kind, then by nothing, then back to projects.
+			{ type: 'b' },
+			{ sleep: '2.2s' },
+			{ type: 'b' },
+			{ sleep: '1.2s' },
+			{ type: 'b' },
+			{ sleep: '1.2s' },
+
+			// The mouse: click a row, wheel down the list.
+			{ click: 'nginx' },
+			{ sleep: '1.6s' },
+			{ scroll: 3, at: 'nginx' },
+			{ sleep: '1.4s' },
+
+			// Stop the stray server in /tmp, from the list.
+			{ click: '9000' },
+			{ sleep: '1.2s' },
+			// K asks first: which process, which signal. y sends it.
+			{ type: 'K' },
+			{ sleep: '2.2s' },
+			{ type: 'y' },
+			{ sleep: '3s' },
+
+			// Out, and time for quarry to hand the terminal back before typing:
+			// a key sent while it restores the screen is swallowed.
+			{ type: 'q' },
+			{ sleep: '2s' },
+			{ run: 'quarry why 5173' },
+			{ sleep: '2.5s' },
+			{
+				shot: 'depth',
+				caption:
+					'`quarry why` shows the evidence: what matched, what it scored, and what it lost to.'
+			}
+		]
+	},
+
+	hackney: {
+		build: cargo,
+		record: true,
+		pace: { type: 110, key: 260 },
+		// It reads the live public API, so every recording is that day's front
+		// page. Nothing is seeded, and nothing can be: that is the point of it.
+		// Mouse steps aim at cells, never at a headline that will have scrolled
+		// away by the next run.
+		steps: [
+			{ run: 'hackney' },
+			// Its own header, not a word from the stories: those change hourly.
+			{ wait: 'Top stories' },
+			{ sleep: '3.5s' },
+			{
+				shot: 'hero',
+				caption:
+					'The front page on the left, the thread you are on filling the right: moving down the list swaps the comments in.'
+			},
+
+			// Down the list; the comments follow the cursor.
+			{ key: 'Down', times: 3 },
+			{ sleep: '2.5s' },
+			{ key: 'Down', times: 2 },
+			{ sleep: '2.5s' },
+
+			// Every key, in the app.
+			{ type: '?' },
+			{ sleep: '2.8s' },
+			{
+				shot: 'start',
+				caption: 'Every key, in the app: the list, the thread, the feeds, and search.'
+			},
+			{ key: 'Escape' },
+			{ sleep: '1.2s' },
+
+			// Reading the thread: down it, then from thread to thread, then fold.
+			{ type: 'J' },
+			{ sleep: '900ms' },
+			{ type: 'J' },
+			{ sleep: '900ms' },
+			{ type: 'n' },
+			{ sleep: '1.6s' },
+			{ type: 'x' },
+			{ sleep: '1.8s' },
+
+			// The mouse: a story in the list, and the wheel over it.
+			{ click: { row: 8, col: 30 } },
+			{ sleep: '2.5s' },
+			{ scroll: 3, at: { row: 12, col: 30 } },
+			{ sleep: '1.6s' },
+
+			// The feeds, by number.
+			{ type: '4' },
+			{ wait: 'Ask' },
+			{ sleep: '2.5s' },
+			{
+				shot: 'use',
+				caption: 'Seven feeds on the number keys: Top, New, Best, Ask, Show, Jobs, and search.'
+			},
+
+			// Search all of Hacker News.
+			{ type: '/' },
+			{ sleep: '600ms' },
+			{ type: 'ratatui' },
+			{ sleep: '900ms' },
+			{ key: 'Enter' },
+			{ sleep: '4s' },
+
+			// The thread, given the whole screen.
+			{ type: 'z' },
+			{ sleep: '3s' },
+			{
+				shot: 'depth',
+				caption:
+					'`z` gives the comments the whole width: replies hang from guide rails, the poster is marked, code and quotes drawn as written.'
+			},
+			{ type: 'z' },
+			{ sleep: '1.2s' },
+			{ type: 'q' },
+			{ sleep: '1.2s' }
+		]
+	},
+
+	rsst: {
+		build: cargo,
+		fixture: `
+mkdir -p ~/.rsst && cat > ~/.rsst/config.toml <<'TOML'
+[[feeds]]
+url = "https://blog.rust-lang.org/feed.xml"
+title = "Rust Blog"
+tags = ["Rust"]
+
+[[feeds]]
+url = "https://this-week-in-rust.org/atom.xml"
+tags = ["Rust"]
+
+[[feeds]]
+url = "https://simonwillison.net/atom/everything/"
+title = "Simon Willison"
+TOML`,
+		steps: [
+			{ hidden: 'set -gx RSST_HOME ~/.rsst' },
+			{ run: 'rsst' },
+			{ sleep: '8s' },
+			{
+				shot: 'hero',
+				caption: 'Feeds, their entries, and the selected entry rendered as a document.'
+			},
+			{ key: 'Tab' },
+			{ key: 'Down', times: 2 },
+			{ sleep: '1s' },
+			{
+				shot: 'use',
+				caption:
+					'Moving through a feed swaps the entry below, links numbered against a reference list.'
+			}
+		]
+	},
+
+	trafford: {
+		build: cargo,
+		steps: [
+			{ run: 'trafford init ~/vault' },
+			{ sleep: '1s' },
+			{
+				shot: 'start',
+				caption: '`trafford init` lays out a vault with starter notes, a config and a git repo.'
+			},
+			{ run: 'trafford ~/vault' },
+			{ sleep: '3s' },
+			{
+				shot: 'hero',
+				caption:
+					'A markdown vault with its tree, the note being edited, and its links and backlinks.'
+			}
+		]
+	},
+
+	harrow: {
+		build: cargo,
+		path: ['target/release', '/cache/target/cairn/release'],
+		fixture: cairnBacklog,
+		steps: [
+			{ run: 'harrow' },
+			{ sleep: '2s' },
+			{
+				shot: 'hero',
+				caption: 'A cairn backlog by milestone, with the selected item’s acceptance and fields.'
+			},
+			{ key: 'Down', times: 2 },
+			{ sleep: '500ms' },
+			{
+				shot: 'use',
+				caption: 'Moving through the backlog; claim, status and close are single keys.'
+			}
+		]
+	},
+
+	nun: {
+		build: cargoAll,
+		stage: 'repo',
+		steps: [
+			{ run: 'nun README.md' },
+			{ sleep: '2s' },
+			{
+				shot: 'hero',
+				caption:
+					'The editor, in the terminal’s own colours, with one config file you will rarely open.'
+			},
+			{ key: 'Escape' },
+			{ key: 'Ctrl+Q' },
+			{ run: 'nun config' },
+			{ sleep: '1s' },
+			{
+				shot: 'depth',
+				caption: '`nun config` prints the effective configuration and where each value came from.'
+			}
+		]
+	},
+
+	// ── command-line tools ─────────────────────────────────────────────────
+
+	cairn: {
+		build: cargo,
+		fixture: cairnBacklog,
+		steps: [
+			{ run: 'cairn board' },
+			{ sleep: '1s' },
+			{ shot: 'hero', caption: 'The board: every item as a Markdown file, laid out by status.' },
+			{ run: 'clear; cairn new "Add SSO for enterprise" --type feature --set priority=p1' },
+			{ sleep: '800ms' },
+			{ shot: 'start', caption: 'A new item is a new file under a schema the project defines.' },
+			{ run: 'clear; cairn next' },
+			{ sleep: '800ms' },
+			{
+				shot: 'use',
+				caption: '`cairn next` shows what can actually be started, not everything that is open.'
+			},
+			{ run: 'clear; cairn check' },
+			{ sleep: '800ms' },
+			{ shot: 'depth', caption: '`cairn check` validates every item against the schema.' }
+		]
+	},
+
+	brainiac: {
+		build: cargo,
+		stage: 'repo',
+		steps: [
+			{ run: 'brainiac index' },
+			{ sleep: '4s' },
+			{
+				shot: 'start',
+				caption: 'Indexing a repository: files, symbols and the references between them.'
+			},
+			{ run: 'clear; brainiac search "how are results ranked"' },
+			{ sleep: '2s' },
+			{ shot: 'use', caption: 'A question answered with ranked file:line spans.' },
+			{ run: 'clear; brainiac map -b 1500' },
+			{ sleep: '2s' },
+			{
+				shot: 'hero',
+				caption: 'The repository’s skeleton, ranked by reference and sized to a token budget.'
+			}
+		]
+	},
+
+	yoghurt: {
+		// A machine to take inventory of, as the user who owns it: the image
+		// seeds `dev` with Homebrew, rustup and cargo, npm globals, neovim's
+		// leftovers, and a binary downloaded by hand (screens/Dockerfile).
+		user: 'dev',
+		record: true,
+		pace: { type: 110, key: 260 },
+		// Installed the way its author runs it, from the checkout, so cargo
+		// claims it like any other crate.
+		fixture: `
+install -d -o dev /cache/target/yoghurt-dev
+# env -i: dev's own Rust, none of root's CARGO_HOME or RUSTUP_HOME.
+runuser -u dev -- env -i HOME=/home/dev PATH=/home/dev/.cargo/bin:/usr/bin:/bin \\
+  CARGO_TARGET_DIR=/cache/target/yoghurt-dev cargo install --locked --quiet --path "$REPO"`,
+		buildTimeout: 1200,
+		// Everything on dev's PATH is something an inventory should see. Not
+		// /usr/local/bin: that is where the rig keeps ttyd.
+		env: {
+			PATH: [
+				'/home/dev/.local/bin',
+				'/home/dev/.npm-global/bin',
+				'/home/dev/.cargo/bin',
+				'/home/linuxbrew/.linuxbrew/bin',
+				'/home/linuxbrew/.linuxbrew/sbin',
+				'/usr/bin',
+				'/bin'
+			].join(':'),
+			HOMEBREW_PREFIX: '/home/linuxbrew/.linuxbrew',
+			HOMEBREW_CELLAR: '/home/linuxbrew/.linuxbrew/Cellar',
+			HOMEBREW_REPOSITORY: '/home/linuxbrew/.linuxbrew/Homebrew',
+			HOMEBREW_NO_AUTO_UPDATE: '1',
+			HOMEBREW_NO_ANALYTICS: '1'
+		},
+		steps: [
+			{ run: 'yoghurt' },
+			{ wait: 'packages' },
+			{ sleep: '3s' },
+			{
+				shot: 'hero',
+				caption:
+					'Everything installed on this machine, from every package manager at once, grouped by where it came from.'
+			},
+
+			// By why it is here, which no single package manager can say.
+			{ type: 'g' },
+			{ sleep: '2.8s' },
+			{
+				shot: 'start',
+				caption:
+					'Grouped by why it is here: what was asked for, what came with it, and what nothing needs.'
+			},
+
+			// Why is this one here? Find it, select it, open it.
+			{ type: '/' },
+			{ sleep: '500ms' },
+			{ type: 'pcre2' },
+			{ sleep: '1.2s' },
+			{ key: 'Enter' },
+			{ sleep: '700ms' },
+			{ key: 'Down' },
+			{ sleep: '700ms' },
+			{ key: 'Enter' },
+			{ sleep: '3s' },
+			{
+				shot: 'use',
+				caption:
+					'Why is this here: a library nobody asked for, and the thing that was asked for that needs it.'
+			},
+			{ key: 'Enter' },
+			{ sleep: '800ms' },
+			{ key: 'Escape' },
+			{ sleep: '1.2s' },
+
+			// The counts are filters: click one.
+			{ click: 'unexplained' },
+			{ sleep: '2.4s' },
+			{ key: 'Down' },
+			{ sleep: '600ms' },
+			{ key: 'Enter' },
+			{ sleep: '3s' },
+			{
+				shot: 'depth',
+				caption:
+					'What nothing installed needs any more: the residue of an uninstall no package manager finished, and the command that clears it.'
+			},
+			{ key: 'Enter' },
+			{ sleep: '800ms' },
+			{ key: 'Escape' },
+			{ sleep: '1.2s' },
+
+			// Largest first, then the other count worth reading: what came with things.
+			{ type: 's' },
+			{ sleep: '1.6s' },
+			{ type: 'S' },
+			{ sleep: '1.8s' },
+			{ click: 'pulled in' },
+			{ sleep: '1.6s' },
+			{ type: 'q' },
+			{ sleep: '1.5s' }
+		]
+	},
+
+	tsi: {
+		build: cargo,
+		record: true,
+		pace: { type: 110, key: 260 },
+		// It prints tall: the staging tables want more than a TUI's 29 rows,
+		// and the session is never cleared, so every screen is full.
+		terminal: { height: 1500 },
+		steps: [
+			{ run: 'tsi optimize --payload 5000 --target-dv 9400 --engine raptor-2' },
+			{ sleep: '4s' },
+			{
+				shot: 'hero',
+				caption:
+					'The staging that reaches a delta-v target: how many stages, which engines, and the propellant split between them.'
+			},
+			{ run: 'tsi engines' },
+			{ sleep: '3.5s' },
+			{
+				shot: 'start',
+				caption: 'Eleven real engines, with the numbers that decide what a stage can do.'
+			},
+			{ run: 'tsi calculate --engine raptor-2 --propellant-mass 100000' },
+			{ sleep: '2.5s' },
+			{ run: 'tsi calculate --engine raptor-2 --propellant-mass 100000 -o compact' },
+			{ sleep: '3s' },
+			{
+				shot: 'use',
+				caption:
+					'One stage, from an engine and a propellant load: delta-v, burn time, thrust to weight — and the same thing on one line, for a script.'
+			},
+			{ run: 'tsi optimize --payload 5000 --target-dv 9400 --engine raptor-2 --monte-carlo 2000' },
+			{ sleep: '5s' },
+			{
+				shot: 'depth',
+				caption:
+					'The same design, run two thousand times against uncertain inputs: how often it still makes orbit.'
+			}
+		]
+	},
+
+	starward: {
+		// Python, installed into a virtualenv the way pip would, then run from
+		// it: the commands are the ones its readme gives.
+		build: 'python3 -m venv /cache/venv/starward && /cache/venv/starward/bin/pip install -q .',
+		path: ['/cache/venv/starward/bin'],
+		record: true,
+		pace: { type: 110, key: 260 },
+		steps: [
+			{ run: 'starward time now' },
+			{ sleep: '3s' },
+			{
+				shot: 'hero',
+				caption: 'The astronomical clocks, right now: Julian date, sidereal time, and the rest.'
+			},
+			{ run: 'starward sun rise --lat 51.5 --lon -0.1' },
+			{ sleep: '3s' },
+			{
+				shot: 'start',
+				caption: 'Sunrise and sunset for a place on the Earth, with the twilights either side.'
+			},
+			{ run: 'starward moon phase' },
+			{ sleep: '3s' },
+			{
+				shot: 'use',
+				caption: 'The Moon tonight: its phase, how lit it is, and when the next one falls.'
+			},
+			{ run: 'clear' },
+			// The worked example that fits a terminal: the full angular
+			// separation runs to 36 lines, past the top of the screen.
+			{ run: 'starward --verbose time convert 2460000.5' },
+			{ sleep: '4s' },
+			{
+				shot: 'depth',
+				caption:
+					'Every calculation can show its work: each step of it, and the number that comes out.'
+			}
+		]
+	},
+
+	gummyworm: {
+		// A real image, and one that survives being drawn in characters:
+		// ImageMagick's own `logo:`, the wizard it has shipped for thirty
+		// years. (Its `rose:` is a 70×46 thumbnail, and enlarging it gives the
+		// ASCII nothing to hold on to.)
+		fixture: `magick logo: -resize 600x wizard.png`,
+		path: ['bin'],
+		record: true,
+		pace: { type: 110, key: 260 },
+		steps: [
+			{ run: 'gummyworm -w 64 wizard.png' },
+			{ sleep: '3.5s' },
+			{
+				shot: 'hero',
+				caption:
+					'An image, as characters: every cell takes the glyph whose weight matches the pixels under it.'
+			},
+			{ run: 'clear' },
+			{ run: 'gummyworm -c -w 64 wizard.png' },
+			{ sleep: '3.5s' },
+			{
+				shot: 'start',
+				caption: 'In colour, from the terminal’s own palette.'
+			},
+			{ run: 'clear' },
+			{ run: 'gummyworm -c -p blocks -w 64 wizard.png' },
+			{ sleep: '3.5s' },
+			{
+				shot: 'use',
+				caption:
+					'A dozen palettes: blocks fill the cell, braille halves it again, standard keeps it to type.'
+			},
+			{ run: 'clear' },
+			{ run: 'gummyworm --list-palettes' },
+			{ sleep: '3s' },
+			{
+				shot: 'depth',
+				caption: 'Every palette it knows, and what each is for.'
+			}
+		]
+	},
+
+	// ── macOS only: kept as they are until there is a macOS runner ─────────
+
+	andy: { runner: 'host' },
+	fontina: { runner: 'host' },
+	clackson: { runner: 'host' }
+};
+
+// Not yet storied, and why:
+//   rigor, brevity    need a GitHub token / an LLM key and a clipboard
+//   jerk              needs a directory of fixture repositories (never ~/Code)
+//   turborust         needs a multi-service workspace fixture
+//   triblenka         pre-release: nothing to run
+//   polkadot, knit, gummyworm   Go and shell; stories to write

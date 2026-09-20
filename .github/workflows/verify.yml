@@ -1,0 +1,34 @@
+# The same gate as `npm run verify` on the desk: types, formatting, lint,
+# tests, then a real build. Nothing here needs Docker or this machine's
+# Ghostty config — what the screens runner generates is committed.
+name: verify
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+# A push that lands while the last one is still running makes it irrelevant.
+concurrency:
+  group: verify-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          # The floor package.json sets, with npm's cache keyed on the lockfile.
+          node-version: '22.18'
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run verify

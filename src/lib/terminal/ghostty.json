@@ -1,0 +1,37 @@
+{
+	"theme": "Paris Guimard",
+	"font": {
+		"family": "JetBrainsMono",
+		"size": 14,
+		"lineHeight": 1.478,
+		"thicken": true
+	},
+	"padding": {
+		"x": 14,
+		"y": 10
+	},
+	"background": "#1E2E26",
+	"foreground": "#D9E1DB",
+	"cursor": "#F1BF4B",
+	"cursorText": "#1E2E26",
+	"selection": "#3E554A",
+	"selectionText": "#E9EEEC",
+	"palette": [
+		"#30463B",
+		"#C7665B",
+		"#70CAA9",
+		"#F1BF4B",
+		"#709BC8",
+		"#CA9245",
+		"#549B9F",
+		"#C2CBC5",
+		"#74857C",
+		"#E7877B",
+		"#89DEBE",
+		"#FFD57A",
+		"#8DB6E2",
+		"#DFAA61",
+		"#70B5B9",
+		"#E9EEEC"
+	]
+}

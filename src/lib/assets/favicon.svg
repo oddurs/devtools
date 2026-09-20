@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+	<title>devtools</title>
+	<!--
+		The site's own mark, made the way AppIcon makes every tool's: a tile of
+		one tint, held dark (oklch 0.29), a hairline ring (0.40), and a Lucide
+		glyph in the tint (0.80). The tint is amber, the terminal cursor's; the
+		glyph is Lucide's `terminal`. Hex, because not every favicon renderer
+		reads oklch().
+	-->
+	<rect x="1" y="1" width="30" height="30" rx="8.4" fill="#39280e" />
+	<rect
+		x="1.5"
+		y="1.5"
+		width="29"
+		height="29"
+		rx="7.9"
+		fill="none"
+		stroke="#584426"
+		stroke-opacity="0.45"
+	/>
+	<g
+		transform="translate(5.2 5.2) scale(0.9)"
+		fill="none"
+		stroke="#e5b46e"
+		stroke-width="2.3"
+		stroke-linecap="round"
+		stroke-linejoin="round"
+	>
+		<polyline points="4 17 10 11 4 5" />
+		<line x1="12" x2="20" y1="19" y2="19" />
+	</g>
+</svg>
