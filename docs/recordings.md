@@ -209,6 +209,14 @@ with that background in `screens.json`) are retaken as each tool comes up.
   happen on real machines.
 - **yoghurt lists rustup's `shims` as a wanted toolchain** (265 MB) on a
   standard Linux rustup layout. Worth a look on yoghurt's side.
+- **A fixture can fill the disk, and that takes the daemon with it.** andy's
+  first fixture used the sizes from its own readme — 7.5G of one target
+  directory, 28G of container images — and ran the Docker VM out of space
+  mid-run. `fallocate` makes that instant and therefore easy to do by
+  accident. andy's fixture now checks `df` first and refuses to start under
+  6G free, and allocates about 3G rather than 30. The shape of the accounting
+  is what a screenshot shows; the absolute numbers are not worth a wedged
+  machine.
 - **Wait on the tool's own chrome, not its content.** hackney's first wait was
   for the word `points`, which it never prints (votes are `▲ 88`), and the
   headlines change hourly: `Top stories` is what stays put.

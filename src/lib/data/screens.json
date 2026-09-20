@@ -1,4 +1,65 @@
 {
+  "andy": {
+    "runner": "terminal",
+    "commit": "dd2758277b69",
+    "takenAt": "2026-09-20T15:50:19.747Z",
+    "background": "#0d0d0c",
+    "shots": [
+      {
+        "beat": "hero",
+        "caption": "Where the disk went, ranked: every category of developer leftover, and the largest single things inside them.",
+        "src": "/media/screens/andy/01-hero.webp",
+        "width": 1600,
+        "height": 1300
+      },
+      {
+        "beat": "start",
+        "caption": "The commands that would reclaim each one, printed as a script it will not run for you. andy never deletes, moves or modifies anything.",
+        "src": "/media/screens/andy/02-start.webp",
+        "width": 1600,
+        "height": 1300
+      },
+      {
+        "beat": "use",
+        "caption": "The same accounting as a tree you can walk, each bar drawn against the largest item at its own level.",
+        "src": "/media/screens/andy/03-use.webp",
+        "width": 1600,
+        "height": 1300
+      },
+      {
+        "beat": "depth",
+        "caption": "The area map: every category a rectangle whose size is its share of the total, so the magnitude is the shape rather than the number.",
+        "src": "/media/screens/andy/04-depth.webp",
+        "width": 1600,
+        "height": 1300
+      }
+    ],
+    "cast": {
+      "src": "/media/casts/andy.cast",
+      "cols": 125,
+      "rows": 39,
+      "duration": 12.716,
+      "bytes": 28711,
+      "markers": [
+        [
+          2.898,
+          "hero"
+        ],
+        [
+          7.119,
+          "start"
+        ],
+        [
+          10.373,
+          "use"
+        ],
+        [
+          12.531,
+          "depth"
+        ]
+      ]
+    }
+  },
   "brainiac": {
     "runner": "terminal",
     "commit": "65701fc0ee2b",

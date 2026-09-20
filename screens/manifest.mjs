@@ -1490,9 +1490,106 @@ cd ..`,
 		]
 	},
 
+	andy: {
+		// andy 1.2 works on Linux as well as macOS, so it can be shot here now.
+		// It is a Python file at the repository root, not a build.
+		path: ['.'],
+		// A machine that has been used. Every path below is one andy actually
+		// looks for on Linux, and the sizes are allocated for real — du counts
+		// allocated blocks, which is what andy measures, so the figures on
+		// screen are measurements rather than decoration.
+		//
+		// Kept to a few gigabytes on purpose. A first version used the sizes
+		// from andy's own readme (7.5G of one target directory, 28G of
+		// container images) and filled the Docker VM's disk, which takes the
+		// daemon down with it. The shape of the accounting is what the shots
+		// show; the absolute numbers are not worth a wedged machine.
+		fixture: `
+set -e
+free=$(df -Pm / | awk 'NR==2 {print $4}')
+if [ "$free" -lt 6000 ]; then
+  echo "only \${free}M free on /; the fixture needs about 3G plus room to work" >&2
+  exit 1
+fi
+
+big() {
+  mkdir -p "$(dirname "$1")"
+  # Allocated, not sparse: du has to see the blocks, or andy measures nothing.
+  fallocate -l "$2" "$1" 2>/dev/null || dd if=/dev/zero of="$1" bs=1M count="\${2%M}" status=none
+}
+
+# project artifacts: the biggest thing on most developers' disks
+big ~/Code/parser/target/debug/deps/libparser.rlib 520M
+big ~/Code/engine/target/debug/deps/libengine.rlib 310M
+big ~/Code/api/target/debug/deps/libapi.rlib 190M
+big ~/Code/dashboard/node_modules/.cache/bundle.js 120M
+big ~/Code/site/node_modules/.cache/bundle.js 70M
+# andy counts a target/ or node_modules as project output when there is a
+# manifest beside it saying what kind of project it is. Without these the
+# cargo targets are just big directories and go uncounted.
+for r in parser engine api; do
+  printf '[package]\nname = "%s"\nversion = "0.1.0"\nedition = "2021"\n' "$r" > ~/Code/$r/Cargo.toml
+done
+for r in dashboard site; do
+  printf '{ "name": "%s", "version": "0.1.0" }\n' "$r" > ~/Code/$r/package.json
+done
+for r in parser engine api dashboard site; do
+  (cd ~/Code/$r && git init -q && git add -A && git commit -q -m init)
+done
+
+# package caches
+big ~/.cargo/registry/cache/crates.io/bundle.crate 180M
+big ~/.npm/_cacache/content-v2/blob 130M
+big ~/go/pkg/mod/cache/download/mod.zip 150M
+big ~/.m2/repository/org/bundle.jar 90M
+big ~/.cache/uv/archive-v0/wheels 60M
+
+# toolchains, containers and model weights
+big ~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libstd.so 240M
+big ~/.local/share/containers/storage/overlay/images.tar 420M
+big ~/.cache/huggingface/hub/models/model.safetensors 300M
+big ~/.cache/turbo/artifacts.bin 40M`,
+		record: true,
+		terminal: { height: 1300 },
+		steps: [
+			{ run: 'andy' },
+			{ wait: 'project artifacts|largest', timeout: '60s' },
+			{ sleep: '2s' },
+			{
+				shot: 'hero',
+				caption:
+					'Where the disk went, ranked: every category of developer leftover, and the largest single things inside them.'
+			},
+			// The promise the tool is built on: it never deletes anything.
+			{ run: 'clear; andy --commands | head -28' },
+			{ sleep: '3s' },
+			{
+				shot: 'start',
+				caption:
+					'The commands that would reclaim each one, printed as a script it will not run for you. andy never deletes, moves or modifies anything.'
+			},
+			{ run: 'clear; andy -i' },
+			{ wait: 'PROJECT ARTIFACTS|project artifacts', timeout: '60s' },
+			{ sleep: '2.5s' },
+			{
+				shot: 'use',
+				caption:
+					'The same accounting as a tree you can walk, each bar drawn against the largest item at its own level.'
+			},
+			{ type: 'm' },
+			{ sleep: '2.5s' },
+			{
+				shot: 'depth',
+				caption:
+					'The area map: every category a rectangle whose size is its share of the total, so the magnitude is the shape rather than the number.'
+			},
+			{ type: 'q' },
+			{ sleep: '800ms' }
+		]
+	},
+
 	// ── macOS only: kept as they are until there is a macOS runner ─────────
 
-	andy: { runner: 'host' },
 	fontina: { runner: 'host' },
 	clackson: { runner: 'host' }
 };
