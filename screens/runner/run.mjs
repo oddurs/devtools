@@ -31,6 +31,7 @@ const which = (cmd) =>
 const TTYD = which('ttyd');
 const RUNUSER = which('runuser');
 const CACHE = '/cache';
+
 const OWNER = 'oddurs';
 const WEBP_WIDTH = 1600;
 
@@ -154,6 +155,8 @@ async function terminal(name, story) {
 
 	const pngDir = freshDir(path.join(CACHE, 'png', name));
 	const shots = [];
+	// Plates: what the tool made, for a gallery. See the `plate` step below.
+	const taken = [];
 	// A recording is opt-in per story (`record: true`), one project at a time.
 	const rec = story.record ? new Recorder() : null;
 	const tty = await openTerminal(stage, termEnv, story, rec);
@@ -225,6 +228,15 @@ async function terminal(name, story) {
 					rec?.marker(step.shot);
 					await page.screenshot({ path: png });
 					shots.push({ id: step.shot, caption: step.caption, png });
+				} else if ('plate' in step) {
+					// A plate is one of the things the tool made, for the
+					// gallery: the same screenshot as a beat, in the same
+					// terminal and the same palette. A tool that exports its
+					// own images exports them without either.
+					await page.waitForTimeout(400);
+					const png = path.join(pngDir, `plate-${step.plate}.png`);
+					await page.screenshot({ path: png });
+					taken.push({ id: step.plate, caption: step.caption, source: step.source, png });
 				} else throw new Error(`${name}: unknown step ${JSON.stringify(step)}`);
 			} catch (err) {
 				const kept = await keepFailure(page, `step${at + 1}`);
@@ -263,7 +275,43 @@ async function terminal(name, story) {
 
 	const entry = publish(name, story, shots, commit, 'terminal');
 	if (cast) entry.cast = cast;
+	const gallery = plates(name, taken);
+	if (gallery.length) entry.gallery = gallery;
 	return { entry };
+}
+
+// A gallery: what the tool made, rather than one moment of it being made.
+// Some tools argue by their output — gummyworm draws images, fontina sets
+// type — and four screenshots in a carousel is the wrong shape for judging
+// that. Each plate is a `plate` step's screenshot.
+function plates(name, taken) {
+	const outDir = path.join(SITE, 'static/media/gallery', name);
+	fs.rmSync(outDir, { recursive: true, force: true });
+	if (!taken.length) return [];
+	log(name, `plates: ${taken.length}`);
+	fs.mkdirSync(outDir, { recursive: true });
+	return taken.map((t, i) => {
+		const file = `${String(i + 1).padStart(2, '0')}-${t.id}.webp`;
+		const dest = path.join(outDir, file);
+		// A plate is read next to a dozen others, not full width, so the empty
+		// two-thirds of the terminal is thrown away and a margin put back.
+		// Trimmed against the terminal's own ground, so the margin matches it.
+		const trimmed = t.png.replace(/\.png$/, '-trim.png');
+		sh(
+			`magick ${JSON.stringify(t.png)} -bordercolor ${JSON.stringify(scheme.background)} ` +
+				`-border 1 -trim +repage -border 28 ${JSON.stringify(trimmed)}`,
+			{ label: 'plate-trim' }
+		);
+		const [w] = dims(trimmed);
+		const resize = w > WEBP_WIDTH ? `-resize ${WEBP_WIDTH} 0` : '';
+		sh(`cwebp -quiet -q 84 ${resize} ${JSON.stringify(trimmed)} -o ${JSON.stringify(dest)}`, {
+			label: 'plate-webp'
+		});
+		const [width, height] = dims(dest);
+		const plate = { src: `/media/gallery/${name}/${file}`, caption: t.caption, width, height };
+		if (t.source) plate.source = t.source;
+		return plate;
+	});
 }
 
 // The environment a user's login shell would have, and nothing of the rig's:

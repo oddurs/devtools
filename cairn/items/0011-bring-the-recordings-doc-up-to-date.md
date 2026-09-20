@@ -2,7 +2,7 @@
 id: 11
 title: Bring the recordings doc up to date
 type: docs
-status: backlog
+status: done
 milestone: platform
 created: 2026-09-20
 updated: 2026-09-20
@@ -22,6 +22,10 @@ comparison, and the fan-out table refreshed as each wave finishes.
 
 ## Acceptance criteria
 
-- [ ] The comparison covers recording, screens, gallery and audio
-- [ ] The fan-out table matches what is actually in `screens.json`
-- [ ] Nothing in it describes the typed session as a live option
+- [x] The comparison covers recording, screens, gallery and audio
+- [x] The fan-out table matches what is actually in `screens.json`
+- [x] Nothing in it describes the typed session as a live option
+
+## 2026-09-20
+
+Done. The comparison table gains gallery and sound, and says plainly that the typed session is gone. The fan-out table now matches screens.json: jerk added, and the row that used to offer 'story first, or keep the typed session' as a resting place for seven tools is replaced by a row per reason — macOS only, needs more than one machine, has no interface, needs a GitHub fixture, needs a workspace, nothing implemented yet.

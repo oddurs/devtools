@@ -1,8 +1,8 @@
 ---
 id: 26
-title: "andy: a story from nothing"
+title: 'andy: a story from nothing'
 type: page
-status: backlog
+status: blocked
 milestone: wave-3
 created: 2026-09-20
 updated: 2026-09-20
@@ -38,3 +38,13 @@ small in the image.
 - [ ] Captions say what the beat shows, not what was typed
 - [ ] `line` and `more` finished, and the state and version true
 - [ ] A site link, if the tool has a site of its own
+
+## 2026-09-20
+
+Blocked on a macOS runner, not on a story.
+
+andy is macOS-only by design — its whole subject is where developer tooling hides disk space on a Mac: OrbStack container images, Xcode leftovers, simulator disks, ~/Library caches. The screens runner is a Linux container, and the manifest already marks andy 'runner: host' so the runner skips it rather than shooting something false.
+
+Two ways forward, both bigger than this item: a macOS runner (ttyd and a headless browser driven on the host, with the same palette and the same 1600x1000 frame), or a hand-taken screenshot on a real Mac, which would not match the palette the other twenty-three pages share.
+
+Until then the page has nothing to show, which is why 0006 cannot land.

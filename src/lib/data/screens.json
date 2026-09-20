@@ -185,7 +185,7 @@
   "gummyworm": {
     "runner": "terminal",
     "commit": "fca7dbcf955d",
-    "takenAt": "2026-09-20T00:56:45.189Z",
+    "takenAt": "2026-09-20T05:41:17.439Z",
     "background": "#0d0d0c",
     "shots": [
       {
@@ -221,27 +221,106 @@
       "src": "/media/casts/gummyworm.cast",
       "cols": 125,
       "rows": 29,
-      "duration": 24.62,
-      "bytes": 70596,
+      "duration": 61.516,
+      "bytes": 311787,
       "markers": [
         [
-          5.356,
+          3.739,
           "hero"
         ],
         [
-          11.492,
+          7.794,
           "start"
         ],
         [
-          18.761,
+          12.355,
           "use"
         ],
         [
-          24.62,
+          16.266,
           "depth"
         ]
       ]
-    }
+    },
+    "gallery": [
+      {
+        "src": "/media/gallery/gummyworm/01-mono.webp",
+        "caption": "Characters alone: each cell takes the glyph whose weight matches the pixels under it.",
+        "width": 1446,
+        "height": 1782,
+        "source": "gummyworm"
+      },
+      {
+        "src": "/media/gallery/gummyworm/02-standard.webp",
+        "caption": "The same thing in colour, from the terminal’s own palette.",
+        "width": 1446,
+        "height": 1844,
+        "source": "-c"
+      },
+      {
+        "src": "/media/gallery/gummyworm/03-detailed.webp",
+        "caption": "Seventy-one characters, for as much detail as type can hold.",
+        "width": 1446,
+        "height": 1844,
+        "source": "-p detailed"
+      },
+      {
+        "src": "/media/gallery/gummyworm/04-shades.webp",
+        "caption": "Symmetric shading: the ramp runs up and back down again.",
+        "width": 1447,
+        "height": 1844,
+        "source": "-p shades"
+      },
+      {
+        "src": "/media/gallery/gummyworm/05-retro.webp",
+        "caption": "Dots and blocks mixed, the way a home computer would have drawn it.",
+        "width": 1448,
+        "height": 1844,
+        "source": "-p retro"
+      },
+      {
+        "src": "/media/gallery/gummyworm/06-blocks.webp",
+        "caption": "Four blocks, filling the whole cell rather than sitting inside it.",
+        "width": 1448,
+        "height": 1844,
+        "source": "-p blocks"
+      },
+      {
+        "src": "/media/gallery/gummyworm/07-dots.webp",
+        "caption": "Braille, which halves the cell again and doubles the resolution.",
+        "width": 1447,
+        "height": 1844,
+        "source": "-p dots"
+      },
+      {
+        "src": "/media/gallery/gummyworm/08-binary.webp",
+        "caption": "Two tones and nothing in between: a silhouette.",
+        "width": 1448,
+        "height": 1844,
+        "source": "-p binary"
+      },
+      {
+        "src": "/media/gallery/gummyworm/09-matrix.webp",
+        "caption": "Ones and zeroes, for the obvious reason.",
+        "width": 1445,
+        "height": 1844,
+        "source": "-p matrix"
+      },
+      {
+        "src": "/media/gallery/gummyworm/10-simple.webp",
+        "caption": "Four characters, for a preview that renders instantly.",
+        "width": 1446,
+        "height": 1844,
+        "source": "-p simple"
+      },
+      {
+        "src": "/media/gallery/gummyworm/11-emoji.webp",
+        "caption": "Moon phases, at half the width, because the glyphs are twice as wide.",
+        "width": 1054,
+        "height": 1534,
+        "source": "-p emoji"
+      }
+    ]
   },
   "hackney": {
     "runner": "terminal",
@@ -365,6 +444,67 @@
       ]
     }
   },
+  "jerk": {
+    "runner": "terminal",
+    "commit": "c43e7e8280ff",
+    "takenAt": "2026-09-20T05:44:03.167Z",
+    "background": "#0d0d0c",
+    "shots": [
+      {
+        "beat": "hero",
+        "caption": "Every repository on the machine, weighed: how much has moved lately, how finished each one is, and what that adds up to.",
+        "src": "/media/screens/jerk/01-hero.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "start",
+        "caption": "The keys: move, change view, filter, reorder, rescan.",
+        "src": "/media/screens/jerk/02-start.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "use",
+        "caption": "One project’s git: twelve weeks of commits, who made them, and whether the worktree is clean.",
+        "src": "/media/screens/jerk/03-use.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "depth",
+        "caption": "The portfolio rather than the project: the lifecycle mix, and how many of the six carry a readme, a licence, CI and tests.",
+        "src": "/media/screens/jerk/04-depth.webp",
+        "width": 1600,
+        "height": 1000
+      }
+    ],
+    "cast": {
+      "src": "/media/casts/jerk.cast",
+      "cols": 125,
+      "rows": 29,
+      "duration": 14.517,
+      "bytes": 29903,
+      "markers": [
+        [
+          4.586,
+          "hero"
+        ],
+        [
+          6.424,
+          "start"
+        ],
+        [
+          10.968,
+          "use"
+        ],
+        [
+          13.563,
+          "depth"
+        ]
+      ]
+    }
+  },
   "nun": {
     "runner": "terminal",
     "commit": "0b8535f9af64",
@@ -428,27 +568,27 @@
   },
   "poptop": {
     "runner": "terminal",
-    "commit": "963e2a16877b",
-    "takenAt": "2026-09-19T13:50:00.319Z",
+    "commit": "0f25ff029c74",
+    "takenAt": "2026-09-20T05:28:35.424Z",
     "background": "#0d0d0c",
     "shots": [
       {
         "beat": "hero",
-        "caption": "Everything the machine is doing, and every sample of it kept: the menu bar, the tabs, the timeline, the process table.",
+        "caption": "Everything the machine is doing, and every sample of it kept: the timeline above, the process table below.",
         "src": "/media/screens/poptop/01-hero.webp",
         "width": 1600,
         "height": 1000
       },
       {
         "beat": "start",
-        "caption": "Every command is in the menu bar, beside the key that also does it.",
+        "caption": "Every key it answers to: scrub, jump, zoom, sort, filter, signal, tree, io.",
         "src": "/media/screens/poptop/02-start.webp",
         "width": 1600,
         "height": 1000
       },
       {
         "beat": "use",
-        "caption": "Filtered to the node processes, one of them open in the inspector.",
+        "caption": "Filtered to the node processes, the worker that keeps growing selected: its memory, its threads, what it is reading and writing.",
         "src": "/media/screens/poptop/03-use.webp",
         "width": 1600,
         "height": 1000
@@ -464,24 +604,24 @@
     "cast": {
       "src": "/media/casts/poptop.cast",
       "cols": 125,
-      "rows": 35,
-      "duration": 65.815,
-      "bytes": 302658,
+      "rows": 29,
+      "duration": 38.417,
+      "bytes": 185878,
       "markers": [
         [
-          9.177,
+          9.186,
           "hero"
         ],
         [
-          16.626,
+          11.28,
           "start"
         ],
         [
-          33.974,
+          18.31,
           "use"
         ],
         [
-          62.144,
+          35.49,
           "depth"
         ]
       ]
@@ -489,8 +629,8 @@
   },
   "quarry": {
     "runner": "terminal",
-    "commit": "baa318d91797",
-    "takenAt": "2026-09-19T13:46:51.307Z",
+    "commit": "df2a8882a5fd",
+    "takenAt": "2026-09-20T05:24:36.651Z",
     "background": "#0d0d0c",
     "shots": [
       {
@@ -526,23 +666,23 @@
       "src": "/media/casts/quarry.cast",
       "cols": 125,
       "rows": 29,
-      "duration": 46.173,
-      "bytes": 69241,
+      "duration": 46.491,
+      "bytes": 51817,
       "markers": [
         [
-          4.655,
+          4.753,
           "hero"
         ],
         [
-          12.259,
+          12.431,
           "start"
         ],
         [
-          16.603,
+          16.794,
           "use"
         ],
         [
-          46.173,
+          46.491,
           "depth"
         ]
       ]

@@ -8,10 +8,9 @@
 	import Meta from '$lib/components/Meta.svelte';
 	import { groups } from '$lib/data/projects';
 	import { contrast } from '$lib/design/color';
-	import { scheme, theme } from '$lib/terminal/theme';
+	import { scheme, theme, vars } from '$lib/terminal/theme';
 	import { ghosttyTheme } from '$lib/terminal/themes';
 	import Window from '$lib/terminal/Window.svelte';
-	import Session from '$lib/terminal/Session.svelte';
 
 	const ground = ['paper', 'lifted', 'raised', 'rule', 'mark'];
 	const ink = ['ink', 'muted', 'faint'];
@@ -31,13 +30,6 @@
 	const ansi = ['black', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white'];
 
 	// What a program printing all sixteen would put on screen.
-	const colours = [0, 1]
-		.map((b) =>
-			[0, 1, 2, 3, 4, 5, 6, 7]
-				.map((i) => `\x1b[${b ? 90 + i : 30 + i}m${(b ? 'bright ' : '') + ansi[i]}\x1b[0m`)
-				.join('  ')
-		)
-		.join('\n');
 
 	const exported = ghosttyTheme(scheme);
 	let copied = $state(false);
@@ -161,15 +153,24 @@
 			</div>
 		{/each}
 	</div>
+	<!--
+		The sixteen, set in the terminal the site draws, so the swatches above
+		can be checked against the thing they describe.
+	-->
 	<Window title="~/Code/demo — fish">
-		<Session
-			tool="demo"
-			autoplay={false}
-			steps={[
-				{ cmd: 'demo --colours   # the sixteen, as a program would print them', out: colours },
-				{ cmd: 'demo box', out: '╭ pane ──────────╮\n│ frames recede │\n╰───────────────╯' }
-			]}
-		/>
+		<pre class="term" style={vars()}><span class="prompt">❯</span> demo --colours
+{#each [0, 1] as bright, b (b)}{#each [0, 1, 2, 3, 4, 5, 6, 7] as i (i)}<span
+						style="color: var(--ansi-{bright ? i + 8 : i})">{bright ? 'bright ' : ''}{ansi[i]}</span
+					>{i < 7 ? '  ' : '\n'}{/each}{/each}
+<span class="prompt">❯</span> demo box
+<span class="frame"
+				>╭ pane ──────────╮
+│</span
+			> frames recede <span class="frame"
+				>│
+╰───────────────╯</span
+			>
+</pre>
 	</Window>
 
 	<h3>As a Ghostty theme</h3>
@@ -305,6 +306,23 @@
 	p strong {
 		color: var(--ink);
 		font-weight: 500;
+	}
+	/* The terminal, drawn by the page rather than replayed: the scheme is
+	   already here, so nothing needs to parse an escape code to show it. */
+	.term {
+		margin: 0;
+		padding: var(--term-pad-y) var(--term-pad-x);
+		overflow-x: auto;
+		color: var(--term-fg);
+		font-family: var(--term-font);
+		font-size: var(--term-size);
+		line-height: var(--term-line);
+	}
+	.term .prompt {
+		color: var(--ansi-2);
+	}
+	.term .frame {
+		color: var(--ansi-8);
 	}
 	.export {
 		position: relative;

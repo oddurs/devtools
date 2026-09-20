@@ -1,8 +1,8 @@
 ---
 id: 29
-title: "brevity: a story from nothing"
+title: 'brevity: a story from nothing'
 type: page
-status: backlog
+status: blocked
 milestone: wave-3
 created: 2026-09-20
 updated: 2026-09-20
@@ -38,3 +38,13 @@ output is committed as a capture, and the story replays it.
 - [ ] Captions say what the beat shows, not what was typed
 - [ ] `line` and `more` finished, and the state and version true
 - [ ] A site link, if the tool has a site of its own
+
+## 2026-09-20
+
+Blocked, and the reason is the tool's own design rather than the rig.
+
+brevity's readme opens: 'Copy something long. Press a key. A chime tells you the summary has replaced it on your clipboard. No window, no terminal, no output.' There is no interface to photograph. A recording of a terminal would show a prompt and nothing else, which is true and useless.
+
+It also needs a model key, and this site's rule is that output is never invented — so a summary on the page has to be one a real call really produced.
+
+What would actually work is a gallery (0008), used for something other than pictures: two plates side by side, the passage that was copied and the summary that replaced it, from one real call made once and committed like a capture. That is the page. It needs a key and a decision about which model made it, both of which are the maintainer's to make.

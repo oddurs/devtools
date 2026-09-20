@@ -1,9 +1,14 @@
 <!--
-	The tool, running. Up to three ways in: a recording of it running, its
-	real screens, both told as the screens studio's four-beat story (what is it, how do
-	I begin, what is it like, what is it good at), or a session you can type
-	into. The recording's chapters are the screens' beats, so the beats and
-	their captions mean the same thing in either.
+	The tool, running. Two ways in: a recording of it running and its real
+	screens, both told as the screens studio's four-beat story (what is it, how
+	do I begin, what is it like, what is it good at). The recording's chapters
+	are the screens' beats, so the beats and their captions mean the same thing
+	in either.
+
+	Two more, for tools the terminal cannot carry: a gallery, for a tool whose
+	output is pictures, and a sample, for one you hear.
+
+	A tool nobody has photographed yet says so, rather than leaving a hole.
 -->
 <script lang="ts">
 	import { Choice, Kbd } from '$lib/design';
@@ -11,9 +16,8 @@
 	import Recording from '$lib/terminal/Recording.svelte';
 	import Screens from '$lib/terminal/Screens.svelte';
 	import Sound from '$lib/terminal/Sound.svelte';
-	import Session from '$lib/terminal/Session.svelte';
 	import Window from '$lib/terminal/Window.svelte';
-	import { prerelease, stills, views, type Project, type View } from '$lib/data/projects';
+	import { stills, views, type Project, type View } from '$lib/data/projects';
 
 	let { project }: { project: Project } = $props();
 
@@ -24,24 +28,19 @@
 	let index = $state(0);
 	let chapter = $state(-1);
 	let player = $state<Recording>();
-	// Set when a person picks the session, so it takes the keyboard; never on
-	// page load, where it would swallow j and k.
-	let chosen = $state(false);
 
-	// A new project starts at its first screen, or its session if it has none.
+	// A new project starts at whichever view it leads with.
 	$effect.pre(() => {
 		view = available[0] ?? 'screens';
 		index = 0;
 		chapter = -1;
-		chosen = false;
 	});
 
 	const shot = $derived(shots[index]);
 	// Real terminal screens sit in a terminal; a poster of a web page does not.
 	const isTerminal = $derived(project.screens.length > 0);
 	// The row is there when there is something in it to choose: another view,
-	// or more than one screen or chapter. Key hints alone are not a reason;
-	// a session says its keys in its caption.
+	// or more than one screen or chapter. Key hints alone are not a reason.
 	const hasControls = $derived(
 		available.length > 1 ||
 			(view === 'screens' && shots.length > 1) ||
@@ -51,8 +50,7 @@
 		recording: 'recording',
 		screens: 'screens',
 		gallery: 'gallery',
-		audio: 'sound',
-		session: 'session'
+		audio: 'sound'
 	};
 	// The recording's chapters, with the caption of the screenshot each one is.
 	const chapters = $derived(
@@ -85,7 +83,6 @@
 			player?.toggle();
 		else if (e.key === 't' && available.length > 1) {
 			view = available[(available.indexOf(view) + 1) % available.length];
-			chosen = true;
 		} else return;
 		e.preventDefault();
 	}
@@ -100,7 +97,6 @@
 				<Choice
 					label="Show"
 					bind:value={view}
-					onchange={() => (chosen = true)}
 					options={available.map((v) => ({ value: v, label: viewLabel[v] }))}
 				/>
 			{/if}
@@ -133,8 +129,6 @@
 					<Kbd>←</Kbd><Kbd>→</Kbd>
 				{:else if view === 'gallery'}
 					<Kbd>←</Kbd><Kbd>→</Kbd> in a plate
-				{:else if view === 'session'}
-					<Kbd>↵</Kbd> next <Kbd>tab</Kbd> complete
 				{/if}
 			</span>
 		</div>
@@ -177,21 +171,14 @@
 		<p class="caption">
 			Recorded from {project.name} itself. Nothing plays until you ask it to.
 		</p>
-	{:else if view === 'session'}
-		{#key project.name}
-			<Window title="~/Code/{project.name} — fish">
-				<Session tool={project.name} steps={project.demo} focus={chosen} />
-			</Window>
-		{/key}
-		<p class="caption">
-			{#if prerelease(project)}
-				The planned API, from the {project.name} design docs: none of it runs yet.
-			{:else}
-				Commands and output from the {project.name} readme, replayed.
-			{/if}
-			<span class="how"
-				><Kbd>↵</Kbd> runs the next <Kbd>tab</Kbd> completes <code>help</code> lists them</span
-			>
+	{:else}
+		<!--
+			Nothing has been shot of this one yet. Say so plainly: a page that
+			simply stops after its paragraph reads like a mistake.
+		-->
+		<p class="nothing">
+			Not photographed yet. The studio is a Linux container, and some of these only run on a Mac —
+			until there is a runner for those, this page is the words and the source.
 		</p>
 	{/if}
 </section>
@@ -250,13 +237,16 @@
 	.demo:focus-within .keys {
 		opacity: 1;
 	}
-	.how {
-		display: inline-flex;
-		flex-wrap: wrap;
-		align-items: center;
-		gap: 0.375rem;
-		margin-left: 0.25rem;
-		font-size: var(--size-s);
+	/* A page with nothing to show says so, quietly, in the window's place. */
+	.nothing {
+		margin: 0;
+		padding: var(--space-8) var(--space-6);
+		border-radius: var(--radius-m);
+		background: var(--lifted);
+		color: var(--faint);
+		font-size: var(--size-m);
+		text-align: center;
+		text-wrap: pretty;
 	}
 	.caption {
 		max-width: var(--measure);

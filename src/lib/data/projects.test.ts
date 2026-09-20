@@ -48,7 +48,28 @@ describe('every tool', () => {
 		expect(p.license).not.toBe('');
 	});
 
-	it.each(projects.map((p) => [p.name, p] as const))('%s has something to show', (_name, p) => {
+	// Not photographed yet, and why. The screens studio is a Linux container,
+	// so a tool that only runs on a Mac cannot be shot in it; the rest need
+	// something the container cannot provide. Each one has a cairn item.
+	// This list should only ever get shorter — a tool that falls out of the
+	// studio and is not named here fails instead of quietly emptying its page.
+	const unshot: Record<string, string> = {
+		andy: 'macOS only: it measures where a Mac hides disk space',
+		polkadot: 'macOS only: it sets a Mac up',
+		fontina: 'macOS only',
+		clackson: 'macOS only, and the page is a sound rather than a picture',
+		knit: 'needs more than one machine to be worth showing',
+		brevity: 'has no interface: a clipboard, a key and a chime',
+		rigor: 'needs a GitHub fixture with real pull requests',
+		turborust: 'needs a multi-service Rust workspace to orchestrate',
+		triblenka: 'design stage: nothing is implemented yet'
+	};
+
+	it.each(projects.map((p) => [p.name, p] as const))('%s has something to show', (name, p) => {
+		if (name in unshot) {
+			expect(views(p), `${name} is listed as unshot but has views`).toEqual([]);
+			return;
+		}
 		expect(views(p).length).toBeGreaterThan(0);
 	});
 
@@ -157,15 +178,25 @@ describe('stills', () => {
 describe('views', () => {
 	const cast = { src: 'c.cast', cols: 80, rows: 24, duration: 1, bytes: 1, markers: [] };
 	const shot = { beat: 'hero' as const, caption: 'c', src: 's', width: 2, height: 1 };
-	const bare = { screens: [], recording: null, poster: null, cast: null, demo: [] };
+	const plate = { src: '/media/gallery/x/01-a.webp', caption: 'c', width: 2, height: 1 };
+	const sample = { src: '/media/audio/x/01.m4a', caption: 'c', seconds: 3, peaks: [0, 1] };
+	const bare = {
+		screens: [],
+		recording: null,
+		poster: null,
+		cast: null,
+		gallery: [],
+		audio: []
+	};
 
-	it('prefers the recording, then the screens, then the session', () => {
-		const p = project({ ...bare, cast, screens: [shot], demo: [{ cmd: 'x' }] });
-		expect(views(p)).toEqual(['recording', 'screens', 'session']);
+	it('prefers the recording, then the screens, then a gallery, then a sound', () => {
+		const p = project({ ...bare, cast, screens: [shot], gallery: [plate], audio: [sample] });
+		expect(views(p)).toEqual(['recording', 'screens', 'gallery', 'audio']);
 	});
 
 	it('leaves out what a tool has not got', () => {
-		expect(views(project({ ...bare, demo: [{ cmd: 'x' }] }))).toEqual(['session']);
+		expect(views(project({ ...bare, gallery: [plate] }))).toEqual(['gallery']);
+		expect(views(project({ ...bare, audio: [sample] }))).toEqual(['audio']);
 		expect(views(project({ ...bare, screens: [shot] }))).toEqual(['screens']);
 	});
 

@@ -51,6 +51,8 @@ describe.each(all)('%s', (name, story) => {
 	it('uses step kinds the runner knows', () => {
 		const known = new Set([
 			'run',
+			'plate',
+			'source',
 			'hidden',
 			'type',
 			'key',

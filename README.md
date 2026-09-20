@@ -1,8 +1,9 @@
 # devtools
 
 The tools I build for my own terminal, each one running. A rail of tools on
-the left; on the right, the tool: a recording of it at work, its screens, or a
-session you can type into.
+the left; on the right, the tool: a recording of it at work and its screens —
+and, for the ones a terminal cannot carry, a gallery of what it made or a
+sample of what it sounds like.
 
 SvelteKit (Svelte 5, runes), TypeScript strict, static output.
 
@@ -20,13 +21,13 @@ npm run screens -- quarry   # shoot and record a tool, in Docker (screens/README
 
     src/lib/data/tools.ts          every tool: its entry, its section; edit here
     src/lib/data/screens.json      what the runner shot of each; written by npm run screens
-    src/lib/data/captures/         real output a session replays (polkadot's doctor)
+    src/lib/data/captures/         real output, kept for a page that cannot be shot yet
     static/media/                  screenshots, casts, other captures
     screens/                       the studio: Dockerfile, runner, one story per tool
     docs/recordings.md             how tools are recorded, and which are done
 
     src/lib/design/                the system: tokens, base, Badge, Choice, Command, Kbd, AppIcon
-    src/lib/terminal/              Window, Screens, Recording, Session; scheme.js, the terminal colours
+    src/lib/terminal/              Window, Screens, Recording, Gallery, Sound; scheme.js, the colours
     src/lib/components/            Rail, ProjectView, Demo, Meta
     src/routes/                    /, /[name], /system, sitemap.xml, robots.txt
 
@@ -38,15 +39,18 @@ The site is pure functions with a page drawn over them, so that is what is
 tested: `*.test.ts` beside the module it is about, run in Node.
 
     src/lib/terminal/cast.test.ts      reading a recording: chapters, the pointer, the keys
-    src/lib/terminal/session.test.ts   the session's small shell, and the ANSI it colours with
     src/lib/design/color.test.ts       OKLCH to hex, in gamut, and contrast
     src/lib/data/projects.test.ts      the rail, and what each tool can show
     src/lib/data/screens.test.ts       what the runner wrote, and that every file it names exists
     src/lib/data/site.test.ts          the absolute URLs the head and the sitemap are built from
+    screens/manifest.test.ts           the stories: beats, captions, step kinds, heredocs
 
 `screens.json` is read through a cast TypeScript cannot check (JSON has no
 tuples). `screens.test.ts` is that cast, checked: a bad run of the runner
-fails `npm run verify` rather than the page. GitHub Actions runs the same
+fails `npm run verify` rather than the page. `manifest.test.ts` catches the
+mistakes that otherwise cost a forty-second container run to find — an
+unescaped backtick in a fixture, a beat spelled wrong, a caption nobody
+wrote. GitHub Actions runs the same
 gate on every push (`.github/workflows/verify.yml`).
 
 **Adding a tool.** An entry in `src/lib/data/tools.ts`, a mark (icon and
@@ -72,7 +76,7 @@ for the rest, kept as [cairn](https://github.com/oddurs/cairn) items in
 
 Committed, so a build needs neither Docker nor this machine's Ghostty config.
 
-## The three views
+## The views
 
 **Recording**: the tool running, recorded in the container from a fresh
 build and played back in xterm.js in the site's terminal scheme, with the
@@ -82,9 +86,17 @@ beats.
 **Screens**: the four-beat story (at a glance, getting started, in use, in
 depth), taken in the same run.
 
-**Session**: the commands and output from the tool's readme, typed out. It
-never invents output: anything not recorded says so. ↵ on an empty line runs
-the next step, tab completes, ↑/↓ walk history.
+**Gallery**: for a tool whose output is the argument rather than its
+interface — gummyworm draws images, so its page shows a dozen of them at
+once rather than stepping through four. A plate is a `plate` step in the
+story: the same screenshot as a beat, trimmed to its content.
+
+**Sound**: for a tool you hear rather than see. A sample, a waveform drawn
+from levels measured off the file, and nothing that plays until it is asked.
+
+A page with none of these says so plainly rather than stopping after its
+paragraph. Nine do today; `src/lib/data/projects.test.ts` names them and why,
+and that list should only get shorter.
 
 ## Keys
 

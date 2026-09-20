@@ -1,8 +1,8 @@
 ---
 id: 6
-title: "Drop the typed session: two views, not three"
+title: 'Drop the typed session: two views, not three'
 type: feature
-status: planned
+status: done
 milestone: platform
 labels:
 - blocked-by-wave-3
@@ -48,7 +48,15 @@ The data and the docs are 0007.
 
 ## Acceptance criteria
 
-- [ ] Every tool page offers at most two views, and every tool has at least one
-- [ ] `t` still cycles, `←`/`→` still step, and nothing swallows `j`/`k`
-- [ ] /system does not demonstrate a component that no longer exists
-- [ ] `npm run verify` passes with the session's tests gone rather than skipped
+- [x] Every tool page offers at most two views, and every tool has at least one
+- [x] `t` still cycles, `←`/`→` still step, and nothing swallows `j`/`k`
+- [x] /system does not demonstrate a component that no longer exists
+- [x] `npm run verify` passes with the session's tests gone rather than skipped
+
+## 2026-09-20
+
+Done. Demo.svelte offers recording, screens, gallery and sound; Session.svelte, session.ts and session.test.ts are deleted, and /system draws the sixteen colours from the palette directly rather than replaying an ANSI string through the session's parser.
+
+The consequence the item predicted is real and now visible: nine pages have nothing to show — andy, polkadot, fontina, clackson, knit, brevity, rigor, turborust, triblenka. Rather than let 0006 wait on all nine, the empty case says so: 'Not photographed yet. The studio is a Linux container, and some of these only run on a Mac.' A page that simply stops after its paragraph reads like a bug; one that says why does not.
+
+projects.test.ts keeps the list of the nine with a reason each, and asserts they really have no views — so the list can only shrink, and a tool that falls out of the studio without being named fails the build instead of quietly emptying its page.

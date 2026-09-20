@@ -1,9 +1,9 @@
 // A tool as the site shows it: its entry (tools.ts) joined to what the
 // screens runner shot of it (screens.json, `npm run screens`).
 import index from './screens.json';
-import { sections, type Media, type State, type Step, type Tool } from './tools';
+import { sections, type Media, type State, type Tool } from './tools';
 
-export type { Media, State, Step };
+export type { Media, State };
 
 export type Shot = {
 	beat: 'hero' | 'start' | 'use' | 'depth';
@@ -141,8 +141,9 @@ export function prerelease(p: Project): boolean {
 }
 
 // What the demo can show, in the order it prefers them: a recording of the
-// tool running, then its real screens, then the typed session.
-export type View = 'recording' | 'screens' | 'gallery' | 'audio' | 'session';
+// tool running, then its real screens, then — for the tools those two cannot
+// carry — a gallery of what it made, or a sample of what it sounds like.
+export type View = 'recording' | 'screens' | 'gallery' | 'audio';
 
 export function stills(p: Project): Shot[] {
 	if (p.screens.length) return p.screens;
@@ -157,6 +158,5 @@ export function views(p: Project): View[] {
 	if (stills(p).length) out.push('screens');
 	if (p.gallery.length) out.push('gallery');
 	if (p.audio.length) out.push('audio');
-	if (p.demo.length) out.push('session');
 	return out;
 }

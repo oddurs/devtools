@@ -2,7 +2,7 @@
 id: 7
 title: Take the typed sessions out of the data and the docs
 type: chore
-status: backlog
+status: done
 milestone: platform
 created: 2026-09-20
 updated: 2026-09-20
@@ -29,6 +29,12 @@ to keep writing demos nobody will see.
 
 ## Acceptance criteria
 
-- [ ] `Step` is gone from the codebase, or kept only where a story uses it
-- [ ] The README describes two views and the keys that drive them
-- [ ] `npm run verify` passes
+- [x] `Step` is gone from the codebase, or kept only where a story uses it
+- [x] The README describes two views and the keys that drive them
+- [x] `npm run verify` passes
+
+## 2026-09-20
+
+Done with 0006. `Step` and every `demo:` block are out of tools.ts — about 230 lines — along with the `?raw` import of the polkadot capture.
+
+src/lib/data/captures/polkadot-doctor.ansi stays, unreferenced, because 0030 says so: it is fifty lines of real output from the Mac polkadot maintains, and it is the raw material for that page the day there is a macOS runner. README now describes it that way rather than as something a session replays.

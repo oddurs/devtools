@@ -199,7 +199,6 @@ cd /tmp
 nohup bash -c 'while :; do dd if=/dev/urandom of=/tmp/wal bs=1M count=48 conv=fsync 2>/dev/null; sleep 5; done' </dev/null >/dev/null 2>&1 &
 cd /`,
 		// The newest interface: the menu bar and the tab strip.
-		ref: 'feat/tab-strip',
 		record: true,
 		// Slow enough to follow: a person at a keyboard, not a script.
 		pace: { type: 110, key: 260 },
@@ -214,36 +213,20 @@ cd /`,
 			{
 				shot: 'hero',
 				caption:
-					'Everything the machine is doing, and every sample of it kept: the menu bar, the tabs, the timeline, the process table.'
+					'Everything the machine is doing, and every sample of it kept: the timeline above, the process table below.'
 			},
 
-			// The menu bar, from the keyboard: F10, across to View, down its items.
-			{ key: 'F10' },
-			{ sleep: '1.2s' },
-			{ key: 'Right' },
-			{ sleep: '900ms' },
-			{ key: 'Right' },
-			{ sleep: '1.2s' },
-			{ key: 'Down', times: 5 },
-			{ sleep: '1.2s' },
+			// Getting started is the keys, as it is for the other TUIs here.
+			{ type: '?' },
+			{ sleep: '1.4s' },
 			{
 				shot: 'start',
-				caption: 'Every command is in the menu bar, beside the key that also does it.'
+				caption: 'Every key it answers to: scrub, jump, zoom, sort, filter, signal, tree, io.'
 			},
 			{ key: 'Escape' },
 			{ sleep: '900ms' },
 
-			// And with the mouse: View, then the line graph.
-			{ click: 'View' },
-			{ sleep: '1.4s' },
-			{ click: 'Line' },
-			{ sleep: '2.5s' },
-
-			// The tabs: memory, where the leaking worker climbs to the top.
-			{ key: '2' },
-			{ sleep: '2.5s' },
-
-			// Filtering: just the node processes.
+			// Filtering: just the node processes, and the leaking worker selected.
 			{ type: '/' },
 			{ sleep: '600ms' },
 			{ type: 'node' },
@@ -251,37 +234,26 @@ cd /`,
 			{ key: 'Enter' },
 			{ sleep: '1.5s' },
 			{ key: 'Down' },
-			{ sleep: '700ms' },
-			{ key: 'Enter' },
-			{ sleep: '2s' },
+			{ sleep: '1.2s' },
 			{
 				shot: 'use',
-				caption: 'Filtered to the node processes, one of them open in the inspector.'
+				caption:
+					'Filtered to the node processes: the API server under load, the generator hitting it, and the worker whose memory keeps climbing.'
 			},
-			{ key: 'Enter' },
+			{ key: 'Escape' },
 			{ sleep: '900ms' },
 
-			// Edit, Clear filter, with the mouse: all eleven again.
-			{ click: 'Edit' },
-			{ sleep: '1.2s' },
-			{ click: 'Clear filter' },
-			{ sleep: '1.5s' },
-
-			// Back to CPU, as a tree: who started whom.
-			{ key: '1' },
-			{ sleep: '1s' },
-			{ key: 't' },
-			{ sleep: '3.5s' },
-			{ key: 't' },
+			// As a tree: who started whom.
+			{ type: 't' },
+			{ sleep: '2.5s' },
+			{ type: 't' },
 			{ sleep: '900ms' },
 
 			// Sorting: by the next column, and back.
-			{ key: 's' },
+			{ type: 's' },
 			{ sleep: '1.6s' },
-			{ key: 's' },
+			{ type: 's' },
 			{ sleep: '1.6s' },
-			{ key: 'S' },
-			{ sleep: '1.2s' },
 
 			// Rewind: click the graph to jump back to that moment, wheel over it,
 			// then step back sample by sample. (On the graph itself: the past/now
@@ -300,7 +272,7 @@ cd /`,
 			{ sleep: '1s' },
 			{ key: 'End' },
 			{ sleep: '1.5s' },
-			{ key: 'q' },
+			{ type: 'q' },
 			{ sleep: '800ms' }
 		]
 	},
@@ -308,7 +280,6 @@ cd /`,
 	quarry: {
 		build: cargo,
 		// The newest line: every feature branch stacks under this one.
-		ref: 'feat/0046-degraded',
 		record: true,
 		pace: { type: 110, key: 260 },
 		// A developer's machine: five repositories, each running what it runs,
@@ -1176,7 +1147,6 @@ runuser -u dev -- env -i HOME=/home/dev PATH=/home/dev/.cargo/bin:/usr/bin:/bin 
 		fixture: `magick logo: -resize 600x wizard.png`,
 		path: ['bin'],
 		record: true,
-		pace: { type: 110, key: 260 },
 		steps: [
 			{ run: 'gummyworm -w 64 wizard.png' },
 			{ sleep: '3.5s' },
@@ -1206,7 +1176,190 @@ runuser -u dev -- env -i HOME=/home/dev PATH=/home/dev/.cargo/bin:/usr/bin:/bin 
 			{
 				shot: 'depth',
 				caption: 'Every palette it knows, and what each is for.'
+			},
+
+			// The gallery: the argument for this tool is how the output looks,
+			// and one screen at a time cannot make it. The same wizard in every
+			// palette, photographed in the same terminal as the beats above —
+			// gummyworm can export its own PNGs, but they come out without the
+			// site's palette and without its font.
+			{ run: 'clear' },
+			{ run: 'gummyworm -w 58 wizard.png' },
+			{ sleep: '3s' },
+			{
+				plate: 'mono',
+				caption:
+					'Characters alone: each cell takes the glyph whose weight matches the pixels under it.',
+				source: 'gummyworm'
+			},
+			{ run: 'clear' },
+			{ run: 'gummyworm -c -w 58 wizard.png' },
+			{ sleep: '3s' },
+			{
+				plate: 'standard',
+				caption: 'The same thing in colour, from the terminal’s own palette.',
+				source: '-c'
+			},
+			{ run: 'clear' },
+			{ run: 'gummyworm -c -p detailed -w 58 wizard.png' },
+			{ sleep: '3s' },
+			{
+				plate: 'detailed',
+				caption: 'Seventy-one characters, for as much detail as type can hold.',
+				source: '-p detailed'
+			},
+			{ run: 'clear' },
+			{ run: 'gummyworm -c -p shades -w 58 wizard.png' },
+			{ sleep: '3s' },
+			{
+				plate: 'shades',
+				caption: 'Symmetric shading: the ramp runs up and back down again.',
+				source: '-p shades'
+			},
+			{ run: 'clear' },
+			{ run: 'gummyworm -c -p retro -w 58 wizard.png' },
+			{ sleep: '3s' },
+			{
+				plate: 'retro',
+				caption: 'Dots and blocks mixed, the way a home computer would have drawn it.',
+				source: '-p retro'
+			},
+			{ run: 'clear' },
+			{ run: 'gummyworm -c -p blocks -w 58 wizard.png' },
+			{ sleep: '3s' },
+			{
+				plate: 'blocks',
+				caption: 'Four blocks, filling the whole cell rather than sitting inside it.',
+				source: '-p blocks'
+			},
+			{ run: 'clear' },
+			{ run: 'gummyworm -c -p dots -w 58 wizard.png' },
+			{ sleep: '3s' },
+			{
+				plate: 'dots',
+				caption: 'Braille, which halves the cell again and doubles the resolution.',
+				source: '-p dots'
+			},
+			{ run: 'clear' },
+			{ run: 'gummyworm -c -p binary -w 58 wizard.png' },
+			{ sleep: '3s' },
+			{
+				plate: 'binary',
+				caption: 'Two tones and nothing in between: a silhouette.',
+				source: '-p binary'
+			},
+			{ run: 'clear' },
+			{ run: 'gummyworm -c -p matrix -w 58 wizard.png' },
+			{ sleep: '3s' },
+			{
+				plate: 'matrix',
+				caption: 'Ones and zeroes, for the obvious reason.',
+				source: '-p matrix'
+			},
+			{ run: 'clear' },
+			{ run: 'gummyworm -c -p simple -w 58 wizard.png' },
+			{ sleep: '3s' },
+			{
+				plate: 'simple',
+				caption: 'Four characters, for a preview that renders instantly.',
+				source: '-p simple'
+			},
+			{ run: 'clear' },
+			{ run: 'gummyworm -c -p emoji -w 42 wizard.png' },
+			{ sleep: '3s' },
+			{
+				plate: 'emoji',
+				caption: 'Moon phases, at half the width, because the glyphs are twice as wide.',
+				source: '-p emoji'
 			}
+		]
+	},
+
+	jerk: {
+		build: cargo,
+		// Never ~/Code on a real machine: this is a directory of repositories
+		// made for the photograph, with twelve weeks of backdated history so
+		// the activity graph has something to draw and the lifecycle mix is a
+		// mix — one mature, two moving, one young, one stale, one abandoned.
+		fixture: `
+mkdir -p ~/Code && cd ~/Code
+export GIT_AUTHOR_NAME=dev GIT_AUTHOR_EMAIL=dev@example.invalid
+export GIT_COMMITTER_NAME=dev GIT_COMMITTER_EMAIL=dev@example.invalid
+
+# repo name, commits, weeks-ago the history starts, weeks-ago it stops
+build_repo() {
+  name=$1; n=$2; from=$3; to=$4; complete=$5
+  mkdir -p "$name" && cd "$name" && git init -q -b main
+  printf '# %s\n\nOne of the repositories on this machine.\n' "$name" > README.md
+  if [ "$complete" = "yes" ]; then
+    printf 'MIT License\n\nCopyright (c) 2026 dev\n' > LICENSE
+    printf '# Changelog\n\n## 0.2.0\n- the second thing\n\n## 0.1.0\n- the first thing\n' > CHANGELOG.md
+    mkdir -p .github/workflows tests docs
+    printf 'name: ci\non: [push]\njobs:\n  test:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v5\n' > .github/workflows/ci.yml
+    printf 'fn main() {}\n' > tests/smoke.rs
+    printf '# Design\n\nHow it fits together.\n' > docs/design.md
+  fi
+  i=0
+  while [ $i -lt $n ]; do
+    week=$(( from - ( (from - to) * i / (n > 1 ? n - 1 : 1) ) ))
+    when=$(date -u -d "$week weeks ago" +%Y-%m-%dT%H:%M:%SZ)
+    printf 'line %s\n' "$i" >> src.txt
+    git add -A
+    GIT_AUTHOR_DATE="$when" GIT_COMMITTER_DATE="$when" git commit -qm "work $i on $name"
+    i=$(( i + 1 ))
+  done
+  if [ "$complete" = "yes" ]; then
+    git tag -a v0.2.0 -m "0.2.0" 2>/dev/null || true
+  fi
+  cd ..
+}
+
+build_repo orchard  28 12 0 yes
+build_repo typeset  16 11 0 yes
+build_repo ledger    9  5 0 no
+build_repo pinboard  6 40 34 no
+build_repo almanac  11  9 1 yes
+build_repo scratch   1 52 52 no
+
+cd ~/Code`,
+		record: true,
+		steps: [
+			{ run: 'jerk ~/Code' },
+			{ wait: 'orchard|typeset|ledger' },
+			{ sleep: '3s' },
+			{
+				shot: 'hero',
+				caption:
+					'Every repository on the machine, weighed: how much has moved lately, how finished each one is, and what that adds up to.'
+			},
+			{ type: '?' },
+			{ sleep: '1.2s' },
+			{
+				shot: 'start',
+				caption: 'The keys: move, change view, filter, reorder, rescan.'
+			},
+			{ key: 'Escape' },
+			{ sleep: '700ms' },
+			{ key: 'Down', times: 2 },
+			{ sleep: '1s' },
+			{ type: '2' },
+			{ sleep: '1.8s' },
+			{
+				shot: 'use',
+				caption:
+					'One project’s git: twelve weeks of commits, who made them, and whether the worktree is clean.'
+			},
+			// What it is for: the directory as a whole, not one repository.
+			{ type: '5' },
+			{ sleep: '2s' },
+			{
+				shot: 'depth',
+				caption:
+					'The portfolio rather than the project: the lifecycle mix, and how many of the six carry a readme, a licence, CI and tests.'
+			},
+			{ sleep: '800ms' },
+			{ type: 'q' },
+			{ sleep: '600ms' }
 		]
 	},
 

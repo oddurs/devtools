@@ -1,8 +1,8 @@
 ---
 id: 32
-title: "fontina: a story from nothing"
+title: 'fontina: a story from nothing'
 type: page
-status: backlog
+status: blocked
 milestone: wave-3
 created: 2026-09-20
 updated: 2026-09-20
@@ -37,3 +37,9 @@ can judge.
 - [ ] Captions say what the beat shows, not what was typed
 - [ ] `line` and `more` finished, and the state and version true
 - [ ] A site link, if the tool has a site of its own
+
+## 2026-09-20
+
+Blocked on a macOS runner, same as 0026 and 0033. fontina is marked 'runner: host' in the manifest.
+
+What it needs beyond the runner: the gallery from 0008, which is built and working — gummyworm proves the path. Specimens of a typeface side by side is exactly the shape a gallery is for, and exactly the shape four terminal screenshots in a carousel is not.

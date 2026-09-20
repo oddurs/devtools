@@ -182,20 +182,4 @@ describe('tools.ts', () => {
 		if (t.site) expect(t.site).toMatch(/^https:\/\//);
 		if (t.install) expect(t.install.trim()).toBe(t.install);
 	});
-
-	it.each(tools.map((t) => [t.name, t] as const))('%s has a demo that could run', (_name, t) => {
-		for (const step of t.demo) {
-			expect(step.cmd.trim()).not.toBe('');
-			// The session matches typing against the bare command; two steps
-			// that bare down to the same text make the second unreachable.
-			expect(step.cmd).not.toMatch(/\n/);
-		}
-		const bare = t.demo.map((s) =>
-			s.cmd
-				.replace(/\s+#.*$/, '')
-				.replace(/\s+/g, ' ')
-				.trim()
-		);
-		expect(bare).toHaveLength(new Set(bare).size);
-	});
 });
