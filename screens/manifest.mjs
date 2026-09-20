@@ -1588,9 +1588,110 @@ big ~/.cache/turbo/artifacts.bin 40M`,
 		]
 	},
 
+	fontina: {
+		build:
+			'cargo build --release --locked -p fontina-cli 2>/dev/null || cargo build --release -p fontina-cli',
+		// A font manager wants fonts to manage. The image ships three families;
+		// a few more packages give it serif, sans, mono and a dozen scripts to
+		// index, which is what makes the coverage and freedom questions real.
+		fixture: `
+set -e
+apt-get -qq update >/dev/null 2>&1
+DEBIAN_FRONTEND=noninteractive apt-get -qq install -y --no-install-recommends \
+  fonts-liberation2 fonts-cantarell fonts-ebgaramond fonts-firacode fonts-noto-core \
+  >/dev/null 2>&1 || true
+fc-cache -f >/dev/null 2>&1 || true
+find /usr/share/fonts -name '*.ttf' -o -name '*.otf' | wc -l`,
+		record: true,
+		terminal: { height: 1200 },
+		steps: [
+			{ run: 'fontina scan --system' },
+			{ wait: 'indexed|faces|scanned', timeout: '120s' },
+			{ sleep: '2s' },
+			{
+				shot: 'start',
+				caption:
+					'`fontina scan` walks the font directories the OS already has and builds one searchable index of everything in them.'
+			},
+			// The question a font manager exists to answer.
+			// Four scripts at once, so the answer is a handful rather than most
+			// of the library — and the question stays on screen above it.
+			{ run: 'clear; fontina covers "Þórður · Ψυχή · Жизнь · Հայերեն"' },
+			{ sleep: '2.5s' },
+			{
+				shot: 'use',
+				caption:
+					"Which faces can actually set this text — Icelandic, Greek, Russian and Armenian in one line — asked of the glyphs themselves rather than of the font's own claims."
+			},
+			// What the project is for, in its own words: free, and it says which.
+			{ run: 'clear; fontina facets' },
+			{ sleep: '2.5s' },
+			{
+				shot: 'depth',
+				caption:
+					'The library counted along every axis at once: weights, widths, scripts, vendors, and the licence each face is under.'
+			},
+			{ run: 'clear; fontina ui' },
+			{ wait: 'fontina|families|faces', timeout: '30s' },
+			{ sleep: '2.5s' },
+			{
+				shot: 'hero',
+				caption:
+					'Every font on the machine in one keyboard-first browser: the families down one side, and everything known about the selected face beside them — its axes, what it covers, its licence, its metrics.'
+			},
+			{ type: 'q' },
+			{ sleep: '1s' },
+
+			// The gallery: a font is its shapes, and no list of names carries
+			// that. The same sentence set in each family, shaped by the tool
+			// itself and drawn in the terminal.
+			{ run: 'clear; fontina preview "family:DejaVu Serif" -t "Hamburg"' },
+			{ sleep: '2s' },
+			{
+				plate: 'dejavu-serif',
+				caption: 'DejaVu Serif, the workhorse on most Linux machines.',
+				source: 'family:DejaVu Serif'
+			},
+			{ run: 'clear; fontina preview "family:EB Garamond" -t "Hamburg"' },
+			{ sleep: '2s' },
+			{
+				plate: 'eb-garamond',
+				caption: 'EB Garamond: a revival of a sixteenth-century face, still under an open licence.',
+				source: 'family:EB Garamond'
+			},
+			{ run: 'clear; fontina preview "family:Cantarell" -t "Hamburg"' },
+			{ sleep: '2s' },
+			{
+				plate: 'cantarell',
+				caption: 'Cantarell, a humanist sans.',
+				source: 'family:Cantarell'
+			},
+			{ run: 'clear; fontina preview "family:DejaVu Sans" -t "Hamburg"' },
+			{ sleep: '2s' },
+			{
+				plate: 'dejavu-sans',
+				caption: 'DejaVu Sans, the same skeleton as the serif with the serifs taken off.',
+				source: 'family:DejaVu Sans'
+			},
+			{ run: 'clear; fontina preview "family:Fira Code" -t "Hamburg"' },
+			{ sleep: '2s' },
+			{
+				plate: 'fira-code',
+				caption: 'Fira Code, a monospace with programming ligatures.',
+				source: 'family:Fira Code'
+			},
+			{ run: 'clear; fontina preview "family:JetBrains Mono" -t "Hamburg"' },
+			{ sleep: '2s' },
+			{
+				plate: 'jetbrains-mono',
+				caption: 'JetBrains Mono, which is the face this whole site is set in.',
+				source: 'family:JetBrains Mono'
+			}
+		]
+	},
+
 	// ── macOS only: kept as they are until there is a macOS runner ─────────
 
-	fontina: { runner: 'host' },
 	clackson: { runner: 'host' }
 };
 

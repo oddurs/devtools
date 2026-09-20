@@ -54,7 +54,6 @@ describe('every tool', () => {
 	// This list should only ever get shorter — a tool that falls out of the
 	// studio and is not named here fails instead of quietly emptying its page.
 	const unshot: Record<string, string> = {
-		fontina: 'macOS only',
 		clackson: 'macOS only, and the page is a sound rather than a picture',
 		knit: 'needs more than one machine to be worth showing',
 		brevity: 'has no interface: a clipboard, a key and a chime',

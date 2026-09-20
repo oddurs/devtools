@@ -243,6 +243,111 @@
       ]
     }
   },
+  "fontina": {
+    "runner": "terminal",
+    "commit": "a023cc96674e",
+    "takenAt": "2026-09-20T16:03:01.424Z",
+    "background": "#0d0d0c",
+    "shots": [
+      {
+        "beat": "hero",
+        "caption": "Every font on the machine in one keyboard-first browser: the families down one side, and everything known about the selected face beside them — its axes, what it covers, its licence, its metrics.",
+        "src": "/media/screens/fontina/01-hero.webp",
+        "width": 1600,
+        "height": 1200
+      },
+      {
+        "beat": "start",
+        "caption": "`fontina scan` walks the font directories the OS already has and builds one searchable index of everything in them.",
+        "src": "/media/screens/fontina/02-start.webp",
+        "width": 1600,
+        "height": 1200
+      },
+      {
+        "beat": "use",
+        "caption": "Which faces can actually set this text — Icelandic, Greek, Russian and Armenian in one line — asked of the glyphs themselves rather than of the font's own claims.",
+        "src": "/media/screens/fontina/03-use.webp",
+        "width": 1600,
+        "height": 1200
+      },
+      {
+        "beat": "depth",
+        "caption": "The library counted along every axis at once: weights, widths, scripts, vendors, and the licence each face is under.",
+        "src": "/media/screens/fontina/04-depth.webp",
+        "width": 1600,
+        "height": 1200
+      }
+    ],
+    "cast": {
+      "src": "/media/casts/fontina.cast",
+      "cols": 125,
+      "rows": 36,
+      "duration": 44.318,
+      "bytes": 1032970,
+      "markers": [
+        [
+          3.521,
+          "start"
+        ],
+        [
+          8.544,
+          "use"
+        ],
+        [
+          11.787,
+          "depth"
+        ],
+        [
+          15.718,
+          "hero"
+        ]
+      ]
+    },
+    "gallery": [
+      {
+        "src": "/media/gallery/fontina/01-dejavu-serif.webp",
+        "caption": "DejaVu Serif, the workhorse on most Linux machines.",
+        "width": 1600,
+        "height": 1143,
+        "source": "family:DejaVu Serif"
+      },
+      {
+        "src": "/media/gallery/fontina/02-eb-garamond.webp",
+        "caption": "EB Garamond: a revival of a sixteenth-century face, still under an open licence.",
+        "width": 1600,
+        "height": 1569,
+        "source": "family:EB Garamond"
+      },
+      {
+        "src": "/media/gallery/fontina/03-cantarell.webp",
+        "caption": "Cantarell, a humanist sans.",
+        "width": 1600,
+        "height": 871,
+        "source": "family:Cantarell"
+      },
+      {
+        "src": "/media/gallery/fontina/04-dejavu-sans.webp",
+        "caption": "DejaVu Sans, the same skeleton as the serif with the serifs taken off.",
+        "width": 1600,
+        "height": 1110,
+        "source": "family:DejaVu Sans"
+      },
+      {
+        "src": "/media/gallery/fontina/05-fira-code.webp",
+        "caption": "Fira Code, a monospace with programming ligatures.",
+        "width": 1600,
+        "height": 1423,
+        "source": "family:Fira Code"
+      },
+      {
+        "src": "/media/gallery/fontina/06-jetbrains-mono.webp",
+        "caption": "JetBrains Mono, which is the face this whole site is set in.",
+        "width": 1600,
+        "height": 1449,
+        "source": "family:JetBrains Mono"
+      }
+    ]
+  },
   "gummyworm": {
     "runner": "terminal",
     "commit": "fca7dbcf955d",
