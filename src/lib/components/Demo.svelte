@@ -17,7 +17,7 @@
 	import Screens from '$lib/terminal/Screens.svelte';
 	import Sound from '$lib/terminal/Sound.svelte';
 	import Window from '$lib/terminal/Window.svelte';
-	import { MEDIA, stills, views, type Project, type View } from '$lib/data/projects';
+	import { MEDIA, prerelease, stills, views, type Project, type View } from '$lib/data/projects';
 
 	let { project }: { project: Project } = $props();
 
@@ -31,12 +31,16 @@
 	let index = $state(0);
 	let chapter = $state(-1);
 	let player = $state<Recording>();
+	// Expanded: the demo takes the page. Nothing else changes about it — the
+	// same window, the same controls, more room — so it costs one flag.
+	let expanded = $state(false);
 
 	// A new project starts at whichever view it leads with.
 	$effect.pre(() => {
 		view = available[0] ?? 'screens';
 		index = 0;
 		chapter = -1;
+		expanded = false;
 	});
 
 	const shot = $derived(shots[index]);
@@ -80,15 +84,17 @@
 			player?.toggle();
 		else if (e.key === 't' && available.length > 1) {
 			view = available[(available.indexOf(view) + 1) % available.length];
-		} else return;
+		} else if (e.key === 'f' && available.length) expanded = !expanded;
+		else if (e.key === 'Escape' && expanded) expanded = false;
+		else return;
 		e.preventDefault();
 	}
 </script>
 
 <svelte:window {onkeydown} />
 
-<section class="demo" aria-label="{project.name}, running">
-	{#if hasControls}
+<section class="demo" class:expanded aria-label="{project.name}, running">
+	{#if hasControls || available.length}
 		<div class="controls">
 			{#if available.length > 1}
 				<Choice
@@ -118,6 +124,26 @@
 					{/each}
 				</div>
 			{/if}
+
+			<button
+				type="button"
+				class="expand"
+				aria-pressed={expanded}
+				onclick={() => (expanded = !expanded)}
+			>
+				<svg viewBox="0 0 24 24" aria-hidden="true">
+					{#if expanded}
+						<path d="M4 14h6v6" /><path d="M20 10h-6V4" /><path d="M14 10l7-7" /><path
+							d="M3 21l7-7"
+						/>
+					{:else}
+						<path d="M15 3h6v6" /><path d="M9 21H3v-6" /><path d="M21 3l-7 7" /><path
+							d="M3 21l7-7"
+						/>
+					{/if}
+				</svg>
+				{expanded ? 'close' : 'expand'}
+			</button>
 
 			<span class="keys">
 				{#if view === 'recording'}
@@ -172,14 +198,15 @@
 		<p class="caption">
 			Recorded from {project.name} itself. Nothing plays until you ask it to.
 		</p>
-	{:else}
+	{:else if !prerelease(project)}
 		<!--
 			Nothing has been shot of this one yet. Say so plainly: a page that
-			simply stops after its paragraph reads like a mistake.
+			simply stops after its paragraph reads like a mistake. A pre-release
+			says it in its own notice instead, so it is not said twice.
 		-->
 		<p class="nothing">
-			Not photographed yet. The studio is a Linux container, and some of these only run on a Mac —
-			until there is a runner for those, this page is the words and the source.
+			Not photographed yet. Every page here shows the tool running, and this one has not been
+			through the studio — so for now it is the words and the source.
 		</p>
 	{/if}
 </section>
@@ -190,6 +217,50 @@
 	.demo {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);
+	}
+	/* Expanded, the demo is the page: the rail and the rest of the article are
+	   behind it, and the ground drops a shade so the window still floats. */
+	.demo.expanded {
+		position: fixed;
+		inset: 0;
+		z-index: 20;
+		grid-template-rows: auto minmax(0, 1fr) auto;
+		padding: var(--space-6) clamp(1rem, 3vw, 2.5rem) var(--space-8);
+		background: var(--raised);
+		overflow: auto;
+	}
+	.demo.expanded .caption {
+		max-width: none;
+	}
+
+	/* The expand control sits at the end of the row, before the key hints. */
+	.expand {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.375rem;
+		margin-left: auto;
+		padding: 0.25rem 0.5rem;
+		border-radius: 4px;
+		color: var(--faint);
+		font-size: var(--size-s);
+		transition: color var(--quick);
+	}
+	.expand:hover,
+	.expand[aria-pressed='true'] {
+		color: var(--ink);
+	}
+	.expand svg {
+		width: 0.8125rem;
+		height: 0.8125rem;
+		fill: none;
+		stroke: currentColor;
+		stroke-width: 2;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+	}
+	/* With the expand control taking the row's end, the key hints follow it. */
+	.expand + .keys {
+		margin-left: var(--space-4);
 	}
 	.controls {
 		margin-bottom: var(--space-3);

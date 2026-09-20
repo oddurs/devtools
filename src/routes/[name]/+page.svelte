@@ -10,7 +10,7 @@
 
 <Meta
 	name={data.project.name}
-	description={data.project.line}
+	description={data.project.more}
 	path="/{data.project.name}"
 	image={hero?.src}
 	imageAlt={hero?.caption}

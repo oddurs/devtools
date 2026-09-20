@@ -183,8 +183,37 @@ describe('tools.ts', () => {
 		expect(t.tags.length).toBeGreaterThan(0);
 	});
 
-	it.each(tools.map((t) => [t.name, t] as const))('%s links somewhere real', (_name, t) => {
+	it.each(tools.map((t) => [t.name, t] as const))('%s says what it does', (_name, t) => {
+		// The features table is read down its left column, so a claim has to be
+		// short enough to scan; the sentence beside it has to be one sentence.
+		expect(t.features.length).toBeGreaterThan(1);
+		expect(t.features.length).toBeLessThan(6);
+		for (const f of t.features) {
+			expect(f.claim.split(/\s+/).length, `"${f.claim}" is not a short claim`).toBeLessThan(6);
+			expect(f.claim).not.toMatch(/[.!]$/);
+			expect(f.what.length).toBeGreaterThan(20);
+			expect(f.what.length).toBeLessThan(200);
+			expect(f.what).toMatch(/[.?!]$/);
+			// Backticks are set as code, so they come in pairs.
+			expect(f.what.split('`').length % 2, `unbalanced backticks in "${f.claim}"`).toBe(1);
+		}
+		const claims = t.features.map((f) => f.claim);
+		expect(claims).toHaveLength(new Set(claims).size);
+	});
+
+	it.each(tools.map((t) => [t.name, t] as const))('%s links somewhere real', (name, t) => {
 		if (t.site) expect(t.site).toMatch(/^https:\/\//);
+		// A site belongs to the tool whose entry it sits in. gummyworm.dev
+		// once advertised itself from clackson's page for a day, because an
+		// insertion landed one entry out and nothing was watching.
+		if (t.site) {
+			const host = new URL(t.site).hostname.replace(/^www\./, '');
+			const path = new URL(t.site).pathname;
+			expect(
+				host.startsWith(name) || path.includes(name),
+				`${name} links to ${t.site}, which does not name it`
+			).toBe(true);
+		}
 		if (t.install) expect(t.install.trim()).toBe(t.install);
 	});
 });

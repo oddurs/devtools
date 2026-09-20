@@ -1,9 +1,9 @@
 // A tool as the site shows it: its entry (tools.ts) joined to what the
 // screens runner shot of it (screens.json, `npm run screens`).
 import index from './screens.json';
-import { sections, type Media, type State, type Tool } from './tools';
+import { sections, type Feature, type Media, type State, type Tool } from './tools';
 
-export type { Media, State };
+export type { Feature, Media, State };
 
 export type Shot = {
 	beat: 'hero' | 'start' | 'use' | 'depth';

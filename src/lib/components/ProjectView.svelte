@@ -9,71 +9,123 @@
 </script>
 
 <article class="project">
+	<!--
+		The tool first. The name and the line sit on one row above the window,
+		and everything else — what it is written in, what it costs to install,
+		where the source is — goes under it, because those are reference rather
+		than the argument.
+	-->
 	<header>
-		<div class="title">
-			<h1><AppIcon name={project.name} size="l" />{project.name}</h1>
-			<p class="meta">
-				{#if prerelease(project)}
-					<Badge tone="amber">pre-release</Badge>
-				{:else}
-					<span class="figures" class:released={project.state.kind === 'released'}
-						>{stateLabel(project.state)}</span
-					>
-				{/if}
-				<span>{project.lang}</span>
-				{#if project.license !== 'none'}<span>{project.license}</span>{/if}
-			</p>
-		</div>
+		<h1><AppIcon name={project.name} size="m" />{project.name}</h1>
 		<p class="line">{project.line}</p>
-		<p class="more">{project.more}</p>
-		{#if prerelease(project)}
-			<p class="notice">
-				<strong>Pre-release.</strong> Designed in the open: the documentation comes first, so the API
-				can be argued with before it is built. There is nothing to install yet, and what the demo shows
-				is the design, not a program running.
-			</p>
-		{/if}
-		<div class="actions">
-			{#if project.install}
-				<div class="install"><Command command={project.install} /></div>
-			{/if}
-			<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -- external -->
-			<a class="out" href={source}>Source<span aria-hidden="true">↗</span></a>
-			{#if project.site}
-				<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -- external -->
-				<a class="out" href={project.site}>Site<span aria-hidden="true">↗</span></a>
-			{/if}
-		</div>
+		{#if prerelease(project)}<Badge tone="amber">pre-release</Badge>{/if}
 	</header>
 
+	{#if prerelease(project)}
+		<p class="notice">
+			<strong>Pre-release.</strong> Designed in the open: the documentation comes first, so the API can
+			be argued with before it is built. There is nothing to install yet, and what you see is the design,
+			not a program running.
+		</p>
+	{/if}
+
 	<Demo {project} />
+
+	<div class="facts">
+		{#if project.install}
+			<div class="install"><Command command={project.install} /></div>
+		{/if}
+		<p class="meta">
+			<!-- A pre-release says so in the badge above; not twice. -->
+			{#if !prerelease(project)}
+				<span class="figures" class:released={project.state.kind === 'released'}
+					>{stateLabel(project.state)}</span
+				>
+			{/if}
+			<span>{project.lang}</span>
+			{#if project.license !== 'none'}<span>{project.license}</span>{/if}
+		</p>
+		<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -- external -->
+		<a class="out" href={source}>Source<span aria-hidden="true">↗</span></a>
+		{#if project.site}
+			<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -- external -->
+			<a class="out" href={project.site}>Site<span aria-hidden="true">↗</span></a>
+		{/if}
+	</div>
+
+	<!--
+		What it does, scanned down the left and read across only where the claim
+		catches. A hairline between rows and nothing else: no cards, no borders,
+		the same rule the rail follows.
+	-->
+	{#if project.features.length}
+		<dl class="features">
+			{#each project.features as f (f.claim)}
+				<dt>{f.claim}</dt>
+				<dd>
+					{#each f.what.split('`') as part, i (i)}{#if i % 2}<code>{part}</code
+							>{:else}{part}{/if}{/each}
+				</dd>
+			{/each}
+		</dl>
+	{/if}
 </article>
 
 <style>
 	.project {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);
-		gap: var(--space-12);
+		gap: var(--space-6);
 		max-width: 68rem;
 	}
+	/* The name and the line on one row: the line is the argument, so it gets
+	   the width, and the name stays small enough not to shout over it. */
 	header {
-		max-width: var(--measure);
-	}
-	.title {
 		display: flex;
 		flex-wrap: wrap;
-		align-items: center;
-		gap: var(--space-2) var(--space-6);
+		align-items: baseline;
+		gap: var(--space-2) var(--space-4);
 	}
 	h1 {
 		display: flex;
 		align-items: center;
-		gap: var(--space-4);
+		gap: var(--space-3);
 		margin: 0;
-		font-size: var(--size-title);
+		font-size: 1.75rem;
 		font-weight: 600;
-		letter-spacing: -0.028em;
+		letter-spacing: -0.024em;
 		line-height: 1.1;
+	}
+	.line {
+		flex: 1 1 22rem;
+		margin: 0;
+		color: var(--ink);
+		font-size: var(--size-lead);
+		line-height: 1.4;
+		text-wrap: balance;
+	}
+	.notice {
+		margin: 0;
+		padding: var(--space-3) var(--space-4);
+		border-radius: var(--radius-s);
+		background: color-mix(in oklab, var(--amber) 6%, transparent);
+		box-shadow: inset 2px 0 0 color-mix(in oklab, var(--amber) 55%, transparent);
+		color: var(--muted);
+		font-size: var(--size-m);
+		text-wrap: pretty;
+	}
+
+	/* Under the demo: what it is, what it costs, where it lives. One row. */
+	.facts {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: var(--space-3) var(--space-6);
+		font-size: var(--size-m);
+	}
+	.install {
+		flex: 1 1 22rem;
+		min-width: 0;
 	}
 	/* One line of facts, one separator: a dot the page draws, not typed. */
 	.meta {
@@ -89,45 +141,8 @@
 		margin-inline: 0.5em;
 		color: var(--rule);
 	}
-	.meta > :global(.badge) + :global(*)::before {
-		margin-left: 0.625em;
-	}
 	.released {
 		color: var(--mint);
-	}
-	.line {
-		margin: var(--space-4) 0 0;
-		color: var(--ink);
-		font-size: var(--size-lead);
-		line-height: 1.45;
-		text-wrap: balance;
-	}
-	.more {
-		margin: var(--space-3) 0 0;
-		color: var(--muted);
-		text-wrap: pretty;
-	}
-	.notice {
-		margin: var(--space-4) 0 0;
-		padding: var(--space-3) var(--space-4);
-		border-radius: var(--radius-s);
-		background: color-mix(in oklab, var(--amber) 6%, transparent);
-		box-shadow: inset 2px 0 0 color-mix(in oklab, var(--amber) 55%, transparent);
-		color: var(--muted);
-		font-size: var(--size-m);
-		text-wrap: pretty;
-	}
-	.notice strong {
-		color: var(--amber);
-		font-weight: 500;
-	}
-	.actions {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: center;
-		gap: var(--space-3) var(--space-6);
-		margin-top: var(--space-6);
-		font-size: var(--size-m);
 	}
 	/* A way out of the page, said quietly: no underline until it is pointed at. */
 	.out {
@@ -151,8 +166,49 @@
 	.out:hover span {
 		transform: translate(1px, -1px);
 	}
-	.install {
-		flex: 1 1 22rem;
-		min-width: 0;
+
+	/* The claim column is fixed so the sentences start on one line and the
+	   left can be read on its own; a hairline between rows, and no box. */
+	.features {
+		display: grid;
+		grid-template-columns: 13rem minmax(0, 1fr);
+		column-gap: var(--space-8);
+		margin: var(--space-4) 0 0;
+		max-width: 56rem;
+		border-top: 1px solid var(--rule);
+	}
+	.features dt,
+	.features dd {
+		margin: 0;
+		padding: var(--space-3) 0;
+		border-bottom: 1px solid var(--rule);
+		font-size: var(--size-m);
+		line-height: 1.5;
+	}
+	.features dt {
+		color: var(--ink);
+		text-wrap: balance;
+	}
+	.features dd {
+		color: var(--muted);
+		text-wrap: pretty;
+	}
+	.features code {
+		font-size: 0.92em;
+	}
+
+	@media (max-width: 40rem) {
+		/* Too narrow for two columns: the claim becomes a heading over its
+		   sentence, and only the pair is ruled off. */
+		.features {
+			grid-template-columns: minmax(0, 1fr);
+		}
+		.features dt {
+			padding-bottom: 0;
+			border-bottom: 0;
+		}
+		.features dd {
+			padding-top: var(--space-1);
+		}
 	}
 </style>
