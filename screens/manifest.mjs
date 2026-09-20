@@ -49,7 +49,20 @@ cairn new "Rate-limit the public API" --type feature --set priority=p1
 cairn new "Crash when the config has a BOM" --type bug --set priority=p0
 cairn new "Export the roadmap as JSON" --type feature --set priority=p2
 cairn new "Document the schema format" --type feature --set priority=p2
+cairn new "Sessions expire an hour early" --type bug --set priority=p0 --label auth
+cairn new "Retry the webhook, with a ceiling" --type feature --set priority=p1
+cairn new "Drop the old migration path" --type chore --set priority=p3
+cairn new "Write the upgrade note" --type docs --set priority=p2
+# A board with one item in it is not a board: spread them across the columns
+# the way a real week leaves them. cairn init seeds 0001-0004, so the items
+# written above start at 0005.
 cairn set 5 status=doing
+cairn set 7 status=doing
+cairn set 10 status=blocked
+cairn set 6 status=planned
+cairn set 11 status=planned
+cairn set 12 status=done
+cairn set 13 status=done
 git add -A && git commit -qm "backlog"
 `;
 
@@ -72,6 +85,7 @@ for repo in orchard typeset ledger; do
   echo "unsaved" > ../.worktrees/$repo/fix-login/scratch.txt
   cd ..
 done`,
+		record: true,
 		steps: [
 			{ run: 'caligula --root ~/Code' },
 			{ wait: 'worktrees' },
@@ -81,6 +95,15 @@ done`,
 				caption:
 					'Every worktree on the machine, grouped by repository, with what each one would lose.'
 			},
+			// Getting started is learning the keys, as it is for the other TUIs.
+			{ type: '?' },
+			{ sleep: '800ms' },
+			{
+				shot: 'start',
+				caption: 'Every action is one key, and the help says which.'
+			},
+			{ key: 'Escape' },
+			{ sleep: '500ms' },
 			{ key: 'Down', times: 2 },
 			{ sleep: '600ms' },
 			{
@@ -88,11 +111,18 @@ done`,
 				caption:
 					'Selecting a worktree shows its branch, its head, and the work that exists nowhere else.'
 			},
-			{ type: '?' },
-			{ sleep: '600ms' },
+			// What it is for: clearing several at once, without losing the one
+			// that still has something in it.
+			{ key: 'Space' },
+			{ key: 'Down' },
+			{ key: 'Space' },
+			{ key: 'Down' },
+			{ key: 'Space' },
+			{ sleep: '800ms' },
 			{
 				shot: 'depth',
-				caption: 'Every action is one key: mark, fold, remove, prune, open a shell there.'
+				caption:
+					'Marked, several at a time — and the bar counts the commits that exist nowhere else before anything is removed.'
 			}
 		]
 	},
@@ -505,29 +535,142 @@ sleep 3`,
 
 	rsst: {
 		build: cargo,
+		// Live feeds would date the recording the way hackney's is dated, and
+		// would need the network from inside the container. Three feeds are
+		// written as files and served over the loopback instead, so the story
+		// reads the same entries every time it runs.
 		fixture: `
-mkdir -p ~/.rsst && cat > ~/.rsst/config.toml <<'TOML'
+mkdir -p ~/feeds ~/.rsst
+stamp() { date -u -d "$1 hours ago" +%Y-%m-%dT%H:%M:%SZ; }
+
+cat > ~/feeds/rust.xml <<XML
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Rust Blog</title>
+  <link href="http://127.0.0.1:8099/rust.xml" rel="self"/>
+  <updated>$(stamp 2)</updated>
+  <entry>
+    <title>Announcing Rust 1.94.0</title>
+    <link href="https://example.invalid/rust-1-94"/>
+    <id>tag:example.invalid,2026:rust-1-94</id>
+    <updated>$(stamp 2)</updated>
+    <content type="html">&lt;p&gt;The Rust team is happy to announce a new version of Rust, 1.94.0. Rust is a programming language empowering everyone to build reliable and efficient software.&lt;/p&gt;&lt;p&gt;This release stabilises &lt;code&gt;let&lt;/code&gt; chains in the 2024 edition, lands the new trait solver behind a flag, and cuts incremental rebuild times for large workspaces by around a fifth.&lt;/p&gt;&lt;h2&gt;What is in 1.94.0 stable&lt;/h2&gt;&lt;p&gt;Two changes are worth reading the release notes for in full. The first is the borrow checker accepting a pattern that has been rejected since 1.0.&lt;/p&gt;</content>
+  </entry>
+  <entry>
+    <title>Const generics: where we are</title>
+    <link href="https://example.invalid/const-generics"/>
+    <id>tag:example.invalid,2026:const-generics</id>
+    <updated>$(stamp 27)</updated>
+    <content type="html">&lt;p&gt;Const generics have been stable in their simplest form for some years. This post is about the part that is not stable yet, why it is hard, and what it would take to finish.&lt;/p&gt;</content>
+  </entry>
+  <entry>
+    <title>A new trait solver</title>
+    <link href="https://example.invalid/trait-solver"/>
+    <id>tag:example.invalid,2026:trait-solver</id>
+    <updated>$(stamp 74)</updated>
+    <content type="html">&lt;p&gt;Coherence, overlap, and why the old solver could not be fixed in place.&lt;/p&gt;</content>
+  </entry>
+  <entry>
+    <title>Async closures, stabilised</title>
+    <link href="https://example.invalid/async-closures"/>
+    <id>tag:example.invalid,2026:async-closures</id>
+    <updated>$(stamp 120)</updated>
+    <content type="html">&lt;p&gt;What they are, what they are not, and the three signatures you will actually write.&lt;/p&gt;</content>
+  </entry>
+</feed>
+XML
+
+cat > ~/feeds/tools.xml <<XML
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"><channel>
+  <title>This Week in Terminals</title>
+  <link>http://127.0.0.1:8099/tools.xml</link>
+  <description>Terminal tooling, weekly.</description>
+  <item>
+    <title>Ghostty 1.3 and the case for a fast terminal</title>
+    <link>https://example.invalid/ghostty-1-3</link>
+    <guid>https://example.invalid/ghostty-1-3</guid>
+    <pubDate>$(date -u -d "5 hours ago" +"%a, %d %b %Y %H:%M:%S GMT")</pubDate>
+    <description>Frame pacing, the shaper cache, and why input latency is the number that matters.</description>
+  </item>
+  <item>
+    <title>ratatui 0.30: the widget rewrite</title>
+    <link>https://example.invalid/ratatui-030</link>
+    <guid>https://example.invalid/ratatui-030</guid>
+    <pubDate>$(date -u -d "31 hours ago" +"%a, %d %b %Y %H:%M:%S GMT")</pubDate>
+    <description>StatefulWidget goes away, and what replaces it.</description>
+  </item>
+  <item>
+    <title>Reading a terminal's colours without asking it twice</title>
+    <link>https://example.invalid/osc-4</link>
+    <guid>https://example.invalid/osc-4</guid>
+    <pubDate>$(date -u -d "53 hours ago" +"%a, %d %b %Y %H:%M:%S GMT")</pubDate>
+    <description>OSC 4, OSC 11, and the timeout you need when nothing answers.</description>
+  </item>
+</channel></rss>
+XML
+
+cat > ~/feeds/writing.xml <<XML
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Notes on writing software</title>
+  <link href="http://127.0.0.1:8099/writing.xml" rel="self"/>
+  <updated>$(stamp 9)</updated>
+  <entry>
+    <title>The cost of a demo that lies</title>
+    <link href="https://example.invalid/honest-demos"/>
+    <id>tag:example.invalid,2026:honest-demos</id>
+    <updated>$(stamp 9)</updated>
+    <content type="html">&lt;p&gt;A screenshot with invented output is a promise you have not kept yet. Record the real thing or show nothing.&lt;/p&gt;</content>
+  </entry>
+  <entry>
+    <title>Fixtures are the product</title>
+    <link href="https://example.invalid/fixtures"/>
+    <id>tag:example.invalid,2026:fixtures</id>
+    <updated>$(stamp 40)</updated>
+    <content type="html">&lt;p&gt;Most of the work in photographing a tool is building a believable machine for it to run on.&lt;/p&gt;</content>
+  </entry>
+</feed>
+XML
+
+cd ~/feeds && nohup python3 -m http.server 8099 --bind 127.0.0.1 >/dev/null 2>&1 &
+sleep 1
+
+cat > ~/.rsst/config.toml <<'TOML'
 [[feeds]]
-url = "https://blog.rust-lang.org/feed.xml"
+url = "http://127.0.0.1:8099/rust.xml"
 title = "Rust Blog"
 tags = ["Rust"]
 
 [[feeds]]
-url = "https://this-week-in-rust.org/atom.xml"
-tags = ["Rust"]
+url = "http://127.0.0.1:8099/tools.xml"
+title = "This Week in Terminals"
+tags = ["Terminals"]
 
 [[feeds]]
-url = "https://simonwillison.net/atom/everything/"
-title = "Simon Willison"
-TOML`,
+url = "http://127.0.0.1:8099/writing.xml"
+title = "Notes on writing software"
+tags = ["Writing"]
+TOML
+`,
+		record: true,
 		steps: [
 			{ hidden: 'set -gx RSST_HOME ~/.rsst' },
 			{ run: 'rsst' },
-			{ sleep: '8s' },
+			{ wait: 'Rust' },
+			{ sleep: '2s' },
 			{
 				shot: 'hero',
 				caption: 'Feeds, their entries, and the selected entry rendered as a document.'
 			},
+			{ type: '?' },
+			{ sleep: '900ms' },
+			{
+				shot: 'start',
+				caption: 'Every key, in the app: move, cycle the panes, jump to the next unread, search.'
+			},
+			{ key: 'Escape' },
+			{ sleep: '400ms' },
 			{ key: 'Tab' },
 			{ key: 'Down', times: 2 },
 			{ sleep: '1s' },
@@ -535,25 +678,168 @@ TOML`,
 				shot: 'use',
 				caption:
 					'Moving through a feed swaps the entry below, links numbered against a reference list.'
+			},
+			// What it is for: reading, rather than skimming a list.
+			{ type: 'z' },
+			{ sleep: '1.2s' },
+			{
+				shot: 'depth',
+				caption: '`z` gives the article the whole screen, set to a measure you can actually read.'
 			}
 		]
 	},
 
 	trafford: {
 		build: cargo,
+		// `trafford init` makes a vault of two notes, which is enough to prove
+		// it works and not enough to photograph: a tree with nothing in it, an
+		// empty outline, one backlink. This is a vault somebody has been using.
+		fixture: `
+mkdir -p ~/vault/00-inbox ~/vault/01-projects ~/vault/03-resources/ai-ml
+cd ~/vault
+cat > '01-projects/Vault design.md' <<'MD'
+---
+title: Vault design
+tags: [meta, writing]
+---
+
+# Vault design
+
+A vault is a folder of markdown. Everything else — [[Linking]], [[Backlinks]],
+tags — is a way of reading that folder.
+
+The parts:
+
+- [[Linking]] resolves names, not paths
+- [[Backlinks]] appear without being asked for
+- [[Daily notes]] are where things land before they are filed
+
+See also [[Obsidian compatibility]].
+MD
+cat > '01-projects/Linking.md' <<'MD'
+---
+title: Linking
+tags: [meta]
+---
+
+# Linking
+
+Write \`[[Note name]]\` anywhere and it resolves against the vault: exact path
+first, then filename. The same rules [[Obsidian compatibility|Obsidian]] uses.
+
+A link to a note that does not exist yet is not an error. It is the vault's
+growing edge — see [[Backlinks]].
+MD
+cat > '01-projects/Backlinks.md' <<'MD'
+---
+title: Backlinks
+tags: [meta]
+---
+
+# Backlinks
+
+Every note that points here, with the line it pointed from. Nothing to
+maintain: they are derived from [[Linking]], not written down.
+MD
+cat > '01-projects/Obsidian compatibility.md' <<'MD'
+---
+title: Obsidian compatibility
+tags: [meta, compat]
+---
+
+# Obsidian compatibility
+
+Same vault, same links, same frontmatter. See [[Vault design]].
+MD
+cat > '00-inbox/Daily notes.md' <<'MD'
+---
+title: Daily notes
+tags: [routine]
+---
+
+# Daily notes
+
+Where a thought lands before it is filed. Most of them become nothing; the
+ones that do not get moved into [[01-projects]] and linked from
+[[Vault design]].
+MD
+cat > '00-inbox/Read later.md' <<'MD'
+---
+title: Read later
+tags: [routine]
+---
+
+# Read later
+
+- Ted Nelson on transclusion
+- The Zettelkasten papers
+MD
+cat > '03-resources/ai-ml/Retrieval.md' <<'MD'
+---
+title: Retrieval
+tags: [ai, reading]
+---
+
+# Retrieval
+
+Keyword overlap gets you further than it has any right to. Relevant to
+[[Vault design]]: the assistant reads the vault before it answers.
+MD
+cat > '03-resources/ai-ml/Embeddings.md' <<'MD'
+---
+title: Embeddings
+tags: [ai, reading]
+---
+
+# Embeddings
+
+Notes on vector search. Compare [[Retrieval]].
+MD
+cat > 'Welcome.md' <<'MD'
+---
+title: Welcome
+tags: [meta]
+---
+
+# Welcome
+
+Start at [[Vault design]].
+MD
+git init -q
+git add -A && git commit -qm "notes"
+# A little uncommitted work, so the status bar has something true to say.
+printf '\nAnd a line written since the last commit.\n' >> '00-inbox/Daily notes.md'
+`,
+		record: true,
 		steps: [
-			{ run: 'trafford init ~/vault' },
+			{ run: 'trafford init ~/starter' },
 			{ sleep: '1s' },
 			{
 				shot: 'start',
 				caption: '`trafford init` lays out a vault with starter notes, a config and a git repo.'
 			},
-			{ run: 'trafford ~/vault' },
+			{ run: 'clear; trafford ~/vault' },
 			{ sleep: '3s' },
 			{
 				shot: 'hero',
 				caption:
 					'A markdown vault with its tree, the note being edited, and its links and backlinks.'
+			},
+			// All of it is clickable, and right-click answers with what can be
+			// done to whatever is under the pointer.
+			{ click: 'Linking' },
+			{ sleep: '1.2s' },
+			{
+				shot: 'use',
+				caption:
+					'Clicking a link opens that note, and the right-hand pane follows: its outline, what it points at, and what points back.'
+			},
+			{ key: 'Ctrl+G' },
+			{ sleep: '1.2s' },
+			{
+				shot: 'depth',
+				caption:
+					'Git is in the status bar and one key away: stage, diff, commit and push, without leaving the vault.'
 			}
 		]
 	},
@@ -562,6 +848,7 @@ TOML`,
 		build: cargo,
 		path: ['target/release', '/cache/target/cairn/release'],
 		fixture: cairnBacklog,
+		record: true,
 		steps: [
 			{ run: 'harrow' },
 			{ sleep: '2s' },
@@ -569,11 +856,28 @@ TOML`,
 				shot: 'hero',
 				caption: 'A cairn backlog by milestone, with the selected item’s acceptance and fields.'
 			},
+			// Getting started is the key row, as it is for the other TUIs.
+			{ type: '?' },
+			{ sleep: '800ms' },
+			{
+				shot: 'start',
+				caption: 'Read, claim, set a status, close, filter: one key each, and the help lists them.'
+			},
+			{ key: 'Escape' },
+			{ sleep: '400ms' },
 			{ key: 'Down', times: 2 },
 			{ sleep: '500ms' },
 			{
 				shot: 'use',
-				caption: 'Moving through the backlog; claim, status and close are single keys.'
+				caption:
+					'Moving down the backlog swaps the item beside it: its acceptance criteria, and how many are ticked.'
+			},
+			// What it is for: forty items are a board, not a list.
+			{ key: 'Tab' },
+			{ sleep: '900ms' },
+			{
+				shot: 'depth',
+				caption: 'The same backlog as a board: what is waiting, what is moving, what is done.'
 			}
 		]
 	},
@@ -581,6 +885,7 @@ TOML`,
 	nun: {
 		build: cargoAll,
 		stage: 'repo',
+		record: true,
 		steps: [
 			{ run: 'nun README.md' },
 			{ sleep: '2s' },
@@ -589,9 +894,27 @@ TOML`,
 				caption:
 					'The editor, in the terminal’s own colours, with one config file you will rarely open.'
 			},
+			// The point of nun, and the first real exercise of the pointer track:
+			// it is driven by the mouse, so the recording has to draw the mouse.
+			{ scroll: 4, at: 'terminal' },
+			{ sleep: '600ms' },
+			{ click: 'status line' },
+			{ sleep: '800ms' },
+			{
+				shot: 'use',
+				caption:
+					'The mouse does what it does everywhere else: a click puts the caret where you clicked, the wheel scrolls, and the status line follows.'
+			},
 			{ key: 'Escape' },
 			{ key: 'Ctrl+Q' },
-			{ run: 'nun config' },
+			{ sleep: '1s' },
+			{ run: 'clear; nun keys' },
+			{ sleep: '1.2s' },
+			{
+				shot: 'start',
+				caption: '`nun keys` lists every command and the key bound to it, yours included.'
+			},
+			{ run: 'clear; nun config' },
 			{ sleep: '1s' },
 			{
 				shot: 'depth',
@@ -605,6 +928,7 @@ TOML`,
 	cairn: {
 		build: cargo,
 		fixture: cairnBacklog,
+		record: true,
 		steps: [
 			{ run: 'cairn board' },
 			{ sleep: '1s' },
@@ -627,6 +951,7 @@ TOML`,
 	brainiac: {
 		build: cargo,
 		stage: 'repo',
+		record: true,
 		steps: [
 			{ run: 'brainiac index' },
 			{ sleep: '4s' },
@@ -642,6 +967,15 @@ TOML`,
 			{
 				shot: 'hero',
 				caption: 'The repository’s skeleton, ranked by reference and sized to a token budget.'
+			},
+			// The budget is the whole idea: the same map, told to fit a quarter
+			// of the room, and what it keeps when it cannot keep everything.
+			{ run: 'clear; brainiac map -b 400' },
+			{ sleep: '2s' },
+			{
+				shot: 'depth',
+				caption:
+					'The same map at a quarter of the budget: what a smaller context window still gets told.'
 			}
 		]
 	},

@@ -6,14 +6,13 @@ The tools I build for my own terminal, each one running.
 
 ## platform — The site can show what the tools need
 
-`####······` 33% · 2 of 6 done · due 2026-10-04
+`#####·····` 50% · 3 of 6 done · due 2026-10-04
 
 Two views, not three: a recording and the screens. The typed session goes.
 
 ### backlog
 
 - [ ] [`0007`](https://github.com/oddurs/devtools/blob/main/cairn/items/0007-take-the-typed-sessions-out-of-the-data-and-the-docs.md) Take the typed sessions out of the data and the docs <sup>chore · p1</sup>
-- [ ] [`0010`](https://github.com/oddurs/devtools/blob/main/cairn/items/0010-link-every-tool-that-has-a-site-of-its-own.md) Link every tool that has a site of its own <sup>feature · p1</sup>
 - [ ] [`0011`](https://github.com/oddurs/devtools/blob/main/cairn/items/0011-bring-the-recordings-doc-up-to-date.md) Bring the recordings doc up to date <sup>docs · p2</sup>
 
 ### planned
@@ -24,6 +23,7 @@ Two views, not three: a recording and the screens. The typed session goes.
 
 - [x] [`0008`](https://github.com/oddurs/devtools/blob/main/cairn/items/0008-a-gallery-for-tools-whose-output-is-pictures.md) A gallery, for tools whose output is pictures <sup>feature · p0</sup>
 - [x] [`0009`](https://github.com/oddurs/devtools/blob/main/cairn/items/0009-an-audio-sample-for-tools-you-hear.md) An audio sample, for tools you hear <sup>feature · p0</sup>
+- [x] [`0010`](https://github.com/oddurs/devtools/blob/main/cairn/items/0010-link-every-tool-that-has-a-site-of-its-own.md) Link every tool that has a site of its own <sup>feature · p1</sup>
 
 ## wave-1 — The seven that are already shot
 
@@ -43,19 +43,22 @@ Seven pages that need nothing but their words finishing.
 
 ## wave-2 — The seven with a story but no recording
 
-`··········` 0% · 0 of 7 done · due 2026-10-25
+`########··` 71% · 5 of 7 done · due 2026-10-25
 
 Seven stories that need their missing beats filled and a recording made.
 
-### backlog
+### in progress
 
-- [ ] [`0019`](https://github.com/oddurs/devtools/blob/main/cairn/items/0019-caligula-fill-the-beats-and-record-it.md) caligula: fill the beats and record it <sup>page · p1 · caligula</sup>
-- [ ] [`0020`](https://github.com/oddurs/devtools/blob/main/cairn/items/0020-brainiac-fill-the-beats-and-record-it.md) brainiac: fill the beats and record it <sup>page · p1 · brainiac</sup>
-- [ ] [`0021`](https://github.com/oddurs/devtools/blob/main/cairn/items/0021-nun-fill-the-beats-and-record-it.md) nun: fill the beats and record it <sup>page · p1 · nun</sup>
-- [ ] [`0022`](https://github.com/oddurs/devtools/blob/main/cairn/items/0022-cairn-record-it.md) cairn: record it <sup>page · p1 · cairn</sup>
-- [ ] [`0023`](https://github.com/oddurs/devtools/blob/main/cairn/items/0023-harrow-fill-the-beats-and-record-it.md) harrow: fill the beats and record it <sup>page · p1 · harrow</sup>
 - [ ] [`0024`](https://github.com/oddurs/devtools/blob/main/cairn/items/0024-trafford-fill-the-beats-and-record-it.md) trafford: fill the beats and record it <sup>page · p1 · trafford</sup>
 - [ ] [`0025`](https://github.com/oddurs/devtools/blob/main/cairn/items/0025-rsst-fill-the-beats-and-record-it.md) rsst: fill the beats and record it <sup>page · p1 · rsst</sup>
+
+### done
+
+- [x] [`0019`](https://github.com/oddurs/devtools/blob/main/cairn/items/0019-caligula-fill-the-beats-and-record-it.md) caligula: fill the beats and record it <sup>page · p1 · caligula</sup>
+- [x] [`0020`](https://github.com/oddurs/devtools/blob/main/cairn/items/0020-brainiac-fill-the-beats-and-record-it.md) brainiac: fill the beats and record it <sup>page · p1 · brainiac</sup>
+- [x] [`0021`](https://github.com/oddurs/devtools/blob/main/cairn/items/0021-nun-fill-the-beats-and-record-it.md) nun: fill the beats and record it <sup>page · p1 · nun</sup>
+- [x] [`0022`](https://github.com/oddurs/devtools/blob/main/cairn/items/0022-cairn-record-it.md) cairn: record it <sup>page · p1 · cairn</sup>
+- [x] [`0023`](https://github.com/oddurs/devtools/blob/main/cairn/items/0023-harrow-fill-the-beats-and-record-it.md) harrow: fill the beats and record it <sup>page · p1 · harrow</sup>
 
 ## wave-3 — The ten with nothing to show yet
 

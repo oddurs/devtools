@@ -33,7 +33,7 @@ export default defineConfig({
 	// What the site is built on is pure functions; they are tested as such, in
 	// Node, in a file beside the module each one belongs to.
 	test: {
-		include: ['src/**/*.test.ts'],
+		include: ['src/**/*.test.ts', 'screens/*.test.ts'],
 		environment: 'node'
 	}
 });

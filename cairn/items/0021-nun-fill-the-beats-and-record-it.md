@@ -1,8 +1,8 @@
 ---
 id: 21
-title: "nun: fill the beats and record it"
+title: 'nun: fill the beats and record it'
 type: page
-status: backlog
+status: done
 milestone: wave-2
 created: 2026-09-20
 updated: 2026-09-20
@@ -34,9 +34,13 @@ worth checking here, since nun may rely on them.
 
 ## Acceptance criteria
 
-- [ ] A four-beat story in `screens/manifest.mjs`: at a glance, getting started, in use, in depth
-- [ ] Four screenshots, shot in the current palette, none of them half empty
-- [ ] `record: true`, and the recording plays clean from a fresh build
-- [ ] Captions say what the beat shows, not what was typed
-- [ ] `line` and `more` finished, and the state and version true
-- [ ] A site link, if the tool has a site of its own
+- [x] A four-beat story in `screens/manifest.mjs`: at a glance, getting started, in use, in depth
+- [x] Four screenshots, shot in the current palette, none of them half empty
+- [x] `record: true`, and the recording plays clean from a fresh build
+- [x] Captions say what the beat shows, not what was typed
+- [x] `line` and `more` finished, and the state and version true
+- [x] A site link, if the tool has a site of its own
+
+## 2026-09-20
+
+Shot and recorded, 4 beats, 13.3 s cast. First real exercise of the pointer track, and it worked: the wheel scrolls and a click moves the caret, with the status line following to Ln/Col. Ordered scroll-then-click after the first take left the caret just off screen. `nun keys` is the start beat, `nun config` the depth one. The drag problem noted against poptop was not hit, because this story does not need a drag to make its point.

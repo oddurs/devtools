@@ -1,8 +1,8 @@
 ---
 id: 20
-title: "brainiac: fill the beats and record it"
+title: 'brainiac: fill the beats and record it'
 type: page
-status: backlog
+status: done
 milestone: wave-2
 created: 2026-09-20
 updated: 2026-09-20
@@ -31,9 +31,13 @@ end when the budget shrinks is the argument for the tool.
 
 ## Acceptance criteria
 
-- [ ] A four-beat story in `screens/manifest.mjs`: at a glance, getting started, in use, in depth
-- [ ] Four screenshots, shot in the current palette, none of them half empty
-- [ ] `record: true`, and the recording plays clean from a fresh build
-- [ ] Captions say what the beat shows, not what was typed
-- [ ] `line` and `more` finished, and the state and version true
-- [ ] A site link, if the tool has a site of its own
+- [x] A four-beat story in `screens/manifest.mjs`: at a glance, getting started, in use, in depth
+- [x] Four screenshots, shot in the current palette, none of them half empty
+- [x] `record: true`, and the recording plays clean from a fresh build
+- [x] Captions say what the beat shows, not what was typed
+- [x] `line` and `more` finished, and the state and version true
+- [x] A site link, if the tool has a site of its own
+
+## 2026-09-20
+
+Shot and recorded, 4 beats, 14.6 s cast. The missing beat was in depth and the token budget was the right answer: the same repo map at -b 400 instead of -b 1500, captioned as what a smaller context window still gets told. Copy unchanged — it was already right.

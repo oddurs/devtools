@@ -1,8 +1,8 @@
 ---
 id: 25
-title: "rsst: fill the beats and record it"
+title: 'rsst: fill the beats and record it'
 type: page
-status: backlog
+status: doing
 milestone: wave-2
 created: 2026-09-20
 updated: 2026-09-20

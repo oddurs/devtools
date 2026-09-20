@@ -75,6 +75,7 @@ export const sections: Section[] = [
 				lang: 'Rust',
 				install: 'brew install oddurs/tap/quarry',
 				tags: ['ports', 'dev servers', 'ratatui'],
+				site: 'https://oddurs.github.io/quarry/',
 				demo: [
 					{
 						cmd: 'quarry',
@@ -259,7 +260,7 @@ export const sections: Section[] = [
 				name: 'cairn',
 				kind: 'cli',
 				line: 'A roadmap and issue manager that lives in your repository.',
-				more: 'Every item is a Markdown file with YAML frontmatter, under a schema you define in cairn.toml. Versioned with the code, reviewable in a pull request, and exposed to agents over MCP.',
+				more: 'Every item is a Markdown file with YAML frontmatter, under a schema you define in cairn.toml. Versioned with the code, reviewable in a pull request, and exposed to agents over MCP. The roadmap for this site is kept in it.',
 				state: {
 					kind: 'released',
 					version: '0.2.1'
@@ -268,6 +269,7 @@ export const sections: Section[] = [
 				lang: 'Rust',
 				install: 'curl -fsSL https://raw.githubusercontent.com/oddurs/cairn/main/install.sh | sh',
 				tags: ['issues', 'markdown', 'mcp'],
+				site: 'https://oddurs.github.io/cairn/',
 				demo: [
 					{
 						cmd: 'cairn init                                    # writes cairn.toml + cairn/items/'
@@ -471,6 +473,7 @@ export const sections: Section[] = [
 				lang: 'Go',
 				install: 'brew install oddurs/tap/knit',
 				tags: ['distributed', 'mdns', 'compute'],
+				site: 'https://oddurs.github.io/knit/',
 				demo: [
 					{
 						cmd: 'knit up -d            # start sharing this machine, in the background'
@@ -500,6 +503,7 @@ export const sections: Section[] = [
 				lang: 'Rust',
 				install: 'cargo install --git https://github.com/oddurs/fontina fontina-cli',
 				tags: ['fonts', 'tauri', 'opentype'],
+				site: 'https://oddurs.github.io/fontina/',
 				demo: [
 					{
 						cmd: 'fontina scan --system            # index the OS font directories'
@@ -528,6 +532,7 @@ export const sections: Section[] = [
 				install:
 					'git clone https://github.com/oddurs/clackson && cd clackson && make install PREFIX=$HOME/.local',
 				tags: ['audio', 'synthesis', 'macos'],
+				site: 'https://gummyworm.dev/',
 				demo: [
 					{
 						cmd: 'clackson -p typewriter --demo'
@@ -575,12 +580,12 @@ export const sections: Section[] = [
 				kind: 'cli',
 				line: 'An astronomy toolkit that shows its work.',
 				more: 'Sun and Moon positions, rise and set, twilight, phases, coordinate transforms and Julian dates. Every calculation can print every step it took, which turns an opaque number into something you can follow. Pure Python, nothing compiled.',
-				state: { kind: 'released', version: '0.4.1' },
+				state: { kind: 'released', version: '0.4.0' },
 				license: 'MIT',
 				lang: 'Python',
 				install: 'pip install starward',
 				tags: ['astronomy', 'ephemeris', 'teaching'],
-				site: 'https://starward.dev',
+				site: 'https://starward.dev/',
 				demo: [
 					{ cmd: 'starward time now                      # the astronomical clocks, right now' },
 					{ cmd: 'starward sun rise --lat 51.5 --lon -0.1' },

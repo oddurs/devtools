@@ -2,8 +2,8 @@
   "brainiac": {
     "runner": "terminal",
     "commit": "65701fc0ee2b",
-    "takenAt": "2026-09-18T03:26:05.312Z",
-    "background": "#070a0f",
+    "takenAt": "2026-09-20T05:07:36.170Z",
+    "background": "#0d0d0c",
     "shots": [
       {
         "beat": "hero",
@@ -25,14 +25,46 @@
         "src": "/media/screens/brainiac/03-use.webp",
         "width": 1600,
         "height": 1000
+      },
+      {
+        "beat": "depth",
+        "caption": "The same map at a quarter of the budget: what a smaller context window still gets told.",
+        "src": "/media/screens/brainiac/04-depth.webp",
+        "width": 1600,
+        "height": 1000
       }
-    ]
+    ],
+    "cast": {
+      "src": "/media/casts/brainiac.cast",
+      "cols": 125,
+      "rows": 29,
+      "duration": 14.602,
+      "bytes": 20702,
+      "markers": [
+        [
+          3.183,
+          "start"
+        ],
+        [
+          7.661,
+          "use"
+        ],
+        [
+          11.174,
+          "hero"
+        ],
+        [
+          14.602,
+          "depth"
+        ]
+      ]
+    }
   },
   "cairn": {
     "runner": "terminal",
-    "commit": "ad2e5d36499a",
-    "takenAt": "2026-09-18T03:25:50.934Z",
-    "background": "#070a0f",
+    "commit": "3d67f0c7ea57",
+    "takenAt": "2026-09-20T05:14:23.657Z",
+    "background": "#0d0d0c",
     "shots": [
       {
         "beat": "hero",
@@ -62,13 +94,38 @@
         "width": 1600,
         "height": 1000
       }
-    ]
+    ],
+    "cast": {
+      "src": "/media/casts/cairn.cast",
+      "cols": 125,
+      "rows": 29,
+      "duration": 12.104,
+      "bytes": 14578,
+      "markers": [
+        [
+          2.309,
+          "hero"
+        ],
+        [
+          7.519,
+          "start"
+        ],
+        [
+          9.785,
+          "use"
+        ],
+        [
+          12.104,
+          "depth"
+        ]
+      ]
+    }
   },
   "caligula": {
     "runner": "terminal",
-    "commit": "356751854c00",
-    "takenAt": "2026-09-18T03:23:57.161Z",
-    "background": "#070a0f",
+    "commit": "18210d54f619",
+    "takenAt": "2026-09-20T05:10:12.508Z",
+    "background": "#0d0d0c",
     "shots": [
       {
         "beat": "hero",
@@ -78,20 +135,52 @@
         "height": 1000
       },
       {
+        "beat": "start",
+        "caption": "Every action is one key, and the help says which.",
+        "src": "/media/screens/caligula/02-start.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
         "beat": "use",
         "caption": "Selecting a worktree shows its branch, its head, and the work that exists nowhere else.",
-        "src": "/media/screens/caligula/02-use.webp",
+        "src": "/media/screens/caligula/03-use.webp",
         "width": 1600,
         "height": 1000
       },
       {
         "beat": "depth",
-        "caption": "Every action is one key: mark, fold, remove, prune, open a shell there.",
-        "src": "/media/screens/caligula/03-depth.webp",
+        "caption": "Marked, several at a time — and the bar counts the commits that exist nowhere else before anything is removed.",
+        "src": "/media/screens/caligula/04-depth.webp",
         "width": 1600,
         "height": 1000
       }
-    ]
+    ],
+    "cast": {
+      "src": "/media/casts/caligula.cast",
+      "cols": 125,
+      "rows": 29,
+      "duration": 10.555,
+      "bytes": 36186,
+      "markers": [
+        [
+          3.65,
+          "hero"
+        ],
+        [
+          5.1,
+          "start"
+        ],
+        [
+          7.195,
+          "use"
+        ],
+        [
+          9.29,
+          "depth"
+        ]
+      ]
+    }
   },
   "gummyworm": {
     "runner": "terminal",
@@ -217,9 +306,9 @@
   },
   "harrow": {
     "runner": "terminal",
-    "commit": "3b0b78affab5",
-    "takenAt": "2026-09-18T03:25:31.862Z",
-    "background": "#070a0f",
+    "commit": "be7f1f391a13",
+    "takenAt": "2026-09-20T05:14:44.976Z",
+    "background": "#0d0d0c",
     "shots": [
       {
         "beat": "hero",
@@ -229,19 +318,58 @@
         "height": 1000
       },
       {
+        "beat": "start",
+        "caption": "Read, claim, set a status, close, filter: one key each, and the help lists them.",
+        "src": "/media/screens/harrow/02-start.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
         "beat": "use",
-        "caption": "Moving through the backlog; claim, status and close are single keys.",
-        "src": "/media/screens/harrow/02-use.webp",
+        "caption": "Moving down the backlog swaps the item beside it: its acceptance criteria, and how many are ticked.",
+        "src": "/media/screens/harrow/03-use.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "depth",
+        "caption": "The same backlog as a board: what is waiting, what is moving, what is done.",
+        "src": "/media/screens/harrow/04-depth.webp",
         "width": 1600,
         "height": 1000
       }
-    ]
+    ],
+    "cast": {
+      "src": "/media/casts/harrow.cast",
+      "cols": 125,
+      "rows": 29,
+      "duration": 8.625,
+      "bytes": 42410,
+      "markers": [
+        [
+          3.062,
+          "hero"
+        ],
+        [
+          4.468,
+          "start"
+        ],
+        [
+          6.361,
+          "use"
+        ],
+        [
+          7.976,
+          "depth"
+        ]
+      ]
+    }
   },
   "nun": {
     "runner": "terminal",
-    "commit": "8e8fe98225e9",
-    "takenAt": "2026-09-18T03:25:39.982Z",
-    "background": "#070a0f",
+    "commit": "0b8535f9af64",
+    "takenAt": "2026-09-20T05:13:00.295Z",
+    "background": "#0d0d0c",
     "shots": [
       {
         "beat": "hero",
@@ -251,13 +379,52 @@
         "height": 1000
       },
       {
+        "beat": "start",
+        "caption": "`nun keys` lists every command and the key bound to it, yours included.",
+        "src": "/media/screens/nun/02-start.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "use",
+        "caption": "The mouse does what it does everywhere else: a click puts the caret where you clicked, the wheel scrolls, and the status line follows.",
+        "src": "/media/screens/nun/03-use.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
         "beat": "depth",
         "caption": "`nun config` prints the effective configuration and where each value came from.",
-        "src": "/media/screens/nun/02-depth.webp",
+        "src": "/media/screens/nun/04-depth.webp",
         "width": 1600,
         "height": 1000
       }
-    ]
+    ],
+    "cast": {
+      "src": "/media/casts/nun.cast",
+      "cols": 125,
+      "rows": 29,
+      "duration": 13.334,
+      "bytes": 37645,
+      "markers": [
+        [
+          3.021,
+          "hero"
+        ],
+        [
+          7.014,
+          "use"
+        ],
+        [
+          10.865,
+          "start"
+        ],
+        [
+          13.334,
+          "depth"
+        ]
+      ]
+    }
   },
   "poptop": {
     "runner": "terminal",
@@ -467,8 +634,8 @@
   "trafford": {
     "runner": "terminal",
     "commit": "4483f82422d5",
-    "takenAt": "2026-09-18T03:25:18.254Z",
-    "background": "#070a0f",
+    "takenAt": "2026-09-20T05:16:16.017Z",
+    "background": "#0d0d0c",
     "shots": [
       {
         "beat": "hero",
@@ -483,8 +650,47 @@
         "src": "/media/screens/trafford/02-start.webp",
         "width": 1600,
         "height": 1000
+      },
+      {
+        "beat": "use",
+        "caption": "Clicking a link opens that note, and the right-hand pane follows: its outline, what it points at, and what points back.",
+        "src": "/media/screens/trafford/03-use.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "depth",
+        "caption": "Git is in the status bar and one key away: stage, diff, commit and push, without leaving the vault.",
+        "src": "/media/screens/trafford/04-depth.webp",
+        "width": 1600,
+        "height": 1000
       }
-    ]
+    ],
+    "cast": {
+      "src": "/media/casts/trafford.cast",
+      "cols": 125,
+      "rows": 29,
+      "duration": 13.765,
+      "bytes": 42251,
+      "markers": [
+        [
+          2.944,
+          "start"
+        ],
+        [
+          7.755,
+          "hero"
+        ],
+        [
+          10.526,
+          "use"
+        ],
+        [
+          12.431,
+          "depth"
+        ]
+      ]
+    }
   },
   "tsi": {
     "runner": "terminal",
