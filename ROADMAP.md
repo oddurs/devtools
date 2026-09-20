@@ -57,13 +57,12 @@ Seven stories that need their missing beats filled and a recording made.
 
 ## wave-3 — The ten with nothing to show yet
 
-`######····` 60% · 6 of 10 done · due 2026-11-22
+`#######···` 70% · 7 of 10 done · due 2026-11-22
 
 Ten tools with no story at all. This is the wave that gates the rest.
 
 ### blocked
 
-- [ ] [`0027`](https://github.com/oddurs/devtools/blob/main/cairn/items/0027-rigor-a-story-from-nothing.md) rigor: a story from nothing <sup>page · p2 · rigor</sup>
 - [ ] [`0029`](https://github.com/oddurs/devtools/blob/main/cairn/items/0029-brevity-a-story-from-nothing.md) brevity: a story from nothing <sup>page · p2 · brevity</sup>
 - [ ] [`0031`](https://github.com/oddurs/devtools/blob/main/cairn/items/0031-knit-a-story-from-nothing.md) knit: a story from nothing <sup>page · p2 · knit</sup>
 - [ ] [`0033`](https://github.com/oddurs/devtools/blob/main/cairn/items/0033-clackson-a-story-from-nothing.md) clackson: a story from nothing <sup>page · p0 · clackson</sup>
@@ -71,6 +70,7 @@ Ten tools with no story at all. This is the wave that gates the rest.
 ### done
 
 - [x] [`0026`](https://github.com/oddurs/devtools/blob/main/cairn/items/0026-andy-a-story-from-nothing.md) andy: a story from nothing <sup>page · p1 · andy</sup>
+- [x] [`0027`](https://github.com/oddurs/devtools/blob/main/cairn/items/0027-rigor-a-story-from-nothing.md) rigor: a story from nothing <sup>page · p2 · rigor</sup>
 - [x] [`0028`](https://github.com/oddurs/devtools/blob/main/cairn/items/0028-jerk-a-story-from-nothing.md) jerk: a story from nothing <sup>page · p2 · jerk</sup>
 - [x] [`0030`](https://github.com/oddurs/devtools/blob/main/cairn/items/0030-polkadot-a-story-from-nothing.md) polkadot: a story from nothing <sup>page · p1 · polkadot</sup>
 - [x] [`0032`](https://github.com/oddurs/devtools/blob/main/cairn/items/0032-fontina-a-story-from-nothing.md) fontina: a story from nothing <sup>page · p2 · fontina</sup>

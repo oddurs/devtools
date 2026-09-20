@@ -868,6 +868,67 @@
       ]
     }
   },
+  "rigor": {
+    "runner": "terminal",
+    "commit": "0ac56f027895",
+    "takenAt": "2026-09-20T16:29:28.176Z",
+    "background": "#0d0d0c",
+    "shots": [
+      {
+        "beat": "hero",
+        "caption": "Every pull request open on the repository you are standing in, with its checks rolled up into one glyph: what is ready to merge, and what is not.",
+        "src": "/media/screens/rigor/01-hero.webp",
+        "width": 1600,
+        "height": 1200
+      },
+      {
+        "beat": "start",
+        "caption": "Open it, open its checks, copy its URL, filter, reorder, show the drafts — one key each.",
+        "src": "/media/screens/rigor/02-start.webp",
+        "width": 1600,
+        "height": 1200
+      },
+      {
+        "beat": "use",
+        "caption": "What is not ready, and why: red checks, requested changes, or a conflict — with every check run behind the glyph expanded for the one selected.",
+        "src": "/media/screens/rigor/03-use.webp",
+        "width": 1600,
+        "height": 1200
+      },
+      {
+        "beat": "depth",
+        "caption": "The other half: every worktree on the machine against the pull request it belongs to, and which of them are safe to collect.",
+        "src": "/media/screens/rigor/04-depth.webp",
+        "width": 1600,
+        "height": 1200
+      }
+    ],
+    "cast": {
+      "src": "/media/casts/rigor.cast",
+      "cols": 125,
+      "rows": 36,
+      "duration": 14.262,
+      "bytes": 50390,
+      "markers": [
+        [
+          4.973,
+          "hero"
+        ],
+        [
+          6.856,
+          "start"
+        ],
+        [
+          10.907,
+          "use"
+        ],
+        [
+          14.069,
+          "depth"
+        ]
+      ]
+    }
+  },
   "rsst": {
     "runner": "terminal",
     "commit": "84652db25086",

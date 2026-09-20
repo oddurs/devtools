@@ -100,6 +100,13 @@ USER root
 RUN apt-get update && apt-get install -y --no-install-recommends imagemagick \
     && rm -rf /var/lib/apt/lists/*
 
+# One layer later again: the GitHub CLI, for the one tool that reads GitHub
+# rather than the filesystem. rigor asks `gh` for pull requests, so the rig
+# has to have it — and a token, which scripts/screens.sh borrows from the
+# desk's own gh and the runner hands only to stories that ask for it.
+RUN apt-get update && apt-get install -y --no-install-recommends gh \
+    && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /work/site
 
 ENTRYPOINT ["node", "/work/site/screens/runner/run.mjs"]

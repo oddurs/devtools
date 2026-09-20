@@ -29,6 +29,28 @@ A recording is an [asciicast v2](https://docs.asciinema.org/manual/asciicast/v2/
 file: the exact bytes the program wrote, with timestamps. Nothing is invented.
 The screenshots stay as posters and as the first frame.
 
+## The one story that needs a credential
+
+rigor reads GitHub through `gh` rather than reading the filesystem, so it is
+the only story that needs a token. The arrangement, in three parts:
+
+- `scripts/screens.sh` borrows the desk's own token with `gh auth token` and
+  passes it as `-e GH_TOKEN`. Nothing is stored, nothing is committed, nothing
+  needs rotating, and because it goes by environment rather than on the
+  command line it never reaches `ps`.
+- A story has to ask for it: `github: true`. The runner deletes `GH_TOKEN`
+  from the environment of every story that does not, so no other tool's build
+  script or fixture ever sees a credential — and a story that asks for one
+  and does not get it fails loudly rather than photographing an empty
+  dashboard.
+- `src/lib/data/secrets.test.ts` scans everything the runner writes — the
+  index, every cast, the stories, the hand-committed captures — for the
+  shapes credentials come in. A cast is a recording of a terminal, so
+  anything that ever reached the screen would be committed for good.
+
+The consequence to accept: rigor's page shows the pull requests that were
+open on the day it was shot, and dates itself the way hackney's does.
+
 ## Two sources, the same shapes
 
 The studio is a Linux container, and four of these tools only run on a Mac.

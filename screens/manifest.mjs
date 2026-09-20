@@ -1690,6 +1690,76 @@ find /usr/share/fonts -name '*.ttf' -o -name '*.otf' | wc -l`,
 		]
 	},
 
+	rigor: {
+		build: cargo,
+		// The one story that reads GitHub rather than the filesystem. `github`
+		// is what lets the token reach it: scripts/screens.sh borrows the
+		// desk's own gh auth, and the runner hands it to this story and to no
+		// other, so nothing else's build ever sees a credential.
+		github: true,
+		// rigor runs inside a checkout and reports on that repository's pull
+		// requests, so the fixture is a real checkout with real ones. quarry
+		// is the busiest of them. Nothing here is staged: these are whatever
+		// was actually open on the day it was shot, which is the same bargain
+		// hackney's page makes.
+		fixture: `
+cd ~/src
+git clone --quiet https://github.com/oddurs/quarry.git quarry
+cd quarry
+git config user.name dev
+git config user.email dev@example.invalid
+# Worktrees for branches that actually have pull requests open, and checked
+# out as branches rather than detached — rigor matches a worktree to its pull
+# request by branch and commit, and a detached head matches nothing.
+for branch in $(gh pr list --limit 4 --json headRefName -q '.[].headRefName'); do
+  dir=$(echo "$branch" | tr '/' '-')
+  git worktree add -q "../.worktrees/quarry/$dir" -b "$branch" "origin/$branch" 2>/dev/null || true
+done
+git worktree list`,
+		record: true,
+		terminal: { height: 1200 },
+		steps: [
+			{ hidden: 'cd ~/src/quarry' },
+			{ run: 'rigor' },
+			{ wait: 'Ready|Blocked|Worktrees', timeout: '120s' },
+			{ sleep: '3.5s' },
+			{
+				shot: 'hero',
+				caption:
+					'Every pull request open on the repository you are standing in, with its checks rolled up into one glyph: what is ready to merge, and what is not.'
+			},
+			{ type: '?' },
+			{ sleep: '1.2s' },
+			{
+				shot: 'start',
+				caption:
+					'Open it, open its checks, copy its URL, filter, reorder, show the drafts — one key each.'
+			},
+			{ key: 'Escape' },
+			{ sleep: '600ms' },
+			// The other half of the question: not what is ready, but what is
+			// not, and which of the several reasons it is.
+			{ type: '4' },
+			{ sleep: '2.5s' },
+			{
+				shot: 'use',
+				caption:
+					'What is not ready, and why: red checks, requested changes, or a conflict — with every check run behind the glyph expanded for the one selected.'
+			},
+			// The half nobody else does: which checkouts on this machine are
+			// finished with, judged by commit rather than by branch name.
+			{ type: '6' },
+			{ sleep: '2.5s' },
+			{
+				shot: 'depth',
+				caption:
+					'The other half: every worktree on the machine against the pull request it belongs to, and which of them are safe to collect.'
+			},
+			{ type: 'q' },
+			{ sleep: '800ms' }
+		]
+	},
+
 	// ── macOS only: kept as they are until there is a macOS runner ─────────
 
 	clackson: { runner: 'host' }

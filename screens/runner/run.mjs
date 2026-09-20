@@ -105,6 +105,13 @@ async function terminal(name, story) {
 		CARGO_TARGET_DIR: path.join(CACHE, 'target', name),
 		HOME: '/root'
 	};
+	// The GitHub token reaches exactly one story: the one that says it reads
+	// GitHub. Every other build, fixture and shell runs without it, so a
+	// tool's own build script never sees the desk's credentials.
+	if (!story.github) delete env.GH_TOKEN;
+	if (story.github && !env.GH_TOKEN) {
+		throw new Error('this story reads GitHub, and no GH_TOKEN reached the container');
+	}
 
 	if (story.build) {
 		log(name, `build: ${story.build}`);
