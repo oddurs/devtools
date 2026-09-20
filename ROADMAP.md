@@ -27,7 +27,7 @@ Two views, not three: a recording and the screens. The typed session goes.
 
 ## wave-1 — The seven that are already shot
 
-`··········` 0% · 0 of 7 done · due 2026-10-11
+`######····` 57% · 4 of 7 done · due 2026-10-11
 
 Seven pages that need nothing but their words finishing.
 
@@ -35,22 +35,20 @@ Seven pages that need nothing but their words finishing.
 
 - [ ] [`0012`](https://github.com/oddurs/devtools/blob/main/cairn/items/0012-poptop-finish-the-words.md) poptop: finish the words <sup>page · p1 · poptop</sup>
 - [ ] [`0013`](https://github.com/oddurs/devtools/blob/main/cairn/items/0013-quarry-finish-the-words.md) quarry: finish the words <sup>page · p1 · quarry</sup>
-- [ ] [`0014`](https://github.com/oddurs/devtools/blob/main/cairn/items/0014-yoghurt-finish-the-words.md) yoghurt: finish the words <sup>page · p1 · yoghurt</sup>
-- [ ] [`0015`](https://github.com/oddurs/devtools/blob/main/cairn/items/0015-hackney-finish-the-words.md) hackney: finish the words <sup>page · p1 · hackney</sup>
 - [ ] [`0016`](https://github.com/oddurs/devtools/blob/main/cairn/items/0016-gummyworm-finish-the-words-and-the-gallery.md) gummyworm: finish the words, and the gallery <sup>page · p0 · gummyworm</sup>
-- [ ] [`0017`](https://github.com/oddurs/devtools/blob/main/cairn/items/0017-starward-finish-the-words.md) starward: finish the words <sup>page · p1 · starward</sup>
-- [ ] [`0018`](https://github.com/oddurs/devtools/blob/main/cairn/items/0018-tsi-finish-the-words.md) tsi: finish the words <sup>page · p1 · tsi</sup>
+
+### done
+
+- [x] [`0014`](https://github.com/oddurs/devtools/blob/main/cairn/items/0014-yoghurt-finish-the-words.md) yoghurt: finish the words <sup>page · p1 · yoghurt</sup>
+- [x] [`0015`](https://github.com/oddurs/devtools/blob/main/cairn/items/0015-hackney-finish-the-words.md) hackney: finish the words <sup>page · p1 · hackney</sup>
+- [x] [`0017`](https://github.com/oddurs/devtools/blob/main/cairn/items/0017-starward-finish-the-words.md) starward: finish the words <sup>page · p1 · starward</sup>
+- [x] [`0018`](https://github.com/oddurs/devtools/blob/main/cairn/items/0018-tsi-finish-the-words.md) tsi: finish the words <sup>page · p1 · tsi</sup>
 
 ## wave-2 — The seven with a story but no recording
 
-`########··` 71% · 5 of 7 done · due 2026-10-25
+`##########` 100% · 7 of 7 done · due 2026-10-25
 
 Seven stories that need their missing beats filled and a recording made.
-
-### in progress
-
-- [ ] [`0024`](https://github.com/oddurs/devtools/blob/main/cairn/items/0024-trafford-fill-the-beats-and-record-it.md) trafford: fill the beats and record it <sup>page · p1 · trafford</sup>
-- [ ] [`0025`](https://github.com/oddurs/devtools/blob/main/cairn/items/0025-rsst-fill-the-beats-and-record-it.md) rsst: fill the beats and record it <sup>page · p1 · rsst</sup>
 
 ### done
 
@@ -59,6 +57,8 @@ Seven stories that need their missing beats filled and a recording made.
 - [x] [`0021`](https://github.com/oddurs/devtools/blob/main/cairn/items/0021-nun-fill-the-beats-and-record-it.md) nun: fill the beats and record it <sup>page · p1 · nun</sup>
 - [x] [`0022`](https://github.com/oddurs/devtools/blob/main/cairn/items/0022-cairn-record-it.md) cairn: record it <sup>page · p1 · cairn</sup>
 - [x] [`0023`](https://github.com/oddurs/devtools/blob/main/cairn/items/0023-harrow-fill-the-beats-and-record-it.md) harrow: fill the beats and record it <sup>page · p1 · harrow</sup>
+- [x] [`0024`](https://github.com/oddurs/devtools/blob/main/cairn/items/0024-trafford-fill-the-beats-and-record-it.md) trafford: fill the beats and record it <sup>page · p1 · trafford</sup>
+- [x] [`0025`](https://github.com/oddurs/devtools/blob/main/cairn/items/0025-rsst-fill-the-beats-and-record-it.md) rsst: fill the beats and record it <sup>page · p1 · rsst</sup>
 
 ## wave-3 — The ten with nothing to show yet
 

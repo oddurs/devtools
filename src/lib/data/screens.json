@@ -550,9 +550,9 @@
   },
   "rsst": {
     "runner": "terminal",
-    "commit": "422d3833949a",
-    "takenAt": "2026-09-18T03:25:09.291Z",
-    "background": "#070a0f",
+    "commit": "84652db25086",
+    "takenAt": "2026-09-20T05:22:12.773Z",
+    "background": "#0d0d0c",
     "shots": [
       {
         "beat": "hero",
@@ -562,13 +562,52 @@
         "height": 1000
       },
       {
+        "beat": "start",
+        "caption": "Every key, in the app: move, cycle the panes, jump to the next unread, search.",
+        "src": "/media/screens/rsst/02-start.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
         "beat": "use",
         "caption": "Moving through a feed swaps the entry below, links numbered against a reference list.",
-        "src": "/media/screens/rsst/02-use.webp",
+        "src": "/media/screens/rsst/03-use.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "depth",
+        "caption": "`z` gives the article the whole screen, set to a measure you can actually read.",
+        "src": "/media/screens/rsst/04-depth.webp",
         "width": 1600,
         "height": 1000
       }
-    ]
+    ],
+    "cast": {
+      "src": "/media/casts/rsst.cast",
+      "cols": 125,
+      "rows": 29,
+      "duration": 8.625,
+      "bytes": 34391,
+      "markers": [
+        [
+          2.772,
+          "hero"
+        ],
+        [
+          4.291,
+          "start"
+        ],
+        [
+          6.826,
+          "use"
+        ],
+        [
+          8.625,
+          "depth"
+        ]
+      ]
+    }
   },
   "starward": {
     "runner": "terminal",
@@ -634,7 +673,7 @@
   "trafford": {
     "runner": "terminal",
     "commit": "4483f82422d5",
-    "takenAt": "2026-09-20T05:16:16.017Z",
+    "takenAt": "2026-09-20T05:17:11.236Z",
     "background": "#0d0d0c",
     "shots": [
       {
@@ -670,23 +709,23 @@
       "src": "/media/casts/trafford.cast",
       "cols": 125,
       "rows": 29,
-      "duration": 13.765,
-      "bytes": 42251,
+      "duration": 13.8,
+      "bytes": 42323,
       "markers": [
         [
-          2.944,
+          2.967,
           "start"
         ],
         [
-          7.755,
+          7.754,
           "hero"
         ],
         [
-          10.526,
+          10.564,
           "use"
         ],
         [
-          12.431,
+          12.477,
           "depth"
         ]
       ]

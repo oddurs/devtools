@@ -286,13 +286,7 @@ export const sections: Section[] = [
 					{
 						cmd: 'cairn check                                   # validates everything'
 					}
-				],
-				recording: {
-					src: '/media/demos/cairn.svg',
-					alt: 'cairn: creating, claiming and closing items, then the board and roadmap',
-					width: 760,
-					height: 906
-				}
+				]
 			},
 			{
 				name: 'harrow',
@@ -362,13 +356,7 @@ export const sections: Section[] = [
 					{
 						cmd: 'hackney'
 					}
-				],
-				recording: {
-					src: '/media/demos/hackney.gif',
-					alt: 'hackney: browsing the front page and opening a comment thread',
-					width: 1280,
-					height: 720
-				}
+				]
 			},
 			{
 				name: 'rsst',
@@ -393,13 +381,7 @@ export const sections: Section[] = [
 					{
 						cmd: 'rsst export > subs.opml     # write your feeds out as OPML'
 					}
-				],
-				recording: {
-					src: '/media/demos/rsst.svg',
-					alt: 'rsst: feeds, entries and a rendered entry in three panes',
-					width: 874,
-					height: 468
-				}
+				]
 			},
 			{
 				name: 'brevity',

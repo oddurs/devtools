@@ -50,9 +50,30 @@ describe.each(all)('%s', (name, story) => {
 
 	it('uses step kinds the runner knows', () => {
 		const known = new Set([
-			'run', 'hidden', 'type', 'key', 'times', 'wait', 'timeout', 'sleep', 'shot', 'caption',
-			'speed', 'click', 'button', 'hover', 'scroll', 'at', 'drag', 'to',
-			'waitFor', 'press', 'hold', 'ms', 'goto', 'optional'
+			'run',
+			'hidden',
+			'type',
+			'key',
+			'times',
+			'wait',
+			'timeout',
+			'sleep',
+			'shot',
+			'caption',
+			'speed',
+			'click',
+			'button',
+			'hover',
+			'scroll',
+			'at',
+			'drag',
+			'to',
+			'waitFor',
+			'press',
+			'hold',
+			'ms',
+			'goto',
+			'optional'
 		]);
 		for (const s of steps) {
 			for (const k of Object.keys(s)) {

@@ -633,8 +633,15 @@ cat > ~/feeds/writing.xml <<XML
 </feed>
 XML
 
-cd ~/feeds && nohup python3 -m http.server 8099 --bind 127.0.0.1 >/dev/null 2>&1 &
+# setsid, not just &: the fixture shell waits on its own children, so a
+# plain background job holds the whole run open. A new session detaches it.
+cd ~/feeds
+setsid python3 -m http.server 8099 --bind 127.0.0.1 </dev/null >/dev/null 2>&1 &
+disown
 sleep 1
+# Prove it is answering before the story depends on it.
+curl -sf http://127.0.0.1:8099/rust.xml >/dev/null || echo "feed server did not come up"
+cd ~
 
 cat > ~/.rsst/config.toml <<'TOML'
 [[feeds]]
