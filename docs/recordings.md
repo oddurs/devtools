@@ -29,6 +29,35 @@ A recording is an [asciicast v2](https://docs.asciinema.org/manual/asciicast/v2/
 file: the exact bytes the program wrote, with timestamps. Nothing is invented.
 The screenshots stay as posters and as the first frame.
 
+## Two sources, the same shapes
+
+The studio is a Linux container, and four of these tools only run on a Mac.
+That is a question of **where the material comes from**, not of what shape it
+is — so there is no fifth kind of view for them. A story says
+`source: 'desk'`, and the entry in `screens.json` is stamped `runner: 'desk'`
+instead of `terminal`. The page then discloses it where it otherwise says the
+build, and the data refuses to claim a commit, because a desk capture was
+taken from whatever was on that machine rather than from a checkout built
+here. `screens.test.ts` enforces that.
+
+The shapes do not change:
+
+- **A recording**: `asciinema rec` on the Mac writes asciicast v2, which is
+  what `Recording.svelte` already plays. The runner's pointer and key tracks
+  are optional (`x_devtools ?? {}`), so a desk cast plays without the overlay
+  and needs no code.
+- **Screens**: commit the captured output under `src/lib/data/captures/`, and
+  let the story print it into the container's terminal and photograph it. The
+  bytes are the ones the tool wrote; only the terminal around them is the
+  studio's, which is the same thing that is true of every other screenshot
+  here.
+
+polkadot is the worked example. The one trick worth knowing: run it as
+`{ run: 'clear; cat report.ansi' }`, not as a `hidden` step. `clear` in the
+same command wipes the line that was just typed along with the screen, so the
+shot is the report and nothing else — whereas `hidden` appends its own
+`clear` _after_ the command and throws the output away.
+
 ## Pipeline
 
 ```

@@ -54,9 +54,16 @@ export type Cast = {
 	markers: [number, string][];
 };
 
+// Where the material came from. 'terminal' and 'web' are the screens runner
+// in its container; 'desk' is a capture taken by hand on the machine the tool
+// actually runs on — the only way to show a macOS-only tool honestly until
+// there is a macOS runner. The shapes are identical either way: an asciicast
+// is an asciicast, a screenshot is a screenshot. Only the disclosure differs.
+export type Source = 'terminal' | 'web' | 'desk';
+
 // One project's entry in screens.json.
 type Shots = {
-	runner: string;
+	runner: Source;
 	commit: string | null;
 	takenAt: string;
 	// The terminal's background when the shots were taken, so the window
@@ -78,6 +85,7 @@ export type Project = Omit<Tool, 'install' | 'site' | 'recording' | 'poster'> & 
 	cast: Cast | null;
 	gallery: Plate[];
 	audio: Sample[];
+	source: Source | null;
 	commit: string | null;
 };
 
@@ -102,6 +110,7 @@ function project(t: Tool): Project {
 		cast: s?.cast ?? null,
 		gallery: s?.gallery ?? [],
 		audio: s?.audio ?? [],
+		source: s?.runner ?? null,
 		commit: s?.commit ?? null
 	};
 }
@@ -152,11 +161,20 @@ export function stills(p: Project): Shot[] {
 	return media ? [{ beat: 'hero', caption: media.alt, ...media }] : [];
 }
 
+// One table rather than four places. A view earns its own entry when what it
+// shows is a different *sense* — step through a sequence, compare a set at a
+// glance, listen — not when it is a different file format. A picture that
+// moves is a plate with a `still`, not a fifth view.
+export const MEDIA: Record<View, { label: string; has: (p: Project) => boolean }> = {
+	recording: { label: 'recording', has: (p) => Boolean(p.cast) },
+	screens: { label: 'screens', has: (p) => stills(p).length > 0 },
+	gallery: { label: 'gallery', has: (p) => p.gallery.length > 0 },
+	audio: { label: 'sound', has: (p) => p.audio.length > 0 }
+};
+
+// The order a page prefers them in, and the only place that order lives.
+export const ORDER: View[] = ['recording', 'screens', 'gallery', 'audio'];
+
 export function views(p: Project): View[] {
-	const out: View[] = [];
-	if (p.cast) out.push('recording');
-	if (stills(p).length) out.push('screens');
-	if (p.gallery.length) out.push('gallery');
-	if (p.audio.length) out.push('audio');
-	return out;
+	return ORDER.filter((v) => MEDIA[v].has(p));
 }

@@ -566,6 +566,20 @@
       ]
     }
   },
+  "polkadot": {
+    "runner": "desk",
+    "commit": null,
+    "takenAt": "2026-09-20T14:43:10.792Z",
+    "shots": [
+      {
+        "beat": "hero",
+        "caption": "`polkadot doctor` on the machine it maintains: every symlink, binary, shell and theme it put there, and whether each is still in place.",
+        "src": "/media/screens/polkadot/01-hero.webp",
+        "width": 1600,
+        "height": 1900
+      }
+    ]
+  },
   "poptop": {
     "runner": "terminal",
     "commit": "0f25ff029c74",

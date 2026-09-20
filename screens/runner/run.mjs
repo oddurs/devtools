@@ -273,7 +273,12 @@ async function terminal(name, story) {
 		shots.push({ id: a.shot, caption: a.caption, png });
 	}
 
-	const entry = publish(name, story, shots, commit, 'terminal');
+	// A story may say its material came from the desk rather than the studio.
+	// The commit then means nothing — the capture was taken from whatever was
+	// on that machine at the time, not from the checkout built here — so it is
+	// not claimed. The page discloses the source either way.
+	const source = story.source ?? 'terminal';
+	const entry = publish(name, story, shots, source === 'desk' ? null : commit, source);
 	if (cast) entry.cast = cast;
 	const gallery = plates(name, taken);
 	if (gallery.length) entry.gallery = gallery;

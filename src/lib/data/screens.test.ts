@@ -28,13 +28,18 @@ describe.each(entries)('%s', (name, entry) => {
 	});
 
 	it('says who shot it and when', () => {
-		expect(typeof entry.runner).toBe('string');
-		expect(entry.runner).not.toBe('');
+		// 'desk' is a capture taken by hand on the machine the tool runs on;
+		// the page discloses it rather than implying the studio shot it.
+		expect(['terminal', 'web', 'desk']).toContain(entry.runner);
 		expect(Number.isNaN(Date.parse(entry.takenAt as string))).toBe(false);
 	});
 
 	it('names the commit it was shot from, or admits it does not know', () => {
 		expect(entry.commit === null || typeof entry.commit === 'string').toBe(true);
+		// A desk capture was taken from whatever was on that machine at the
+		// time, not from a checkout built here, so it cannot name a commit and
+		// must not appear to.
+		if (entry.runner === 'desk') expect(entry.commit).toBeNull();
 	});
 
 	it('gives the terminal ground as a colour the window can take', () => {

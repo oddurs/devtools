@@ -17,12 +17,15 @@
 	import Screens from '$lib/terminal/Screens.svelte';
 	import Sound from '$lib/terminal/Sound.svelte';
 	import Window from '$lib/terminal/Window.svelte';
-	import { stills, views, type Project, type View } from '$lib/data/projects';
+	import { MEDIA, stills, views, type Project, type View } from '$lib/data/projects';
 
 	let { project }: { project: Project } = $props();
 
 	const shots = $derived(stills(project));
 	const available = $derived(views(project));
+	// A capture taken by hand on the machine the tool runs on, rather than in
+	// the studio. The output is as real either way; the page says which.
+	const fromDesk = $derived(project.source === 'desk');
 
 	let view = $state<View>('screens');
 	let index = $state(0);
@@ -46,12 +49,6 @@
 			(view === 'screens' && shots.length > 1) ||
 			(view === 'recording' && (project.cast?.markers.length ?? 0) > 1)
 	);
-	const viewLabel: Record<View, string> = {
-		recording: 'recording',
-		screens: 'screens',
-		gallery: 'gallery',
-		audio: 'sound'
-	};
 	// The recording's chapters, with the caption of the screenshot each one is.
 	const chapters = $derived(
 		(project.cast?.markers ?? []).map(([, beat]) => ({
@@ -97,7 +94,7 @@
 				<Choice
 					label="Show"
 					bind:value={view}
-					options={available.map((v) => ({ value: v, label: viewLabel[v] }))}
+					options={available.map((v) => ({ value: v, label: MEDIA[v].label }))}
 				/>
 			{/if}
 
@@ -159,6 +156,10 @@
 		<p class="caption">
 			{#each shot.caption.split('`') as part, i (i)}{#if i % 2}<code>{part}</code
 					>{:else}{part}{/if}{/each}
+			{#if fromDesk}<span class="where"
+					>Captured on a Mac — {project.name} does not run in the studio's Linux container — and shown
+					in the site's terminal.</span
+				>{/if}
 		</p>
 	{:else if view === 'gallery'}
 		<Gallery plates={project.gallery} label="What {project.name} made" />
@@ -236,6 +237,14 @@
 	.demo:hover .keys,
 	.demo:focus-within .keys {
 		opacity: 1;
+	}
+	/* Where a picture came from, when it is not the studio. Said once, under
+	   the caption, rather than repeated on every beat. */
+	.where {
+		display: block;
+		margin-top: var(--space-2);
+		color: var(--rule);
+		font-size: var(--size-s);
 	}
 	/* A page with nothing to show says so, quietly, in the window's place. */
 	.nothing {

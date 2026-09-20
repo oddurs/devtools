@@ -1461,6 +1461,35 @@ cd ..`,
 		]
 	},
 
+	polkadot: {
+		// polkadot only runs on a Mac — it installs Homebrew, symlinks a Mac's
+		// dotfiles and sets up launch agents — so the Linux container has
+		// nothing true to run. What it does have is the real output, captured
+		// on the machine polkadot maintains and committed to this repository.
+		// The story prints that capture into the site's terminal and
+		// photographs it: the bytes are the ones polkadot wrote, and the page
+		// says where they were written.
+		//
+		// `clear` first, in the same command: it wipes the line that was just
+		// typed along with the rest of the screen, so the shot is the report
+		// and nothing else. (`hidden` is the wrong tool here — it appends its
+		// own `clear` *after* the command, which throws the output away.)
+		build: null,
+		source: 'desk',
+		// Fifty lines of report want a terminal that holds fifty lines.
+		terminal: { height: 1900 },
+		fixture: 'cp /work/site/src/lib/data/captures/polkadot-doctor.ansi report.ansi',
+		steps: [
+			{ run: 'clear; cat report.ansi' },
+			{ sleep: '1.5s' },
+			{
+				shot: 'hero',
+				caption:
+					'`polkadot doctor` on the machine it maintains: every symlink, binary, shell and theme it put there, and whether each is still in place.'
+			}
+		]
+	},
+
 	// ── macOS only: kept as they are until there is a macOS runner ─────────
 
 	andy: { runner: 'host' },

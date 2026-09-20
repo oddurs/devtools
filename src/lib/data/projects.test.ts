@@ -55,7 +55,6 @@ describe('every tool', () => {
 	// studio and is not named here fails instead of quietly emptying its page.
 	const unshot: Record<string, string> = {
 		andy: 'macOS only: it measures where a Mac hides disk space',
-		polkadot: 'macOS only: it sets a Mac up',
 		fontina: 'macOS only',
 		clackson: 'macOS only, and the page is a sound rather than a picture',
 		knit: 'needs more than one machine to be worth showing',
