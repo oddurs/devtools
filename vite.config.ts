@@ -26,7 +26,9 @@ export default defineConfig({
 		})
 	],
 	define: { __BASE_PATH__: JSON.stringify(basePath) },
-	server: { port, strictPort: true },
+	// Building while the dev server is up otherwise reloads the page once per
+	// file written: it watches its own output.
+	server: { port, strictPort: true, watch: { ignored: ['**/build/**'] } },
 	preview: { port: port + 1, strictPort: true },
 	// What the site is built on is pure functions; they are tested as such, in
 	// Node, in a file beside the module each one belongs to.
