@@ -2,7 +2,7 @@
 
 [![verify](https://github.com/oddurs/devtools/actions/workflows/verify.yml/badge.svg)](https://github.com/oddurs/devtools/actions/workflows/verify.yml)
 [![pages](https://github.com/oddurs/devtools/actions/workflows/pages.yml/badge.svg)](https://github.com/oddurs/devtools/actions/workflows/pages.yml)
-[![licence: MIT](https://img.shields.io/badge/licence-MIT-blue.svg)](LICENSE)
+[![licence: MIT for the code](https://img.shields.io/badge/licence-MIT%20for%20the%20code-blue.svg)](LICENSE)
 
 **[oddurs.github.io/devtools](https://oddurs.github.io/devtools/)**
 
