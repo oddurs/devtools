@@ -1,0 +1,58 @@
+# Build the site and publish it to GitHub Pages.
+#
+# BASE_PATH is the one knob: the site is served from /devtools under the
+# account's github.io domain, and every absolute link — canonical, the cards a
+# link unfurls into, sitemap.xml and robots.txt — is built from it and from
+# `origin` in src/lib/data/site.ts.
+name: pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# One deploy at a time, and let a running one finish rather than shipping a
+# half-written site.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22.18'
+          cache: npm
+
+      - run: npm ci
+
+      # The same gate as the desk and as the verify workflow: a page that does
+      # not pass its own tests is not worth publishing.
+      - run: npm run verify
+        env:
+          BASE_PATH: /devtools
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: build
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v4

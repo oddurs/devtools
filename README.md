@@ -1,5 +1,11 @@
 # devtools
 
+[![verify](https://github.com/oddurs/devtools/actions/workflows/verify.yml/badge.svg)](https://github.com/oddurs/devtools/actions/workflows/verify.yml)
+[![pages](https://github.com/oddurs/devtools/actions/workflows/pages.yml/badge.svg)](https://github.com/oddurs/devtools/actions/workflows/pages.yml)
+[![licence: MIT](https://img.shields.io/badge/licence-MIT-blue.svg)](LICENSE)
+
+**[oddurs.github.io/devtools](https://oddurs.github.io/devtools/)**
+
 The tools I build for my own terminal, each one running. A rail of tools on
 the left; on the right, the tool: a recording of it at work and its screens —
 and, for the ones a terminal cannot carry, a gallery of what it made or a
@@ -106,7 +112,29 @@ views.
 
 ## Deploying
 
-`BASE_PATH=/devtools npm run build` for a GitHub Pages project URL. It is the
-one knob: the canonical links, the cards a link unfurls into, `sitemap.xml`
-and `robots.txt` are all built from it and from `origin` in
+Pushing to `main` builds and publishes to GitHub Pages
+(`.github/workflows/pages.yml`), running the same `npm run verify` the desk
+does first. By hand:
+
+```sh
+BASE_PATH=/devtools npm run build
+```
+
+That is the one knob: the canonical links, the cards a link unfurls into,
+`sitemap.xml` and `robots.txt` are all built from it and from `origin` in
 `src/lib/data/site.ts`.
+
+## Taking any of it
+
+The code is MIT — the site, the design system, and the screens studio in
+`screens/`, which is the part most likely to be useful to somebody else: it
+builds a terminal program in a container, drives it with real keystrokes and
+real mouse events, and photographs and records what it actually printed.
+
+The content is not. The prose, the screenshots, the gallery plates and the
+`.cast` recordings are © Oddur Sigurdsson, all rights reserved. Take the
+machinery; ask before taking the writing or the pictures.
+
+[`CONTRIBUTING.md`](CONTRIBUTING.md) says what is worth an issue, and the two
+rules a change has to keep: nothing is invented, and a caption describes its
+own picture.
