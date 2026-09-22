@@ -5,7 +5,7 @@
 -->
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import { AppIcon, Badge, Kbd } from '$lib/design';
+	import { AppIcon, Badge } from '$lib/design';
 	import { prerelease, type Group } from '$lib/data/projects';
 
 	let { groups, current }: { groups: Group[]; current: string | null } = $props();
@@ -39,7 +39,6 @@
 	{/each}
 
 	<p class="foot">
-		<span class="keys"><Kbd>j</Kbd><Kbd>k</Kbd> tools</span>
 		<a href={resolve('/system')} aria-current={current === null ? 'page' : undefined}>system</a>
 	</p>
 </nav>
@@ -109,16 +108,10 @@
 	.foot {
 		display: flex;
 		align-items: center;
-		justify-content: space-between;
 		margin: auto 0 0;
 		padding-inline: var(--space-2);
 		color: var(--faint);
 		font-size: var(--size-xs);
-	}
-	.keys {
-		display: flex;
-		align-items: center;
-		gap: 0.375rem;
 	}
 	.foot a {
 		text-decoration: none;
