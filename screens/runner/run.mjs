@@ -152,7 +152,12 @@ async function terminal(name, story) {
 		log(name, 'fixture');
 		// Run as root, so it can set up anything; what it lays out in the
 		// user's home is handed to them after.
-		sh(story.fixture, { cwd: stage, env: shellEnv, timeout: 300_000, label: 'fixture' });
+		sh(story.fixture, {
+			cwd: stage,
+			env: shellEnv,
+			timeout: (story.fixtureTimeout ?? 300) * 1000,
+			label: 'fixture'
+		});
 	}
 	const termEnv = story.user ? userEnv(story, home) : shellEnv;
 	if (story.user) {
@@ -287,9 +292,71 @@ async function terminal(name, story) {
 	const source = story.source ?? 'terminal';
 	const entry = publish(name, story, shots, source === 'desk' ? null : commit, source);
 	if (cast) entry.cast = cast;
+	// Plates that are files the program wrote (a render), rather than its
+	// screen. They go in after the screen's own, and are not trimmed: the
+	// frame is the program's, edge to edge.
+	for (const r of story.renders ?? []) {
+		const png = path.join(pngDir, `plate-${r.plate}.png`);
+		sh(
+			`ffmpeg -loglevel error -y -i ${JSON.stringify(path.join(stage, r.file))} ${JSON.stringify(png)}`,
+			{ label: 'render' }
+		);
+		taken.push({ id: r.plate, caption: r.caption, source: r.source, png, whole: true });
+	}
 	const gallery = plates(name, taken);
 	if (gallery.length) entry.gallery = gallery;
+	const audio = samples(name, stage, story.samples ?? []);
+	if (audio.length) entry.audio = audio;
 	return { entry };
+}
+
+// Samples: a sound the program made, for a tool you hear. Each is a file it
+// wrote into the stage (`{ file, id, caption, typed }`), encoded for the page
+// and measured for its waveform. The levels are scaled against the loudest
+// sample in the set, not each against itself, so two takes drawn side by side
+// are as loud as each other as they sound.
+function samples(name, stage, list) {
+	const PEAKS = 120;
+	const outDir = path.join(SITE, 'static/media/audio', name);
+	fs.rmSync(outDir, { recursive: true, force: true });
+	if (!list.length) return [];
+	log(name, `samples: ${list.length}`);
+	fs.mkdirSync(outDir, { recursive: true });
+	const measured = list.map((a, i) => {
+		const input = path.join(stage, a.file);
+		const file = `${String(i + 1).padStart(2, '0')}-${a.id}.m4a`;
+		sh(
+			`ffmpeg -loglevel error -y -i ${JSON.stringify(input)} -c:a aac -b:a 160k -movflags +faststart ${JSON.stringify(path.join(outDir, file))}`,
+			{ label: 'sample' }
+		);
+		// Mono, 8 kHz, signed 16-bit: plenty to find a peak in, and small.
+		const pcm = execFileSync(
+			'ffmpeg',
+			['-loglevel', 'error', '-i', input, '-ac', '1', '-ar', '8000', '-f', 's16le', '-'],
+			{ maxBuffer: 256 * 1024 * 1024 }
+		);
+		const n = Math.floor(pcm.length / 2);
+		const levels = [];
+		for (let b = 0; b < PEAKS; b++) {
+			let top = 0;
+			for (let j = Math.floor((b * n) / PEAKS); j < Math.floor(((b + 1) * n) / PEAKS); j++) {
+				top = Math.max(top, Math.abs(pcm.readInt16LE(j * 2)));
+			}
+			levels.push(top / 32768);
+		}
+		return { a, file, seconds: n / 8000, levels };
+	});
+	const loudest = Math.max(...measured.flatMap((m) => m.levels)) || 1;
+	return measured.map(({ a, file, seconds, levels }) => {
+		const sample = {
+			src: `/media/audio/${name}/${file}`,
+			caption: a.caption,
+			seconds: Math.round(seconds * 10) / 10,
+			peaks: levels.map((v) => Math.round((v / loudest) * 1000) / 1000)
+		};
+		if (a.typed) sample.typed = a.typed;
+		return sample;
+	});
 }
 
 // A gallery: what the tool made, rather than one moment of it being made.
@@ -309,11 +376,13 @@ function plates(name, taken) {
 		// two-thirds of the terminal is thrown away and a margin put back.
 		// Trimmed against the terminal's own ground, so the margin matches it.
 		const trimmed = t.png.replace(/\.png$/, '-trim.png');
-		sh(
-			`magick ${JSON.stringify(t.png)} -bordercolor ${JSON.stringify(scheme.background)} ` +
-				`-border 1 -trim +repage -border 28 ${JSON.stringify(trimmed)}`,
-			{ label: 'plate-trim' }
-		);
+		if (t.whole) fs.copyFileSync(t.png, trimmed);
+		else
+			sh(
+				`magick ${JSON.stringify(t.png)} -bordercolor ${JSON.stringify(scheme.background)} ` +
+					`-border 1 -trim +repage -border 28 ${JSON.stringify(trimmed)}`,
+				{ label: 'plate-trim' }
+			);
 		const [w] = dims(trimmed);
 		const resize = w > WEBP_WIDTH ? `-resize ${WEBP_WIDTH} 0` : '';
 		sh(`cwebp -quiet -q 84 ${resize} ${JSON.stringify(trimmed)} -o ${JSON.stringify(dest)}`, {

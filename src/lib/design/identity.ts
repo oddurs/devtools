@@ -4,7 +4,9 @@
 //
 // Adding an app: pick an icon from https://lucide.dev/icons, import it by
 // path (one file each, so only what is used ships), and give it a tint.
+import Box from '@lucide/svelte/icons/box';
 import Brain from '@lucide/svelte/icons/brain';
+import Engine from '@lucide/svelte/icons/engine';
 import FolderGit from '@lucide/svelte/icons/folder-git';
 import GitFork from '@lucide/svelte/icons/git-fork';
 import HardDrive from '@lucide/svelte/icons/hard-drive';
@@ -83,6 +85,10 @@ export const identities: Record<string, Identity> = {
 	// science
 	starward: { icon: Telescope, tint: 'sky', why: 'looking up' },
 	tsi: { icon: Rocket, tint: 'coral', why: 'the rocket equation' },
+
+	// art
+	windsor: { icon: Engine, tint: 'coral', why: 'the engine' },
+	cornell: { icon: Box, tint: 'lime', why: 'the box' },
 
 	// web
 	turborust: { icon: Zap, tint: 'coral', why: 'fast rebuilds' },

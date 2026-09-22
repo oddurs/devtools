@@ -367,6 +367,33 @@ export const sections: Section[] = [
 		]
 	},
 	{
+		label: 'Art',
+		tools: [
+			{
+				name: 'windsor',
+				kind: 'cli',
+				line: 'A Ford 302 V8, modelled from first principles, for the sound.',
+				more: 'Specify the forging — four throw angles, eight rods, a camshaft — and the firing order, the dyno curve, the indicator card and the exhaust note all fall out of it. Swap the cross-plane crank for a flat one and the burble becomes a shriek, with nothing else changed. Sixty-three checks against flow benches, shock tubes and the 1968 casting. No dependencies.',
+				state: { kind: 'released', version: '1.0.0' },
+				license: 'MIT',
+				lang: 'C++',
+				install: 'git clone https://github.com/oddurs/windsor && cd windsor && make',
+				tags: ['engine simulation', 'sound synthesis']
+			},
+			{
+				name: 'cornell',
+				kind: 'cli',
+				line: 'A path tracer that never types a colour.',
+				more: 'The Cornell box from its measured geometry, paints and lamp, with light carried as spectral radiance throughout. Gold is a table of refractive index and Fresnel’s equations rather than an RGB triple, so copper turns pink and aluminium stays neutral because of physics. The same image on any machine at any thread count, and every claim it makes checked in one run. No dependencies.',
+				state: { kind: 'source', version: '0.5' },
+				license: 'MIT',
+				lang: 'C++',
+				install: 'git clone https://github.com/oddurs/cornell && cd cornell && make',
+				tags: ['path tracing', 'spectral rendering']
+			}
+		]
+	},
+	{
 		label: 'Web',
 		tools: [
 			{

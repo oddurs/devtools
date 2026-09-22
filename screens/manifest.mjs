@@ -11,6 +11,10 @@
 //   { wait: 'regex' }       wait until the screen shows it (timeout: '20s')
 //   { sleep: '2s' }
 //   { shot: beat, caption } take the screenshot for a beat
+//   { plate: id, caption }  photograph the screen for the gallery instead
+// A story may also list `renders` ({ file, plate, caption, source }): files the
+// program wrote into the stage, put in the gallery whole; and `samples`
+// ({ file, id, caption, typed }): sounds it wrote, for the sound view.
 // Mouse steps, for mouse-first programs (they go through xterm.js, so the
 // program gets real mouse reports only if it asked for them):
 //   { click: 'text' | { row, col }, button: 'left' | 'right' | 'middle' }
@@ -1757,6 +1761,154 @@ git worktree list`,
 			},
 			{ type: 'q' },
 			{ sleep: '800ms' }
+		]
+	},
+
+	windsor: {
+		// A C++23 program with no dependencies: make, and the binary is at the
+		// root. Nothing to lay out — the engine is the fixture.
+		build: 'make -j"$(nproc)"',
+		path: ['.'],
+		record: true,
+		// `spec` and `dyno` are fifty lines each, read top to bottom.
+		terminal: { height: 1500 },
+		steps: [
+			{ run: 'windsor spec' },
+			{ wait: 'why Detroit' },
+			{ sleep: '2.5s' },
+			{
+				shot: 'hero',
+				caption:
+					'Everything above the line was specified, everything below it came out: the firing order is what the forging and the cam make of it, and so is the burble.'
+			},
+			{ run: 'clear' },
+			{ run: 'windsor run' },
+			{ wait: '0-9 throttle' },
+			{ sleep: '3s' },
+			{ key: 'Space' },
+			{ sleep: '2.5s' },
+			{
+				shot: 'start',
+				caption:
+					'Watching it run: eight bores, each at its point in the cycle, and wide open on the space bar.'
+			},
+			{ key: '0' },
+			{ sleep: '1.5s' },
+			{ key: 'q' },
+			{ run: 'clear' },
+			{ run: 'windsor dyno' },
+			{ wait: 'peak power' },
+			{ sleep: '2.5s' },
+			{
+				shot: 'use',
+				caption:
+					'On a water brake, swept from idle to six thousand: 307 lb-ft and 206 hp, against Ford’s 295 and 210, and nothing fitted to either.'
+			},
+			{ run: 'clear' },
+			{ run: 'windsor verify' },
+			{ wait: 'checks, all of them true' },
+			{ sleep: '2.5s' },
+			{
+				shot: 'depth',
+				caption:
+					'Sixty-three checks against things outside the project, ending on the thesis: one bank of a cross-plane crank carries 742 times the half-order energy of a flat one.'
+			},
+			// Off camera: the two takes for the sound view.
+			{ hidden: 'windsor record >/dev/null; windsor record --flat >/dev/null' }
+		],
+		samples: [
+			{
+				file: 'windsor.wav',
+				id: 'cross-plane',
+				caption:
+					'The factory cross-plane crank: idle, cruise, a pull to six thousand, and the lift.',
+				typed: 'windsor record'
+			},
+			{
+				file: 'windsor-flat.wav',
+				id: 'flat-plane',
+				caption: 'The same engine on a billet flat-plane crank. Nothing else changed.',
+				typed: 'windsor record --flat'
+			}
+		]
+	},
+
+	cornell: {
+		build: 'make -j"$(nproc)"',
+		path: ['.'],
+		record: true,
+		// The gallery's renders, off camera and before the terminal opens: a
+		// box worth looking at is a couple of thousand samples a pixel, which
+		// is minutes, not something to watch. Under daylight and under a
+		// tungsten lamp, and the metals.
+		fixture: [
+			'cornell render 720 --spp 2048 > /dev/null',
+			'mv cornell.ppm daylight.ppm',
+			'cornell render 720 --spp 2048 --lamp a > /dev/null',
+			'mv cornell.ppm tungsten.ppm',
+			'cornell swatch > /dev/null',
+			'rm -f cornell.pfm'
+		].join(' && '),
+		fixtureTimeout: 900,
+		// `swatch` is forty-four lines, and the one that matters, gold, is the first.
+		terminal: { height: 1600 },
+		steps: [
+			{ run: 'cornell swatch --no-image' },
+			{ wait: 'Swap gold' },
+			{ sleep: '2.5s' },
+			{
+				shot: 'hero',
+				caption:
+					'Gold, derived from a table of measured refractive index and Fresnel’s equations — and against the constant every renderer types.'
+			},
+			{ run: 'clear' },
+			{ run: 'cornell render 400 --spp 64' },
+			{ wait: 'No figure is quoted' },
+			{ sleep: '2s' },
+			{
+				shot: 'start',
+				caption:
+					'The box, rendered: the same figures on any machine at any thread count, and it says which file a number may be quoted from.'
+			},
+			{ run: 'clear' },
+			{ run: 'cornell spectrum green-wall' },
+			{ wait: 'linear sRGB' },
+			{ sleep: '2s' },
+			{
+				shot: 'use',
+				caption:
+					'Any spectrum in the project: here the green wall’s measured paint, and the colour that falls out of it under daylight.'
+			},
+			{ run: 'clear' },
+			{ run: 'cornell verify' },
+			{ wait: 'nothing worth skipping' },
+			{ sleep: '2.5s' },
+			{
+				shot: 'depth',
+				caption: 'Every physical claim the project makes, checked in one run.'
+			}
+		],
+		renders: [
+			{
+				file: 'daylight.ppm',
+				plate: 'daylight',
+				caption:
+					'The Cornell box: their geometry, their measured paints, their lamp. The soft shadows and the colour bleeding off the walls have no code of their own.',
+				source: 'cornell render 720 --spp 2048'
+			},
+			{
+				file: 'tungsten.ppm',
+				plate: 'tungsten',
+				caption: 'The same box under a tungsten lamp, adapted the way an eye would.',
+				source: 'cornell render 720 --spp 2048 --lamp a'
+			},
+			{
+				file: 'swatch.ppm',
+				plate: 'metals',
+				caption:
+					'Gold, copper, silver, aluminium and glass, from their measured optical constants. Nobody typed a colour.',
+				source: 'cornell swatch'
+			}
 		]
 	},
 
