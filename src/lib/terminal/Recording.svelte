@@ -15,13 +15,14 @@
 	import type { Terminal } from '@xterm/xterm';
 	import { asset } from '$app/paths';
 	import type { Cast } from '$lib/data/projects';
-	import { font, theme } from './theme';
+	import { ADVANCE, ROW, font, theme } from './theme';
 	import {
 		chapterAt,
 		clock,
 		keyAt,
 		parse,
 		pointerAt,
+		posterAt,
 		speedAt,
 		type Pointer,
 		type Recording
@@ -46,6 +47,9 @@
 
 	let t = $state(0);
 	let playing = $state(false);
+	// Set once anyone has played, scrubbed or jumped. Until then the window
+	// shows the poster, and play starts from the top.
+	let started = false;
 	let rate = $state(1);
 	let cursor = 0; // next event to write
 
@@ -56,6 +60,9 @@
 	let cell = $state({ w: 0, h: 0, x: 0, y: 0 });
 
 	const duration = $derived(rec?.duration ?? cast.duration);
+	// The recording's proportions, known from the index before a byte of it
+	// has loaded: columns by the advance, rows by the line xterm draws.
+	const reserve = $derived(`${cast.cols * ADVANCE} / ${cast.rows * ROW}`);
 	const ended = $derived(t >= duration - 0.001);
 
 	// Writes every event up to `to`. Going back means replaying from the top:
@@ -108,7 +115,8 @@
 
 	export function play() {
 		if (!term || playing) return;
-		if (ended) seek(0);
+		if (!started || ended) seek(0);
+		started = true;
 		playing = true;
 		last = 0;
 		frame = requestAnimationFrame(tick);
@@ -127,6 +135,7 @@
 	// Jumps to a chapter: the frame its screenshot was taken from.
 	export function jump(i: number) {
 		if (!rec || !rec.markers[i]) return;
+		started = true;
 		seek(rec.markers[i][0]);
 	}
 
@@ -139,13 +148,34 @@
 	// The font is sized so the recording's columns fill the window's width,
 	// never larger than the configured size, the way a window is sized to what
 	// runs in it.
+	//
+	// Below FLOOR there is no size at which 125 columns both fit and draw
+	// cleanly — xterm rounds its cells and the columns drift. So on a narrow
+	// screen the terminal is drawn at FLOOR and the whole thing is scaled down
+	// as a picture would be: every column visible, the geometry exact, nothing
+	// cut off the right-hand side. It used to lose a third of its width on a
+	// phone.
+	const FLOOR = 8;
+	let scale = $state(1);
+	let shrink = $state(0);
+	let ready = $state(false);
+
 	function fit() {
 		if (!term || !rec || !host) return;
-		const pad = theme.padding.x * 2;
-		const width = host.clientWidth - pad;
-		const size = Math.max(6, Math.min(theme.font.size * 1.15, width / (rec.cols * 0.6)));
+		const width = host.clientWidth - theme.padding.x * 2;
+		const exact = width / (rec.cols * ADVANCE);
+		const size = Math.min(theme.font.size * 1.15, Math.max(FLOOR, exact));
 		if (Math.abs((term.options.fontSize ?? 0) - size) > 0.05) term.options.fontSize = size;
-		measure();
+		// Measured, not computed: the width xterm actually laid out.
+		requestAnimationFrame(() => {
+			const screen = host?.querySelector<HTMLElement>('.xterm-screen');
+			if (!screen || !host) return;
+			const natural = screen.offsetWidth;
+			scale = natural > host.clientWidth ? host.clientWidth / natural : 1;
+			shrink = screen.offsetHeight * (1 - scale);
+			ready = true;
+			measure();
+		});
 	}
 
 	function measure() {
@@ -219,7 +249,9 @@
 				]).catch(() => {});
 				term.open(host);
 				fit();
-				seek(0);
+				// Rest on the hero frame, not the clean screen every recording opens
+				// on: under reduced motion it never plays, and this is all anyone sees.
+				seek(posterAt(rec));
 				observer = new ResizeObserver(fit);
 				observer.observe(host);
 
@@ -227,7 +259,7 @@
 				const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
 				seen = new IntersectionObserver(
 					([e]) => {
-						if (e.isIntersecting && !still && t === 0) play();
+						if (e.isIntersecting && !still && !started) play();
 						if (!e.isIntersecting) pause();
 					},
 					{ threshold: 0.4 }
@@ -254,6 +286,7 @@
 			seek(((x - r.left) / r.width) * duration);
 		};
 		const wasPlaying = playing;
+		started = true;
 		pause();
 		go(e.clientX);
 		rail.setPointerCapture(e.pointerId);
@@ -271,6 +304,7 @@
 		if (e.key === 'ArrowRight') seek(t + 2);
 		else if (e.key === 'ArrowLeft') seek(t - 2);
 		else return;
+		started = true;
 		e.preventDefault();
 		e.stopPropagation();
 	}
@@ -278,7 +312,19 @@
 
 <div class="recording">
 	<div class="stage" bind:this={stage}>
-		<div class="term" bind:this={host}></div>
+		<!--
+			Before xterm arrives the box is held open at the recording's own
+			proportions, so the page does not jump when it does. After, it is
+			the terminal's natural size, scaled down on a narrow screen with the
+			space it no longer needs given back underneath.
+		-->
+		<div
+			class="term"
+			bind:this={host}
+			style:aspect-ratio={ready ? null : reserve}
+			style:transform={scale < 1 ? `scale(${scale})` : null}
+			style:margin-bottom={scale < 1 ? `${-shrink}px` : null}
+		></div>
 
 		{#if point && point.fade > 0 && cell.w}
 			<div
@@ -385,7 +431,7 @@
 		background: var(--term-bg);
 	}
 	.term {
-		min-height: 12rem;
+		transform-origin: 0 0;
 	}
 	/* xterm paints its own background; keep it the window's, edge to edge. */
 	.term :global(.xterm),

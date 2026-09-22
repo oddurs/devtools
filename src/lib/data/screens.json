@@ -245,8 +245,8 @@
   },
   "fontina": {
     "runner": "terminal",
-    "commit": "a023cc96674e",
-    "takenAt": "2026-09-20T16:03:01.424Z",
+    "commit": "5092f1c69053",
+    "takenAt": "2026-09-22T04:07:05.723Z",
     "background": "#0d0d0c",
     "shots": [
       {
@@ -282,23 +282,23 @@
       "src": "/media/casts/fontina.cast",
       "cols": 125,
       "rows": 36,
-      "duration": 44.318,
-      "bytes": 1032970,
+      "duration": 17.412,
+      "bytes": 32483,
       "markers": [
         [
-          3.521,
+          3.735,
           "start"
         ],
         [
-          8.544,
+          8.728,
           "use"
         ],
         [
-          11.787,
+          11.96,
           "depth"
         ],
         [
-          15.718,
+          15.912,
           "hero"
         ]
       ]
@@ -336,7 +336,7 @@
         "src": "/media/gallery/fontina/05-fira-code.webp",
         "caption": "Fira Code, a monospace with programming ligatures.",
         "width": 1600,
-        "height": 1423,
+        "height": 1340,
         "source": "family:Fira Code"
       },
       {
@@ -350,8 +350,8 @@
   },
   "gummyworm": {
     "runner": "terminal",
-    "commit": "fca7dbcf955d",
-    "takenAt": "2026-09-20T05:41:17.439Z",
+    "commit": "bf1de6671f37",
+    "takenAt": "2026-09-22T04:05:34.504Z",
     "background": "#0d0d0c",
     "shots": [
       {
@@ -387,23 +387,23 @@
       "src": "/media/casts/gummyworm.cast",
       "cols": 125,
       "rows": 29,
-      "duration": 61.516,
-      "bytes": 311787,
+      "duration": 17.644,
+      "bytes": 80954,
       "markers": [
         [
-          3.739,
+          3.725,
           "hero"
         ],
         [
-          7.794,
+          7.726,
           "start"
         ],
         [
-          12.355,
+          12.275,
           "use"
         ],
         [
-          16.266,
+          16.144,
           "depth"
         ]
       ]
@@ -413,77 +413,77 @@
         "src": "/media/gallery/gummyworm/01-mono.webp",
         "caption": "Characters alone: each cell takes the glyph whose weight matches the pixels under it.",
         "width": 1446,
-        "height": 1782,
+        "height": 1844,
         "source": "gummyworm"
       },
       {
         "src": "/media/gallery/gummyworm/02-standard.webp",
         "caption": "The same thing in colour, from the terminal’s own palette.",
         "width": 1446,
-        "height": 1844,
+        "height": 1841,
         "source": "-c"
       },
       {
         "src": "/media/gallery/gummyworm/03-detailed.webp",
         "caption": "Seventy-one characters, for as much detail as type can hold.",
         "width": 1446,
-        "height": 1844,
+        "height": 1841,
         "source": "-p detailed"
       },
       {
         "src": "/media/gallery/gummyworm/04-shades.webp",
         "caption": "Symmetric shading: the ramp runs up and back down again.",
         "width": 1447,
-        "height": 1844,
+        "height": 1841,
         "source": "-p shades"
       },
       {
         "src": "/media/gallery/gummyworm/05-retro.webp",
         "caption": "Dots and blocks mixed, the way a home computer would have drawn it.",
         "width": 1448,
-        "height": 1844,
+        "height": 1841,
         "source": "-p retro"
       },
       {
         "src": "/media/gallery/gummyworm/06-blocks.webp",
         "caption": "Four blocks, filling the whole cell rather than sitting inside it.",
         "width": 1448,
-        "height": 1844,
+        "height": 1841,
         "source": "-p blocks"
       },
       {
         "src": "/media/gallery/gummyworm/07-dots.webp",
         "caption": "Braille, which halves the cell again and doubles the resolution.",
         "width": 1447,
-        "height": 1844,
+        "height": 1841,
         "source": "-p dots"
       },
       {
         "src": "/media/gallery/gummyworm/08-binary.webp",
         "caption": "Two tones and nothing in between: a silhouette.",
         "width": 1448,
-        "height": 1844,
+        "height": 1841,
         "source": "-p binary"
       },
       {
         "src": "/media/gallery/gummyworm/09-matrix.webp",
         "caption": "Ones and zeroes, for the obvious reason.",
         "width": 1445,
-        "height": 1844,
+        "height": 1841,
         "source": "-p matrix"
       },
       {
         "src": "/media/gallery/gummyworm/10-simple.webp",
         "caption": "Four characters, for a preview that renders instantly.",
         "width": 1446,
-        "height": 1844,
+        "height": 1841,
         "source": "-p simple"
       },
       {
         "src": "/media/gallery/gummyworm/11-emoji.webp",
         "caption": "Moon phases, at half the width, because the glyphs are twice as wide.",
         "width": 1054,
-        "height": 1534,
+        "height": 1658,
         "source": "-p emoji"
       }
     ]

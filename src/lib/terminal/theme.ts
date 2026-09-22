@@ -20,6 +20,12 @@ export const theme = {
 // window would be sized to the program rather than the program wrapped.
 export const ADVANCE = 0.6;
 
+// And the height of one of xterm's rows, as a fraction of the font size, at
+// the line height the player sets. Measured rather than derived: 19px rows at
+// 12.99px type. The player uses it to hold a recording's space open before
+// xterm has loaded, so the page does not jump when it arrives.
+export const ROW = 1.463;
+
 // The terminal's own glyphs first (braille and block elements only: its
 // @font-face has a unicode-range), then the configured face.
 export const font = `'Term Glyphs', '${ghostty.font.family}', 'JetBrains Mono', 'JetBrains Mono Variable', ui-monospace, monospace`;

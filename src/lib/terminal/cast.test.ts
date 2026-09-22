@@ -1,5 +1,14 @@
 import { describe, expect, it } from 'vitest';
-import { chapterAt, clock, keyAt, parse, pointerAt, speedAt, type Recording } from './cast';
+import {
+	chapterAt,
+	clock,
+	keyAt,
+	parse,
+	pointerAt,
+	posterAt,
+	speedAt,
+	type Recording
+} from './cast';
 
 // An asciicast as the screens runner writes one: a header line, then one JSON
 // array per line. `x_devtools` is our own addition — the pointer, the keys and
@@ -75,6 +84,38 @@ function rec(over: Partial<Recording> = {}): Recording {
 		...over
 	};
 }
+
+describe('posterAt', () => {
+	it('rests on the hero frame', () => {
+		const markers: [number, string][] = [
+			[2, 'hero'],
+			[5, 'start']
+		];
+		expect(posterAt(rec({ markers }))).toBe(2);
+	});
+
+	it('finds the hero by name when a story shot it after another beat', () => {
+		// brainiac shoots 'start' first; the poster is still its hero.
+		const markers: [number, string][] = [
+			[1, 'start'],
+			[4, 'use'],
+			[9, 'hero']
+		];
+		expect(posterAt(rec({ markers }))).toBe(9);
+	});
+
+	it('falls back to the first chapter when there is no hero', () => {
+		const markers: [number, string][] = [
+			[3, 'use'],
+			[7, 'depth']
+		];
+		expect(posterAt(rec({ markers }))).toBe(3);
+	});
+
+	it('rests at the start of a recording with no chapters', () => {
+		expect(posterAt(rec())).toBe(0);
+	});
+});
 
 describe('chapterAt', () => {
 	const markers: [number, string][] = [

@@ -20,6 +20,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const IDLE_LIMIT = 2; // seconds
+// Seconds a recording runs past its last chapter, so the end is seen, not cut.
+const TAIL = 1.5;
 
 export class Recorder {
 	constructor() {
@@ -112,6 +114,18 @@ export class Recorder {
 		];
 		const cap = capper(times, IDLE_LIMIT);
 
+		// A recording ends a beat after its last chapter. Whatever a story does
+		// after its last shot — making the gallery's plates, returning to live,
+		// quitting — is housekeeping, not the demo, and it is where a minute of
+		// gummyworm used to go.
+		const marks = this.events.filter((e) => e[1] === 'm').map((e) => cap(e[0]));
+		const end = marks.length ? Math.max(...marks) + TAIL : Infinity;
+		const kept = (t) => cap(t) <= end;
+		const events = this.events.filter((e) => kept(e[0]));
+		const pointer = this.pointer.filter((p) => kept(p[0]));
+		const keys = this.keys.filter((k) => kept(k[0]));
+		const speeds = this.speeds.filter((s) => kept(s[0]));
+
 		const header = {
 			version: 2,
 			width: this.cols,
@@ -121,23 +135,23 @@ export class Recorder {
 			title,
 			env: { TERM: 'xterm-256color', SHELL: '/usr/bin/fish' },
 			x_devtools: {
-				pointer: this.pointer.map(([t, ...rest]) => [cap(t), ...rest]),
-				keys: this.keys.map(([t, label]) => [cap(t), label]),
-				speeds: this.speeds.map(([t, f]) => [cap(t), f])
+				pointer: pointer.map(([t, ...rest]) => [cap(t), ...rest]),
+				keys: keys.map(([t, label]) => [cap(t), label]),
+				speeds: speeds.map(([t, f]) => [cap(t), f])
 			}
 		};
 		const lines = [JSON.stringify(header)];
-		for (const [t, code, data] of this.events) lines.push(JSON.stringify([cap(t), code, data]));
+		for (const [t, code, data] of events) lines.push(JSON.stringify([cap(t), code, data]));
 		fs.mkdirSync(path.dirname(file), { recursive: true });
 		fs.writeFileSync(file, lines.join('\n') + '\n');
 
-		const duration = Math.max(0, ...times.map(cap));
+		const duration = Math.min(end, Math.max(0, ...times.map(cap)));
 		return {
 			cols: this.cols,
 			rows: this.rows,
 			duration: round(duration),
 			bytes: fs.statSync(file).size,
-			markers: this.events.filter((e) => e[1] === 'm').map((e) => [cap(e[0]), e[2]])
+			markers: events.filter((e) => e[1] === 'm').map((e) => [cap(e[0]), e[2]])
 		};
 	}
 }

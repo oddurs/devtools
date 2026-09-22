@@ -38,6 +38,15 @@ export function parse(text: string): Recording {
 	};
 }
 
+// Where the window rests before anyone presses play: the frame the hero
+// screenshot was taken from, so it shows the tool at a glance rather than the
+// clean screen every recording opens on. The hero is not always the first
+// chapter — a story may shoot 'start' before it — so it is looked for by name.
+export function posterAt(rec: Recording): number {
+	const hero = rec.markers.find(([, beat]) => beat === 'hero');
+	return (hero ?? rec.markers[0])?.[0] ?? 0;
+}
+
 // Index of the chapter playing at t, or -1 before the first.
 export function chapterAt(rec: Recording, t: number): number {
 	let i = -1;
