@@ -10,16 +10,19 @@
 
 <article class="project">
 	<!--
-		The tool first. The name and the line sit on one row above the window,
-		and everything else — what it is written in, what it costs to install,
-		where the source is — goes under it, because those are reference rather
-		than the argument.
+		What it is, then how to get it, then the tool running. The text is short
+		enough to read before the window, and the window has room to be the
+		biggest thing on the page once you reach it.
 	-->
 	<header>
-		<h1><AppIcon name={project.name} size="m" />{project.name}</h1>
-		<p class="line">{project.line}</p>
+		<h1><AppIcon name={project.name} size="l" />{project.name}</h1>
 		{#if prerelease(project)}<Badge tone="amber">pre-release</Badge>{/if}
 	</header>
+
+	<div class="about">
+		<p class="line">{project.line}</p>
+		<p class="more">{project.more}</p>
+	</div>
 
 	{#if prerelease(project)}
 		<p class="notice">
@@ -28,10 +31,6 @@
 			not a program running.
 		</p>
 	{/if}
-
-	<Demo {project} />
-
-	<p class="more">{project.more}</p>
 
 	<div class="facts">
 		{#if project.install}
@@ -54,43 +53,57 @@
 			<a class="out" href={project.site}>Site<span aria-hidden="true">↗</span></a>
 		{/if}
 	</div>
+
+	<div class="demo-slot"><Demo {project} /></div>
 </article>
 
 <style>
+	/* One column, read top to bottom. The gaps are the structure: tight
+	   inside a group, wider between groups, widest before the window, which
+	   is where the page changes from reading to watching. */
 	.project {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);
-		gap: var(--space-6);
 		max-width: 68rem;
 	}
-	/* The name and the line on one row: the line is the argument, so it gets
-	   the width, and the name stays small enough not to shout over it. */
 	header {
 		display: flex;
 		flex-wrap: wrap;
-		align-items: baseline;
+		align-items: center;
 		gap: var(--space-2) var(--space-4);
 	}
 	h1 {
 		display: flex;
 		align-items: center;
-		gap: var(--space-3);
+		gap: var(--space-4);
 		margin: 0;
-		font-size: 1.75rem;
+		font-size: var(--size-title);
 		font-weight: 600;
-		letter-spacing: -0.024em;
+		letter-spacing: -0.028em;
 		line-height: 1.1;
 	}
+	.about {
+		display: grid;
+		gap: var(--space-3);
+		max-width: var(--measure);
+		margin-top: var(--space-6);
+	}
 	.line {
-		flex: 1 1 22rem;
 		margin: 0;
 		color: var(--ink);
 		font-size: var(--size-lead);
-		line-height: 1.4;
+		line-height: 1.45;
 		text-wrap: balance;
 	}
-	.notice {
+	.more {
 		margin: 0;
+		color: var(--muted);
+		line-height: 1.6;
+		text-wrap: pretty;
+	}
+	.notice {
+		max-width: var(--measure);
+		margin: var(--space-6) 0 0;
 		padding: var(--space-3) var(--space-4);
 		border-radius: var(--radius-s);
 		background: color-mix(in oklab, var(--amber) 6%, transparent);
@@ -99,20 +112,19 @@
 		font-size: var(--size-m);
 		text-wrap: pretty;
 	}
-
-	.more {
-		margin: 0;
-		max-width: var(--measure);
-		color: var(--muted);
-		text-wrap: pretty;
+	.notice strong {
+		color: var(--amber);
+		font-weight: 500;
 	}
 
-	/* Under the demo: what it is, what it costs, where it lives. One row. */
+	/* How to get it and where it lives, one row. */
 	.facts {
 		display: flex;
 		flex-wrap: wrap;
 		align-items: center;
 		gap: var(--space-3) var(--space-6);
+		max-width: 52rem;
+		margin-top: var(--space-8);
 		font-size: var(--size-m);
 	}
 	.install {
@@ -157,5 +169,12 @@
 	}
 	.out:hover span {
 		transform: translate(1px, -1px);
+	}
+
+	/* Reading stops and watching starts: the widest gap on the page, though
+	   less of it on a phone, where every row is already a long way down. */
+	.demo-slot {
+		min-width: 0;
+		margin-top: clamp(var(--space-8), 5vw, var(--space-12));
 	}
 </style>

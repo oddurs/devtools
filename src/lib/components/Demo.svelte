@@ -125,6 +125,16 @@
 				</div>
 			{/if}
 
+			<span class="keys">
+				{#if view === 'recording'}
+					<Kbd>space</Kbd> play <Kbd>←</Kbd><Kbd>→</Kbd> chapters
+				{:else if view === 'screens' && shots.length > 1}
+					<Kbd>←</Kbd><Kbd>→</Kbd>
+				{:else if view === 'gallery'}
+					<Kbd>←</Kbd><Kbd>→</Kbd> in a plate
+				{/if}
+			</span>
+
 			<button
 				type="button"
 				class="expand"
@@ -144,16 +154,6 @@
 				</svg>
 				{expanded ? 'close' : 'expand'}
 			</button>
-
-			<span class="keys">
-				{#if view === 'recording'}
-					<Kbd>space</Kbd> play <Kbd>←</Kbd><Kbd>→</Kbd> chapters
-				{:else if view === 'screens' && shots.length > 1}
-					<Kbd>←</Kbd><Kbd>→</Kbd>
-				{:else if view === 'gallery'}
-					<Kbd>←</Kbd><Kbd>→</Kbd> in a plate
-				{/if}
-			</span>
 		</div>
 	{/if}
 
@@ -238,7 +238,6 @@
 		display: inline-flex;
 		align-items: center;
 		gap: 0.375rem;
-		margin-left: auto;
 		padding: 0.25rem 0.5rem;
 		border-radius: 4px;
 		color: var(--faint);
@@ -258,9 +257,10 @@
 		stroke-linecap: round;
 		stroke-linejoin: round;
 	}
-	/* With the expand control taking the row's end, the key hints follow it. */
-	.expand + .keys {
-		margin-left: var(--space-4);
+	/* The row ends on the expand control, flush with the window's edge; the
+	   key hints sit just before it and take the slack. */
+	.keys + .expand {
+		margin-left: var(--space-2);
 	}
 	.controls {
 		margin-bottom: var(--space-3);
@@ -334,9 +334,27 @@
 		font-size: var(--size-m);
 		text-wrap: pretty;
 	}
+	/* Two lines on a phone rather than four: the view and the expand control
+	   share the first, and the chapters get the second to themselves,
+	   scrolling sideways rather than stranding a label on a line of its own. */
 	@media (max-width: 40rem) {
 		.keys {
 			display: none;
+		}
+		.controls .expand {
+			order: 1;
+			margin-left: auto;
+		}
+		.beats {
+			order: 2;
+			flex-basis: 100%;
+			flex-wrap: nowrap;
+			overflow-x: auto;
+			scrollbar-width: none;
+			mask-image: linear-gradient(to right, black calc(100% - 2rem), transparent);
+		}
+		.beats button {
+			white-space: nowrap;
 		}
 	}
 </style>

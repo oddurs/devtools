@@ -86,7 +86,7 @@
 	   sits slightly low in its frame, the way a picture is hung — but nowhere
 	   near the ceiling it used to hang from. */
 	--gutter: clamp(1.25rem, 3vw, 2.5rem);
-	--gutter-top: clamp(1.75rem, 4vw, 3.5rem);
+	--gutter-top: clamp(2.25rem, 5vw, 4.5rem);
 	--measure: 42rem; /* the longest line of prose */
 	--rail: 15rem;
 

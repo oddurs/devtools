@@ -53,8 +53,13 @@
 	}
 
 	@media (max-width: 52rem) {
+		/* The rail becomes a strip across the top. Its row is as tall as the
+		   strip and no taller: left to itself a grid stretches its rows to fill
+		   the page's min-height, and the strip grew a quarter of a phone's
+		   height of empty space under it. */
 		.page {
 			grid-template-columns: minmax(0, 1fr);
+			grid-template-rows: auto minmax(0, 1fr);
 		}
 		aside {
 			z-index: 1;
