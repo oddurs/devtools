@@ -145,6 +145,17 @@ describe.each(entries)('%s', (name, entry) => {
 		expect(times).toEqual([...times].sort((a, b) => a - b));
 		expect(Math.max(0, ...times)).toBeLessThanOrEqual(Number(cast!.duration));
 	});
+
+	// The poster is the hero frame, so a recording without one opens on
+	// whatever happened to be first. And the runner cuts a recording a breath
+	// after its last chapter (TAIL in screens/runner/record.mjs): anything past
+	// that is someone watching a finished screen, waiting for the loop.
+	it.runIf(cast)('opens on its hero and ends soon after its last chapter', () => {
+		const markers = (cast!.markers ?? []) as [number, string][];
+		expect(markers.map((m) => m[1])).toContain('hero');
+		const last = Math.max(...markers.map((m) => m[0]));
+		expect(Number(cast!.duration) - last).toBeLessThanOrEqual(2);
+	});
 });
 
 // The join projects.ts performs, checked from the other side.

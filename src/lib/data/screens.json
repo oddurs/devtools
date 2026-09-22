@@ -748,8 +748,8 @@
   },
   "poptop": {
     "runner": "terminal",
-    "commit": "0f25ff029c74",
-    "takenAt": "2026-09-20T05:49:38.983Z",
+    "commit": "d8000ec8a8ad",
+    "takenAt": "2026-09-22T04:09:50.107Z",
     "background": "#0d0d0c",
     "shots": [
       {
@@ -785,23 +785,23 @@
       "src": "/media/casts/poptop.cast",
       "cols": 125,
       "rows": 29,
-      "duration": 38.554,
-      "bytes": 184028,
+      "duration": 37.117,
+      "bytes": 180775,
       "markers": [
         [
-          9.194,
+          9.166,
           "hero"
         ],
         [
-          11.304,
+          11.33,
           "start"
         ],
         [
-          18.336,
+          18.354,
           "use"
         ],
         [
-          35.631,
+          35.617,
           "depth"
         ]
       ]
@@ -1237,7 +1237,7 @@
   "yoghurt": {
     "runner": "terminal",
     "commit": "3897000cf88c",
-    "takenAt": "2026-09-19T16:32:52.221Z",
+    "takenAt": "2026-09-22T04:10:49.723Z",
     "background": "#0d0d0c",
     "shots": [
       {
@@ -1273,23 +1273,23 @@
       "src": "/media/casts/yoghurt.cast",
       "cols": 125,
       "rows": 29,
-      "duration": 36.419,
-      "bytes": 57094,
+      "duration": 29.456,
+      "bytes": 44993,
       "markers": [
         [
-          5.316,
+          5.566,
           "hero"
         ],
         [
-          8.81,
+          9.061,
           "start"
         ],
         [
-          16.952,
+          17.287,
           "use"
         ],
         [
-          27.471,
+          27.956,
           "depth"
         ]
       ]

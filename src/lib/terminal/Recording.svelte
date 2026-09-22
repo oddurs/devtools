@@ -330,6 +330,7 @@
 			<div
 				class="pointer"
 				class:pressed={point.pressed}
+				style:--s={scale}
 				style="left:{cell.x + point.col * cell.w}px; top:{cell.y +
 					point.row * cell.h}px; opacity:{point.fade}"
 			>
@@ -442,10 +443,14 @@
 		overflow: hidden !important;
 	}
 
+	/* Scaled with the terminal, from its tip, so on a phone it is the size it
+	   would be beside the text rather than nearly twice it. */
 	.pointer {
 		position: absolute;
 		z-index: 2;
 		pointer-events: none;
+		transform: scale(var(--s, 1));
+		transform-origin: 1px 1px;
 		transition: opacity 200ms;
 	}
 	.pointer svg {

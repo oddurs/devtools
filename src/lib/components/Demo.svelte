@@ -54,13 +54,22 @@
 			(view === 'recording' && (project.cast?.markers.length ?? 0) > 1)
 	);
 	// The recording's chapters, with the caption of the screenshot each one is.
+	// `at` is where each falls in the recording, and it stays in that order for
+	// playback: a story shoots its beats in whatever order causes them, and
+	// brainiac cannot draw its map before it has indexed. The buttons are a
+	// menu of the four beats, though, and a menu reads the same way on every
+	// page — the order the screens view uses.
+	const BEATS = ['hero', 'start', 'use', 'depth'];
 	const chapters = $derived(
-		(project.cast?.markers ?? []).map(([, beat]) => ({
-			beat,
-			caption: project.screens.find((s) => s.beat === beat)?.caption ?? ''
-		}))
+		(project.cast?.markers ?? [])
+			.map(([, beat], at) => ({
+				beat,
+				at,
+				caption: project.screens.find((s) => s.beat === beat)?.caption ?? ''
+			}))
+			.sort((a, b) => BEATS.indexOf(a.beat) - BEATS.indexOf(b.beat))
 	);
-	const chapterCaption = $derived(chapters[chapter]?.caption);
+	const chapterCaption = $derived(chapters.find((c) => c.at === chapter)?.caption);
 	const beatLabel: Record<string, string> = {
 		hero: 'at a glance',
 		start: 'getting started',
@@ -106,12 +115,12 @@
 
 			{#if view === 'recording' && chapters.length > 1}
 				<div class="beats" role="tablist" aria-label="Chapters">
-					{#each chapters as c, i (c.beat)}
+					{#each chapters as c (c.beat)}
 						<button
 							type="button"
 							role="tab"
-							aria-selected={i === chapter}
-							onclick={() => player?.jump(i)}>{beatLabel[c.beat] ?? c.beat}</button
+							aria-selected={c.at === chapter}
+							onclick={() => player?.jump(c.at)}>{beatLabel[c.beat] ?? c.beat}</button
 						>
 					{/each}
 				</div>
