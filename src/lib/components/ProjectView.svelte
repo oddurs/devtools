@@ -31,6 +31,8 @@
 
 	<Demo {project} />
 
+	<p class="more">{project.more}</p>
+
 	<div class="facts">
 		{#if project.install}
 			<div class="install"><Command command={project.install} /></div>
@@ -52,23 +54,6 @@
 			<a class="out" href={project.site}>Site<span aria-hidden="true">↗</span></a>
 		{/if}
 	</div>
-
-	<!--
-		What it does, scanned down the left and read across only where the claim
-		catches. A hairline between rows and nothing else: no cards, no borders,
-		the same rule the rail follows.
-	-->
-	{#if project.features.length}
-		<dl class="features">
-			{#each project.features as f (f.claim)}
-				<dt>{f.claim}</dt>
-				<dd>
-					{#each f.what.split('`') as part, i (i)}{#if i % 2}<code>{part}</code
-							>{:else}{part}{/if}{/each}
-				</dd>
-			{/each}
-		</dl>
-	{/if}
 </article>
 
 <style>
@@ -112,6 +97,13 @@
 		box-shadow: inset 2px 0 0 color-mix(in oklab, var(--amber) 55%, transparent);
 		color: var(--muted);
 		font-size: var(--size-m);
+		text-wrap: pretty;
+	}
+
+	.more {
+		margin: 0;
+		max-width: var(--measure);
+		color: var(--muted);
 		text-wrap: pretty;
 	}
 
@@ -165,50 +157,5 @@
 	}
 	.out:hover span {
 		transform: translate(1px, -1px);
-	}
-
-	/* The claim column is fixed so the sentences start on one line and the
-	   left can be read on its own; a hairline between rows, and no box. */
-	.features {
-		display: grid;
-		grid-template-columns: 13rem minmax(0, 1fr);
-		column-gap: var(--space-8);
-		margin: var(--space-4) 0 0;
-		max-width: 56rem;
-		border-top: 1px solid var(--rule);
-	}
-	.features dt,
-	.features dd {
-		margin: 0;
-		padding: var(--space-3) 0;
-		border-bottom: 1px solid var(--rule);
-		font-size: var(--size-m);
-		line-height: 1.5;
-	}
-	.features dt {
-		color: var(--ink);
-		text-wrap: balance;
-	}
-	.features dd {
-		color: var(--muted);
-		text-wrap: pretty;
-	}
-	.features code {
-		font-size: 0.92em;
-	}
-
-	@media (max-width: 40rem) {
-		/* Too narrow for two columns: the claim becomes a heading over its
-		   sentence, and only the pair is ruled off. */
-		.features {
-			grid-template-columns: minmax(0, 1fr);
-		}
-		.features dt {
-			padding-bottom: 0;
-			border-bottom: 0;
-		}
-		.features dd {
-			padding-top: var(--space-1);
-		}
 	}
 </style>
