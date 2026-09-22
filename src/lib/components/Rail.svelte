@@ -37,10 +37,6 @@
 			</ul>
 		</div>
 	{/each}
-
-	<p class="foot">
-		<a href={resolve('/system')} aria-current={current === null ? 'page' : undefined}>system</a>
-	</p>
 </nav>
 
 <style>
@@ -105,22 +101,6 @@
 	li a[aria-current='page'] {
 		color: var(--ink);
 	}
-	.foot {
-		display: flex;
-		align-items: center;
-		margin: auto 0 0;
-		padding-inline: var(--space-2);
-		color: var(--faint);
-		font-size: var(--size-xs);
-	}
-	.foot a {
-		text-decoration: none;
-		transition: color var(--quick);
-	}
-	.foot a:hover,
-	.foot a[aria-current='page'] {
-		color: var(--ink);
-	}
 
 	@media (max-width: 52rem) {
 		.rail {
@@ -136,8 +116,7 @@
 		.group {
 			display: contents;
 		}
-		h2,
-		.foot {
+		h2 {
 			display: none;
 		}
 		ul {
