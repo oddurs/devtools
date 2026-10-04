@@ -25,6 +25,7 @@ import Rocket from '@lucide/svelte/icons/rocket';
 import Rss from '@lucide/svelte/icons/rss';
 import Scissors from '@lucide/svelte/icons/scissors';
 import SquarePen from '@lucide/svelte/icons/square-pen';
+import Calculator from '@lucide/svelte/icons/calculator';
 import Columns3 from '@lucide/svelte/icons/columns-3';
 import FolderCog from '@lucide/svelte/icons/folder-cog';
 import FolderPlus from '@lucide/svelte/icons/folder-plus';
@@ -97,6 +98,7 @@ export const identities: Record<string, Identity> = {
 	// science
 	starward: { icon: Telescope, tint: 'sky', why: 'looking up' },
 	tsi: { icon: Rocket, tint: 'coral', why: 'the rocket equation' },
+	tungsten: { icon: Calculator, tint: 'violet', why: 'quantities, worked out' },
 
 	// art
 	windsor: { icon: Engine, tint: 'coral', why: 'the engine' },

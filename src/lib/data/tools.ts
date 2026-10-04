@@ -417,6 +417,17 @@ export const sections: Section[] = [
 				lang: 'Rust',
 				install: 'cargo install --git https://github.com/oddurs/tsi',
 				tags: ['orbital mechanics', 'monte carlo']
+			},
+			{
+				name: 'tungsten',
+				kind: 'cli',
+				line: 'Calculate with real-world quantities, offline.',
+				more: 'A small nod to Wolfram|Alpha in the terminal: `60 mph * 2h 15min` is 135 miles, and it offers the same in kilometres and in marathons. Units are checked rather than guessed, so adding a length to a time is an error that underlines both halves and suggests the division you probably meant. Exact arithmetic stays exact as long as it can, there are variables, functions and a REPL, and nothing leaves the machine. Named for element 74, symbol W.',
+				state: { kind: 'source', version: '0.3.1' },
+				license: 'MIT',
+				lang: 'Rust',
+				install: 'cargo install --git https://github.com/oddurs/tungsten',
+				tags: ['units', 'quantities', 'repl']
 			}
 		]
 	},

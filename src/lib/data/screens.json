@@ -1536,6 +1536,67 @@
       ]
     }
   },
+  "tungsten": {
+    "runner": "terminal",
+    "commit": "63a07a7a5388",
+    "takenAt": "2026-10-04T01:47:31.149Z",
+    "background": "#0d0d0c",
+    "shots": [
+      {
+        "beat": "hero",
+        "caption": "What it understood, what it comes to, the same in other units — and something to measure it against.",
+        "src": "/media/screens/tungsten/01-hero.webp",
+        "width": 1600,
+        "height": 1100
+      },
+      {
+        "beat": "start",
+        "caption": "Units are checked rather than guessed: it underlines both halves, names what each one is, and suggests the division you probably meant.",
+        "src": "/media/screens/tungsten/02-start.webp",
+        "width": 1600,
+        "height": 1100
+      },
+      {
+        "beat": "use",
+        "caption": "Mixed units, temperatures as points on a scale rather than as quantities, and a question asked in English.",
+        "src": "/media/screens/tungsten/03-use.webp",
+        "width": 1600,
+        "height": 1100
+      },
+      {
+        "beat": "depth",
+        "caption": "A session of its own: variables, `it` for the last answer, and names that already mean something — `m` is metres — cannot be taken.",
+        "src": "/media/screens/tungsten/04-depth.webp",
+        "width": 1600,
+        "height": 1100
+      }
+    ],
+    "cast": {
+      "src": "/media/casts/tungsten.cast",
+      "cols": 125,
+      "rows": 33,
+      "duration": 24.014,
+      "bytes": 26948,
+      "markers": [
+        [
+          3.428,
+          "hero"
+        ],
+        [
+          6.532,
+          "start"
+        ],
+        [
+          15.322,
+          "use"
+        ],
+        [
+          23.62,
+          "depth"
+        ]
+      ]
+    }
+  },
   "turborust": {
     "runner": "terminal",
     "commit": "46277fa8b57a",

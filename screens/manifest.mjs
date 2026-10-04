@@ -2276,6 +2276,65 @@ EOF
 		]
 	},
 
+	tungsten: {
+		build: cargoAll,
+		record: true,
+		terminal: { height: 1100 },
+		// The binary is `tungsten`; every example in its README writes `w`,
+		// which is what anyone would actually type. The alias is the reader's
+		// to choose, so the fixture makes the one the README suggests.
+		fixture: `
+mkdir -p "$USER_HOME/.config/fish/functions"
+printf 'function w\\n    tungsten $argv\\nend\\n' > "$USER_HOME/.config/fish/functions/w.fish"
+`,
+		steps: [
+			// Quoted: fish would try to glob the `*` before tungsten ever saw it,
+			// which is the first thing tungsten's own README warns about.
+			{ run: 'w "60 mph * 2h 15min"' },
+			{ wait: 'result' },
+			{ sleep: '2.5s' },
+			{
+				shot: 'hero',
+				caption:
+					'What it understood, what it comes to, the same in other units — and something to measure it against.'
+			},
+			{ run: 'clear; w 3 m + 2 s' },
+			{ wait: 'hint' },
+			{ sleep: '2.5s' },
+			{
+				shot: 'start',
+				caption:
+					'Units are checked rather than guessed: it underlines both halves, names what each one is, and suggests the division you probably meant.'
+			},
+			{ run: 'clear; w 100000 s in h, min, s' },
+			{ sleep: '1.5s' },
+			{ run: 'w 98.6 °F in °C' },
+			{ sleep: '1.5s' },
+			{ run: 'w how many feet in a mile' },
+			{ sleep: '2.5s' },
+			{
+				shot: 'use',
+				caption:
+					'Mixed units, temperatures as points on a scale rather than as quantities, and a question asked in English.'
+			},
+			{ run: 'clear; w' },
+			{ wait: 'W›' },
+			{ sleep: '1s' },
+			{ run: 'rent = 2400 USD/month' },
+			{ sleep: '1.2s' },
+			{ run: 'it * 12 month' },
+			{ sleep: '1.2s' },
+			{ run: ':vars' },
+			{ sleep: '2.5s' },
+			{
+				shot: 'depth',
+				caption:
+					'A session of its own: variables, `it` for the last answer, and names that already mean something — `m` is metres — cannot be taken.'
+			},
+			{ run: ':quit' }
+		]
+	},
+
 	// ── macOS only: kept as they are until there is a macOS runner ─────────
 
 	clackson: { runner: 'host' }
