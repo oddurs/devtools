@@ -107,6 +107,20 @@ RUN apt-get update && apt-get install -y --no-install-recommends imagemagick \
 RUN apt-get update && apt-get install -y --no-install-recommends gh \
     && rm -rf /var/lib/apt/lists/*
 
+# And one layer later: Node 22, over Debian's 20. A JavaScript project built
+# here brings its own package manager — dscheck pins pnpm 11 — and those have
+# moved past 20. Debian's node stays installed underneath; this is first on
+# the PATH, so the runner and every build use it.
+RUN set -eux; \
+    arch="$(dpkg --print-architecture)"; \
+    case "$arch" in amd64) n=x64 ;; arm64) n=arm64 ;; *) echo "no node build for $arch" >&2; exit 1 ;; esac; \
+    curl -fsSL "https://nodejs.org/dist/v22.21.0/node-v22.21.0-linux-$n.tar.xz" -o /tmp/node.tar.xz; \
+    mkdir -p /opt/node; \
+    tar -xJf /tmp/node.tar.xz -C /opt/node --strip-components=1; \
+    rm /tmp/node.tar.xz; \
+    /opt/node/bin/node --version
+ENV PATH=/opt/node/bin:$PATH
+
 WORKDIR /work/site
 
 ENTRYPOINT ["node", "/work/site/screens/runner/run.mjs"]

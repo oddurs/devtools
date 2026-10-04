@@ -57,7 +57,9 @@ describe('every tool', () => {
 		clackson: 'macOS only, and the page is a sound rather than a picture',
 		knit: 'needs more than one machine to be worth showing',
 		brevity: 'has no interface: a clipboard, a key and a chime',
-		triblenka: 'design stage: nothing is implemented yet'
+		triblenka: 'design stage: nothing is implemented yet',
+		foldr: 'early: the CLI answers --help and little else yet',
+		rockaway: 'pre-release: the frame engine that would be shown is next'
 	};
 
 	it.each(projects.map((p) => [p.name, p] as const))('%s has something to show', (name, p) => {

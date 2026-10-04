@@ -1912,6 +1912,370 @@ git worktree list`,
 		]
 	},
 
+	findr: {
+		build: cargo,
+		record: true,
+		// A project with a working tree that has something to say: a commit
+		// behind it, one file edited, one staged, one never added, and one the
+		// .gitignore covers — so the status column, the rollup onto directories
+		// and the dimming all have something to show.
+		fixture: `
+export GIT_AUTHOR_NAME=dev GIT_AUTHOR_EMAIL=dev@example.invalid
+export GIT_COMMITTER_NAME=dev GIT_COMMITTER_EMAIL=dev@example.invalid
+mkdir -p ledger && cd ledger
+mkdir -p src/parser src/render docs tests
+cat > README.md <<'EOF'
+# ledger
+
+A small double-entry ledger. Plain files, one account per line.
+EOF
+printf 'target/\n*.log\n' > .gitignore
+cat > src/main.rs <<'EOF'
+//! A ledger that balances, or says where it does not.
+
+mod parser;
+mod render;
+
+fn main() -> anyhow::Result<()> {
+    let book = parser::read("book.ledger")?;
+    render::table(&book);
+    Ok(())
+}
+EOF
+cat > src/parser/mod.rs <<'EOF'
+//! Reads the ledger file: one posting per line, amounts in minor units.
+
+use std::path::Path;
+
+pub struct Posting {
+    pub account: String,
+    pub minor: i64,
+}
+
+pub fn read(path: impl AsRef<Path>) -> anyhow::Result<Vec<Posting>> {
+    let text = std::fs::read_to_string(path)?;
+    text.lines().filter(|l| !l.trim().is_empty()).map(parse).collect()
+}
+EOF
+printf '//! Dates, parsed the one way.\n' > src/parser/dates.rs
+printf '//! The table, drawn to the width it is given.\npub fn table(_b: &[crate::parser::Posting]) {}\n' > src/render/mod.rs
+printf '//! Colour, for terminals that have it.\n' > src/render/colour.rs
+printf '# Design\n\nWhy the ledger is a file and not a database.\n' > docs/design.md
+printf '# Accounts\n\nThe chart of accounts, and what belongs in each.\n' > docs/accounts.md
+printf 'fn main() {}\n' > tests/balance.rs
+printf '2026-01-04 opening  assets:cash  120000\n' > book.ledger
+git init -q -b main && git add -A && git commit -qm "the ledger, as far as it goes"
+# Now the working tree: one edited, one staged, one untracked, one ignored.
+cat >> src/parser/mod.rs <<'EOF'
+
+fn parse(line: &str) -> anyhow::Result<Posting> {
+    let (account, amount) = line.rsplit_once(char::is_whitespace).context("two fields")?;
+    Ok(Posting { account: account.trim().to_string(), minor: amount.parse()? })
+}
+EOF
+printf '//! Widths, so a column never jumps.\n' > src/render/width.rs
+git add src/render/width.rs
+printf '//! Not added to anything yet.\n' > src/render/sparkline.rs
+mkdir -p target && printf 'build noise\n' > target/debug.log
+`,
+		steps: [
+			{ run: 'findr --no-icons ledger' },
+			{ wait: 'for keys' },
+			{ sleep: '1.5s' },
+			// Into src, and down to a file worth previewing. `Right` on a file
+			// would open an editor, so the cursor only ever enters directories.
+			// The column is sorted docs, src, target, tests, then the files.
+			{ key: 'Down' },
+			{ sleep: '600ms' },
+			{ key: 'Right' },
+			{ sleep: '800ms' },
+			{ key: 'Down', times: 2 },
+			{ sleep: '1.5s' },
+			{
+				shot: 'hero',
+				caption:
+					'Three columns — where you came from, where you are, and what is under the cursor — with git status on every entry and rolled up onto the directories above it.'
+			},
+			{ key: 'Up', times: 2 },
+			{ key: 'Right' },
+			{ sleep: '800ms' },
+			{ key: 'Down' },
+			{ sleep: '400ms' },
+			{ sleep: '1.5s' },
+			{
+				shot: 'start',
+				caption:
+					'Previews are syntax-highlighted and built on another thread, so holding `j` never stutters.'
+			},
+			{ type: 'D' },
+			{ sleep: '1.8s' },
+			{
+				shot: 'use',
+				caption:
+					'`D` on a changed file swaps its content for the diff against HEAD, and stays on as you move: a review is `D`, then `j` down the `M`s.'
+			},
+			{ type: 'D' },
+			{ key: 'Left' },
+			{ sleep: '600ms' },
+			{ type: '/' },
+			{ type: 'ren' },
+			{ sleep: '1.5s' },
+			{
+				shot: 'depth',
+				caption:
+					'`/` filters where you stand, ranked the way fzf ranks; `f` searches everything below instead, honouring every .gitignore it meets.'
+			},
+			{ key: 'Escape' },
+			{ type: 'q' }
+		]
+	},
+
+	mcdir: {
+		// Nothing to build: it is a shell function, and the installer writes it
+		// where fish will autoload it. That has to happen before the terminal
+		// opens, so it is the fixture rather than a step.
+		build: null,
+		path: ['.'],
+		record: true,
+		terminal: { height: 900 },
+		fixture: 'sh "$REPO/install.sh" fish >/dev/null',
+		steps: [
+			{ run: 'mcdir projects/next-thing' },
+			{ sleep: '1.5s' },
+			{ run: 'pwd' },
+			{ sleep: '1.5s' },
+			{
+				shot: 'hero',
+				caption:
+					'`mkdir -p` and `cd`, in one word: the directory is made and you are standing in it.'
+			},
+			{ run: 'clear' },
+			{ run: 'mcdir a/few/levels/down' },
+			{ sleep: '1s' },
+			{ run: 'mcdir "../../weekend ideas"' },
+			{ sleep: '1.5s' },
+			{
+				shot: 'start',
+				caption: 'Missing parents are made on the way, and a name with a space in it is a name.'
+			},
+			{ run: 'clear' },
+			{ run: 'functions mcdir' },
+			{ sleep: '2s' },
+			{
+				shot: 'use',
+				caption:
+					'It is a function, not a program: a subprocess cannot move the shell you are typing in, so this has to be defined inside it.'
+			},
+			{ run: 'clear' },
+			{ run: 'sh "$REPO/install.sh" zsh' },
+			{ sleep: '2s' },
+			{
+				shot: 'depth',
+				caption:
+					'The installer reads $SHELL, or takes the shell you name — fish, bash, zsh or PowerShell, on macOS, Linux and Windows.'
+			}
+		]
+	},
+
+	moan: {
+		build: cargo,
+		record: true,
+		terminal: { height: 720 },
+		// A session as Claude Code leaves one: ~/.claude/projects/<slug>/<id>.jsonl,
+		// one JSON record per line. This one is written for the photograph —
+		// short turns, so the feed is moan's own grouping rather than a model's
+		// summary of someone's real work — and it is a session about the ledger
+		// that findr is photographed browsing.
+		fixture: `
+mkdir -p "$USER_HOME/.claude/projects/-root-src-moan" "$USER_HOME/.config/moan"
+cp /work/site/screens/fixtures/moan-session.jsonl \
+   "$USER_HOME/.claude/projects/-root-src-moan/9b7a583c-2f41-4e0c-9d2e-7a1b6c0e5d33.jsonl"
+# A keyless local server, one of the setups moan documents. Nothing in this
+# session is long enough to be condensed, so nothing is ever asked of it —
+# but with no model configured at all the screen would carry a warning
+# about a missing key rather than showing the tool doing its job.
+cat > "$USER_HOME/.config/moan/config.toml" <<'EOF'
+[model]
+provider = "custom"
+api = "openai"
+base_url = "http://127.0.0.1:11434/v1"
+model = "qwen2.5-14b-instruct"
+api_key = "local"
+api_key_env = ""
+EOF
+`,
+		steps: [
+			{ run: 'moan' },
+			{ wait: 'you' },
+			{ sleep: '2.5s' },
+			{
+				shot: 'hero',
+				caption:
+					'The transcript as a conversation: you, the agent, you, the agent. Each turn is one message — a headline, and up to three notes when there was more to it than a line.'
+			},
+			{ key: 'Down', times: 4 },
+			{ key: 'Enter' },
+			{ sleep: '2s' },
+			{
+				shot: 'start',
+				caption:
+					'Enter opens the original underneath the summary. Your own words are never rewritten.'
+			},
+			{ key: 'Enter' },
+			{ type: 'o' },
+			{ sleep: '2s' },
+			{
+				shot: 'use',
+				caption:
+					'`o` brings the tool calls back. They condense by rule rather than by model: a command with its heredoc counted, an edit as +n/−m, a result folded in as a note.'
+			},
+			{ type: 'o' },
+			{ run: 'q' },
+			{ run: 'clear; moan conversations' },
+			{ sleep: '2s' },
+			{
+				shot: 'depth',
+				caption: 'Every session it can see, newest first, with where it ran and how big it got.'
+			}
+		]
+	},
+
+	dscheck: {
+		// A pnpm workspace: the CLI is a Node script, so the stage gets a one
+		// line launcher for it rather than a binary on the PATH.
+		build: 'npm install -g pnpm@11 && pnpm install --frozen-lockfile && pnpm -r build',
+		buildTimeout: 900,
+		path: ['/usr/local/bin'],
+		record: true,
+		terminal: { height: 1300 },
+		// A small app with a token file and code that does not use it: the
+		// colours are near-misses of real tokens, the lengths are off the scale,
+		// and one var() was invented.
+		fixture: `
+printf '#!/bin/sh\\nexec node "$REPO/packages/cli/dist/cli.js" "$@"\\n' > /usr/local/bin/dscheck
+chmod +x /usr/local/bin/dscheck
+mkdir -p src
+cat > tokens.css <<'EOF'
+@theme {
+  --color-ink: #16181d;
+  --color-paper: #ffffff;
+  --color-brand: #3b5bdb;
+  --color-brand-soft: #dbe4ff;
+  --color-danger: #d6336c;
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --radius-card: 10px;
+  --font-sans: Inter, system-ui, sans-serif;
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.08);
+}
+EOF
+cat > src/card.css <<'EOF'
+.card {
+  background: #fffffe;
+  color: #16181e;
+  padding: 13px;
+  border-radius: 10px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.09);
+  font-family: Inter, system-ui, sans-serif;
+}
+
+.card__title {
+  color: var(--color-brand-strong);
+  font-weight: 650;
+  margin-bottom: 6px;
+}
+EOF
+cat > src/Banner.jsx <<'EOF'
+export function Banner({ children }) {
+  return (
+    <div
+      style={{ background: '#3b5bdc', padding: '15px', borderRadius: 10 }}
+      className="p-[13px] text-[#d6336b]"
+    >
+      {children}
+    </div>
+  );
+}
+EOF
+`,
+		steps: [
+			{ run: 'dscheck init --write' },
+			{ wait: 'tokens.css' },
+			{ sleep: '2.5s' },
+			{
+				shot: 'start',
+				caption:
+					'It starts from the token source you already have — a Tailwind `@theme` here — rather than from a list of its own.'
+			},
+			{ run: 'clear; dscheck check src' },
+			{ wait: 'no-raw-color' },
+			{ sleep: '3s' },
+			{
+				shot: 'hero',
+				caption:
+					'Every off-system value with the nearest real token against it, and the distance: a colour two thousandths out, a padding a pixel off the scale, a radius that is simply the token spelled as a number.'
+			},
+			{ run: 'clear; dscheck fix src' },
+			{ wait: 'fix|applied|remain' },
+			{ sleep: '2.5s' },
+			{
+				shot: 'use',
+				caption:
+					'`fix` only ever applies the exact matches. Anything that needs judgement is left where it is and counted.'
+			},
+			{ hidden: 'dscheck baseline src' },
+			{ run: 'dscheck report src' },
+			{ wait: 'baseline|debt|rule' },
+			{ sleep: '2.5s' },
+			{
+				shot: 'depth',
+				caption:
+					'A baseline accepts the debt already there, so CI fails on what is added rather than on what is inherited; the report is that debt by rule and by file.'
+			}
+		]
+	},
+
+	sprig: {
+		// The Rust parser is not written yet; the site and its playground are
+		// what there is to show, so this is a web story against the published
+		// site rather than a terminal one.
+		runner: 'web',
+		url: 'https://oddurs.github.io/sprig/',
+		steps: [
+			{ waitFor: '.marks' },
+			{ wait: 1200 },
+			{
+				shot: 'hero',
+				caption:
+					'The whole format: a dash to do, a tilde doing, an x done, a question and its answer, and a bracket to graft another file in as a branch.'
+			},
+			{ goto: 'play/' },
+			{ waitFor: '#pg' },
+			{ wait: 1500 },
+			{
+				shot: 'start',
+				caption:
+					'The playground: the plain text on one side, and on the other what it comes to — progress, what is blocked, who has what.'
+			},
+			{ scroll: 420 },
+			{ wait: 900 },
+			{
+				shot: 'use',
+				caption:
+					'Six files that graft into one plan, so a small list and an eighteen-month build are the same document at different depths.'
+			},
+			{ goto: 'docs/first-plan/' },
+			{ waitFor: 'main' },
+			{ wait: 1200 },
+			{
+				shot: 'depth',
+				caption: 'Your first plan in five minutes, next to the numbered spec it is checked against.'
+			}
+		]
+	},
+
 	// ── macOS only: kept as they are until there is a macOS runner ─────────
 
 	clackson: { runner: 'host' }

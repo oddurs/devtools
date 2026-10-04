@@ -76,6 +76,27 @@ export const sections: Section[] = [
 				tags: ['disk', 'caches', 'macos']
 			},
 			{
+				name: 'findr',
+				kind: 'terminal',
+				line: 'Finder’s column view in the terminal, with git in it.',
+				more: 'Three columns — parent, current, preview — with syntax-highlighted previews built on a background thread, git status on every entry and rolled up to directories, fuzzy filtering, find-anywhere-below that honours every .gitignore it meets, file operations with undo, and the mouse if your terminal has one. Press D on a changed file and the preview becomes its diff. It hands the shell back the directory you left in.',
+				state: { kind: 'source' },
+				license: 'MIT',
+				lang: 'Rust',
+				install: 'cargo install --git https://github.com/oddurs/findr',
+				tags: ['files', 'git', 'ratatui']
+			},
+			{
+				name: 'foldr',
+				kind: 'cli',
+				line: 'Everything a folder carries besides its name.',
+				more: 'Permissions, extended attributes, native flags, inherited access rules and filesystem policies — found, explained, and edited deliberately, with previews, partial presets and a conflict-aware undo. Early: the workspace, the CLI entry points and the plan are in place, and the inspection commands are not written yet.',
+				state: { kind: 'design' },
+				license: 'MIT',
+				lang: 'Rust',
+				tags: ['permissions', 'xattrs', 'macos']
+			},
+			{
 				name: 'yoghurt',
 				kind: 'terminal',
 				line: 'See what is installed on this machine, and where it came from.',
@@ -162,6 +183,17 @@ export const sections: Section[] = [
 				lang: 'Rust',
 				install: 'cargo install --git https://github.com/oddurs/nun',
 				tags: ['editor']
+			},
+			{
+				name: 'moan',
+				kind: 'terminal',
+				line: 'A compressed, live transcript of your coding-agent sessions.',
+				more: 'Claude Code writes everything it does to a JSONL file, most of it machinery. moan tails that file and gives back the conversation — you, the agent, you, the agent — as a feed you can read, with each turn fused into a headline and up to three notes. Tool calls condense by rule rather than by model, your own words are never paraphrased, and anything that looks like an API key is caught before it reaches the screen.',
+				state: { kind: 'source' },
+				license: 'MIT',
+				lang: 'Rust',
+				install: 'cargo install --git https://github.com/oddurs/moan',
+				tags: ['coding agents', 'transcripts', 'ratatui']
 			}
 		]
 	},
@@ -196,6 +228,17 @@ export const sections: Section[] = [
 				lang: 'Rust',
 				install: 'brew install oddurs/tap/harrow',
 				tags: ['cairn', 'backlog', 'ratatui']
+			},
+			{
+				name: 'sprig',
+				kind: 'language',
+				line: 'A plain-text format for plans.',
+				more: 'A shopping list and an eighteen-month build use the same handful of marks: a dash to do, a tilde doing, an x done, a question and its answer, and a double bracket to graft another file in as a branch. Indentation is the structure, and progress, estimates and what is blocked are computed rather than written. People and coding agents read and edit the same file. The spec and the playground are up; the Rust parser is not written yet.',
+				state: { kind: 'design' },
+				license: 'MIT (CC0 for the spec)',
+				lang: 'Rust',
+				tags: ['plans', 'plain text', 'agents'],
+				site: 'https://oddurs.github.io/sprig/'
 			}
 		]
 	},
@@ -335,6 +378,17 @@ export const sections: Section[] = [
 				install: 'brew tap oddurs/gummyworm && brew install gummyworm',
 				tags: ['ascii art', 'images', 'imagemagick'],
 				site: 'https://gummyworm.dev/'
+			},
+			{
+				name: 'mcdir',
+				kind: 'cli',
+				line: 'Make a directory. Move into it.',
+				more: '`mkdir -p` and `cd`, together, as a native function for fish, bash, zsh and PowerShell — so the new directory is the one you are standing in, which a program in a subprocess cannot do for you. Missing parents are created, spaces work, CDPATH cannot redirect you, and a failed creation leaves you where you were.',
+				state: { kind: 'released', version: '0.1.0' },
+				license: 'MIT',
+				lang: 'Shell',
+				install: 'git clone https://github.com/oddurs/mcdir && sh mcdir/install.sh',
+				tags: ['shell', 'fish', 'one job']
 			}
 		]
 	},
@@ -421,6 +475,27 @@ export const sections: Section[] = [
 				license: 'MIT/Apache-2.0',
 				lang: 'Rust',
 				tags: ['web framework', 'islands']
+			},
+			{
+				name: 'dscheck',
+				kind: 'cli',
+				line: 'The linter that knows your design system.',
+				more: 'Reads the token source you already have — a Tailwind `@theme` or plain `:root` custom properties — and flags every off-system colour, length, font, shadow and invented `var(--…)` in CSS, JSX styles and Tailwind arbitrary values, with the nearest real token attached and an autofix where the match is exact. Written for agent-written UI: a hook lints what the agent just wrote and hands the fix back before a human sees the diff. Baselines accept existing debt so CI fails only on new findings.',
+				state: { kind: 'source', version: '0.1.0' },
+				license: 'MIT',
+				lang: 'TypeScript',
+				install: 'npm install -D dscheck',
+				tags: ['design tokens', 'eslint', 'stylelint']
+			},
+			{
+				name: 'rockaway',
+				kind: 'library',
+				line: 'A TUI design system for the web.',
+				more: 'Everything sits on a character grid: one cell wide, one row tall, no halves. An integer geometry engine with no DOM in it, four painters over one geometry — glyphs, CSS hairlines, ANSI, plain text — tokens as data with a contrast gate, and components on React Aria. Boxes close at every zoom because the cell draws them, and a screen still copies as `┌──┐`. Pre-release: the tokens and the CSS layers are built, the frame engine is next.',
+				state: { kind: 'design' },
+				license: 'MIT',
+				lang: 'TypeScript',
+				tags: ['design system', 'character grid', 'react']
 			}
 		]
 	}

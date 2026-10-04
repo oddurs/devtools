@@ -327,6 +327,128 @@
       }
     ]
   },
+  "dscheck": {
+    "runner": "terminal",
+    "commit": "3a1bb2b05d98",
+    "takenAt": "2026-10-04T01:17:56.916Z",
+    "background": "#0d0d0c",
+    "shots": [
+      {
+        "beat": "hero",
+        "caption": "Every off-system value with the nearest real token against it, and the distance: a colour two thousandths out, a padding a pixel off the scale, a radius that is simply the token spelled as a number.",
+        "src": "/media/screens/dscheck/01-hero.webp",
+        "width": 1600,
+        "height": 1300
+      },
+      {
+        "beat": "start",
+        "caption": "It starts from the token source you already have — a Tailwind `@theme` here — rather than from a list of its own.",
+        "src": "/media/screens/dscheck/02-start.webp",
+        "width": 1600,
+        "height": 1300
+      },
+      {
+        "beat": "use",
+        "caption": "`fix` only ever applies the exact matches. Anything that needs judgement is left where it is and counted.",
+        "src": "/media/screens/dscheck/03-use.webp",
+        "width": 1600,
+        "height": 1300
+      },
+      {
+        "beat": "depth",
+        "caption": "A baseline accepts the debt already there, so CI fails on what is added rather than on what is inherited; the report is that debt by rule and by file.",
+        "src": "/media/screens/dscheck/04-depth.webp",
+        "width": 1600,
+        "height": 1300
+      }
+    ],
+    "cast": {
+      "src": "/media/casts/dscheck.cast",
+      "cols": 125,
+      "rows": 39,
+      "duration": 14.168,
+      "bytes": 17983,
+      "markers": [
+        [
+          3.407,
+          "start"
+        ],
+        [
+          7.162,
+          "hero"
+        ],
+        [
+          10.786,
+          "use"
+        ],
+        [
+          14.168,
+          "depth"
+        ]
+      ]
+    }
+  },
+  "findr": {
+    "runner": "terminal",
+    "commit": "6b834467c02d",
+    "takenAt": "2026-10-04T01:06:25.505Z",
+    "background": "#0d0d0c",
+    "shots": [
+      {
+        "beat": "hero",
+        "caption": "Three columns — where you came from, where you are, and what is under the cursor — with git status on every entry and rolled up onto the directories above it.",
+        "src": "/media/screens/findr/01-hero.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "start",
+        "caption": "Previews are syntax-highlighted and built on another thread, so holding `j` never stutters.",
+        "src": "/media/screens/findr/02-start.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "use",
+        "caption": "`D` on a changed file swaps its content for the diff against HEAD, and stays on as you move: a review is `D`, then `j` down the `M`s.",
+        "src": "/media/screens/findr/03-use.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "depth",
+        "caption": "`/` filters where you stand, ranked the way fzf ranks; `f` searches everything below instead, honouring every .gitignore it meets.",
+        "src": "/media/screens/findr/04-depth.webp",
+        "width": 1600,
+        "height": 1000
+      }
+    ],
+    "cast": {
+      "src": "/media/casts/findr.cast",
+      "cols": 125,
+      "rows": 29,
+      "duration": 15.986,
+      "bytes": 30248,
+      "markers": [
+        [
+          7.101,
+          "hero"
+        ],
+        [
+          10.514,
+          "start"
+        ],
+        [
+          12.665,
+          "use"
+        ],
+        [
+          15.727,
+          "depth"
+        ]
+      ]
+    }
+  },
   "fontina": {
     "runner": "terminal",
     "commit": "5092f1c69053",
@@ -755,6 +877,128 @@
       ]
     }
   },
+  "mcdir": {
+    "runner": "terminal",
+    "commit": "8ec092eca010",
+    "takenAt": "2026-10-04T00:58:51.715Z",
+    "background": "#0d0d0c",
+    "shots": [
+      {
+        "beat": "hero",
+        "caption": "`mkdir -p` and `cd`, in one word: the directory is made and you are standing in it.",
+        "src": "/media/screens/mcdir/01-hero.webp",
+        "width": 1600,
+        "height": 900
+      },
+      {
+        "beat": "start",
+        "caption": "Missing parents are made on the way, and a name with a space in it is a name.",
+        "src": "/media/screens/mcdir/02-start.webp",
+        "width": 1600,
+        "height": 900
+      },
+      {
+        "beat": "use",
+        "caption": "It is a function, not a program: a subprocess cannot move the shell you are typing in, so this has to be defined inside it.",
+        "src": "/media/screens/mcdir/03-use.webp",
+        "width": 1600,
+        "height": 900
+      },
+      {
+        "beat": "depth",
+        "caption": "The installer reads $SHELL, or takes the shell you name — fish, bash, zsh or PowerShell, on macOS, Linux and Windows.",
+        "src": "/media/screens/mcdir/04-depth.webp",
+        "width": 1600,
+        "height": 900
+      }
+    ],
+    "cast": {
+      "src": "/media/casts/mcdir.cast",
+      "cols": 125,
+      "rows": 26,
+      "duration": 17.765,
+      "bytes": 19492,
+      "markers": [
+        [
+          5.152,
+          "hero"
+        ],
+        [
+          10.992,
+          "start"
+        ],
+        [
+          14.112,
+          "use"
+        ],
+        [
+          17.765,
+          "depth"
+        ]
+      ]
+    }
+  },
+  "moan": {
+    "runner": "terminal",
+    "commit": "d9762a2929b7",
+    "takenAt": "2026-10-04T01:13:58.398Z",
+    "background": "#0d0d0c",
+    "shots": [
+      {
+        "beat": "hero",
+        "caption": "The transcript as a conversation: you, the agent, you, the agent. Each turn is one message — a headline, and up to three notes when there was more to it than a line.",
+        "src": "/media/screens/moan/01-hero.webp",
+        "width": 1600,
+        "height": 720
+      },
+      {
+        "beat": "start",
+        "caption": "Enter opens the original underneath the summary. Your own words are never rewritten.",
+        "src": "/media/screens/moan/02-start.webp",
+        "width": 1600,
+        "height": 720
+      },
+      {
+        "beat": "use",
+        "caption": "`o` brings the tool calls back. They condense by rule rather than by model: a command with its heredoc counted, an edit as +n/−m, a result folded in as a note.",
+        "src": "/media/screens/moan/03-use.webp",
+        "width": 1600,
+        "height": 720
+      },
+      {
+        "beat": "depth",
+        "caption": "Every session it can see, newest first, with where it ran and how big it got.",
+        "src": "/media/screens/moan/04-depth.webp",
+        "width": 1600,
+        "height": 720
+      }
+    ],
+    "cast": {
+      "src": "/media/casts/moan.cast",
+      "cols": 125,
+      "rows": 20,
+      "duration": 11.03,
+      "bytes": 22859,
+      "markers": [
+        [
+          2.546,
+          "hero"
+        ],
+        [
+          5.3,
+          "start"
+        ],
+        [
+          7.551,
+          "use"
+        ],
+        [
+          11.03,
+          "depth"
+        ]
+      ]
+    }
+  },
   "nun": {
     "runner": "terminal",
     "commit": "0b8535f9af64",
@@ -1073,6 +1317,41 @@
         ]
       ]
     }
+  },
+  "sprig": {
+    "runner": "web",
+    "commit": "33e961088578",
+    "takenAt": "2026-10-04T01:18:18.558Z",
+    "shots": [
+      {
+        "beat": "hero",
+        "caption": "The whole format: a dash to do, a tilde doing, an x done, a question and its answer, and a bracket to graft another file in as a branch.",
+        "src": "/media/screens/sprig/01-hero.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "start",
+        "caption": "The playground: the plain text on one side, and on the other what it comes to — progress, what is blocked, who has what.",
+        "src": "/media/screens/sprig/02-start.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "use",
+        "caption": "Six files that graft into one plan, so a small list and an eighteen-month build are the same document at different depths.",
+        "src": "/media/screens/sprig/03-use.webp",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "beat": "depth",
+        "caption": "Your first plan in five minutes, next to the numbered spec it is checked against.",
+        "src": "/media/screens/sprig/04-depth.webp",
+        "width": 1600,
+        "height": 1000
+      }
+    ]
   },
   "starward": {
     "runner": "terminal",
