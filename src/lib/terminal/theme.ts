@@ -15,6 +15,13 @@ export const theme = {
 	padding: ghostty.padding
 };
 
+// The row, as a multiple of the font's own line box: what the player passes
+// xterm as its line height, and what the glyph font (scripts/glyph-font.mjs)
+// is drawn for, so a box character reaches the edges of its row exactly. The
+// studio terminal keeps the same number, and screens/line-height.test.ts holds
+// the three of them together.
+export const LINE = 1.12;
+
 // JetBrains Mono's advance width, as a fraction of the font size. The session
 // uses it to shrink the type until its widest line fits, the way a terminal
 // window would be sized to the program rather than the program wrapped.

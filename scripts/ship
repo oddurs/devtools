@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+#
+# One command from a committed change to a live page.
+#
+#   scripts/ship            verify, push, watch the deploy, check the site
+#   scripts/ship --no-verify   skip the gate (it has just been run)
+#
+# Every step says what it is doing and stops on the first failure, so a half
+# deploy is never reported as a whole one. The last step asks the published
+# site for the commit it was built from, which is the only proof that what is
+# live is what was pushed.
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+
+verify=yes
+[ "${1:-}" = "--no-verify" ] && verify=no
+
+say() { printf '\n\033[1m%s\033[0m\n' "$*"; }
+die() { printf '\n\033[31m%s\033[0m\n' "$*" >&2; exit 1; }
+
+# 1. A clean tree. Deploying what is not committed means the site and the
+#    repository disagree, and the site is the one nobody can check.
+if [ -n "$(git status --porcelain)" ]; then
+  git status --short
+  die "the working tree has changes: commit them, or stash them, then ship."
+fi
+
+branch="$(git rev-parse --abbrev-ref HEAD)"
+[ "$branch" = "main" ] || die "on $branch: pages builds main, so ship from main."
+
+sha="$(git rev-parse HEAD)"
+short="${sha:0:12}"
+
+# 2. The same gate the workflow runs, so a failure costs a minute here rather
+#    than a red badge there.
+if [ "$verify" = yes ]; then
+  say "verify"
+  BASE_PATH=/devtools npm run verify
+fi
+
+# 3. Push. This needs a key the agent will hand over; if it hangs here, that
+#    is what has gone wrong, and `ssh-add` is the fix rather than a retry.
+if [ "$(git rev-parse '@{u}' 2>/dev/null || echo none)" = "$sha" ]; then
+  say "push — already on origin ($short)"
+else
+  say "push"
+  timeout 300 git push origin main || die "push failed or timed out — is your ssh key loaded? Try: ssh-add"
+fi
+
+# 4. Watch the deploy this push started, keyed to the commit rather than to
+#    whatever ran most recently.
+command -v gh >/dev/null || die "gh is not installed, so the deploy cannot be watched from here."
+say "deploy"
+run=""
+for _ in $(seq 1 30); do
+  run="$(gh run list --workflow pages --limit 20 --json databaseId,headSha \
+        --jq "[.[] | select(.headSha == \"$sha\")][0].databaseId" 2>/dev/null || true)"
+  [ -n "$run" ] && [ "$run" != "null" ] && break
+  sleep 4
+done
+[ -n "$run" ] && [ "$run" != "null" ] || die "no pages run for $short appeared in two minutes."
+gh run watch "$run" --exit-status || die "the pages run failed: gh run view $run --log-failed"
+
+# 5. What is actually being served. The built site carries its own commit in a
+#    meta tag, so this compares the page against the push rather than trusting
+#    that a green workflow means a fresh page.
+say "live"
+url="https://oddurs.github.io/devtools/"
+for _ in $(seq 1 20); do
+  live="$(curl -fsS "$url" | sed -n 's/.*name="commit" content="\([0-9a-f]*\)".*/\1/p' | head -1 || true)"
+  [ "$live" = "$short" ] && { printf '%s is serving %s\n' "$url" "$short"; exit 0; }
+  sleep 6
+done
+die "the deploy is green, but $url still reports ${live:-no commit} rather than $short. Pages can lag a minute; try again before digging."

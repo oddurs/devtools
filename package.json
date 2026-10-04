@@ -17,7 +17,8 @@
 		"test:watch": "vitest",
 		"verify": "npm run check && npm run lint && npm run test && npm run build",
 		"glyphs": "node scripts/glyph-font.mjs",
-		"screens": "scripts/screens.sh"
+		"screens": "scripts/screens.sh",
+		"ship": "scripts/ship"
 	},
 	"devDependencies": {
 		"@eslint/js": "^10.0.1",

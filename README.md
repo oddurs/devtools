@@ -120,6 +120,12 @@ does first. By hand:
 BASE_PATH=/devtools npm run build
 ```
 
+**Shipping.** `npm run ship` is the whole of it: it refuses a dirty tree,
+runs the same gate the workflow runs, pushes, watches the pages run for that
+exact commit, and then asks the published site which commit it is serving —
+every page carries it in a `<meta name="commit">`. A green workflow says a
+build finished; only that meta tag says what is live.
+
 That is the one knob: the canonical links, the cards a link unfurls into,
 `sitemap.xml` and `robots.txt` are all built from it and from `origin` in
 `src/lib/data/site.ts`.

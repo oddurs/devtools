@@ -4,6 +4,11 @@
 //   U+2800–28FF  braille: the raised dots only. JetBrains Mono rings every
 //                unraised dot, so a braille graph (poptop's timeline) turns
 //                into a field of circles it never is in a terminal.
+//   U+2500–257F  box drawing: to the edges of the cell. This is the one that
+//                shows: a font's own rules are drawn to its line box, so the
+//                moment the row is taller than the type — which it always is —
+//                every frame in every TUI comes apart into dashes, and no
+//                corner quite meets. See scripts/box-drawing.mjs.
 //   U+2580–259F  block elements: to the full height of the cell. The font's
 //                stop at its own line height, and with Ghostty's taller cell a
 //                bar or a half-block cursor (poptop's scrub marker) no longer
@@ -18,6 +23,7 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import opentype from 'opentype.js';
+import { BOX, drawBox } from './box-drawing.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const out = join(root, 'src/lib/assets/term-glyphs.otf');
@@ -145,6 +151,30 @@ for (const [code, draw] of Object.entries(blocks)) {
 	glyphs.push(
 		new opentype.Glyph({
 			name: `uni${c.toString(16).toUpperCase()}`,
+			unicode: c,
+			advanceWidth: ADVANCE,
+			path
+		})
+	);
+}
+
+// Box drawing, from the table in box-drawing.mjs. The weights are a terminal's:
+// a light rule is a hairline at any size (an eighth of the cell's width), a
+// heavy one is twice that, and the two strokes of a double line sit a hairline
+// apart.
+const WEIGHTS = {
+	light: Math.round(ADVANCE * 0.125),
+	heavy: Math.round(ADVANCE * 0.25),
+	gap: Math.round(ADVANCE * 0.125)
+};
+const CELL = { left: 0, right: ADVANCE, top: TOP, bottom: BOTTOM };
+for (const [code, spec] of Object.entries(BOX)) {
+	const path = new opentype.Path();
+	drawBox(path, spec, CELL, WEIGHTS);
+	const c = Number(code);
+	glyphs.push(
+		new opentype.Glyph({
+			name: `uni${c.toString(16).toUpperCase().padStart(4, '0')}`,
 			unicode: c,
 			advanceWidth: ADVANCE,
 			path

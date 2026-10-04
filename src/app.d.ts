@@ -5,6 +5,7 @@ declare global {
 	// (vite.config.ts). SvelteKit's own `base` is relative once resolved;
 	// this is the real one, for absolute URLs. See $lib/data/site.
 	const __BASE_PATH__: '' | `/${string}`;
+	const __COMMIT__: string;
 
 	namespace App {
 		// interface Error {}

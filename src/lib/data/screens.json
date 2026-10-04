@@ -1,8 +1,8 @@
 {
   "andy": {
     "runner": "terminal",
-    "commit": "dd2758277b69",
-    "takenAt": "2026-09-20T15:50:19.747Z",
+    "commit": "be494c1c2018",
+    "takenAt": "2026-10-04T02:45:30.257Z",
     "background": "#0d0d0c",
     "shots": [
       {
@@ -37,24 +37,24 @@
     "cast": {
       "src": "/media/casts/andy.cast",
       "cols": 125,
-      "rows": 39,
-      "duration": 12.716,
-      "bytes": 28711,
+      "rows": 42,
+      "duration": 22.622,
+      "bytes": 31232,
       "markers": [
         [
-          2.898,
+          6.946,
           "hero"
         ],
         [
-          7.119,
+          13.576,
           "start"
         ],
         [
-          10.373,
+          18.239,
           "use"
         ],
         [
-          12.531,
+          21.347,
           "depth"
         ]
       ]
@@ -63,7 +63,7 @@
   "brainiac": {
     "runner": "terminal",
     "commit": "65701fc0ee2b",
-    "takenAt": "2026-09-20T05:07:36.170Z",
+    "takenAt": "2026-10-04T02:39:35.058Z",
     "background": "#0d0d0c",
     "shots": [
       {
@@ -98,24 +98,24 @@
     "cast": {
       "src": "/media/casts/brainiac.cast",
       "cols": 125,
-      "rows": 29,
-      "duration": 14.602,
-      "bytes": 20702,
+      "rows": 31,
+      "duration": 15.038,
+      "bytes": 20688,
       "markers": [
         [
-          3.183,
+          3.185,
           "start"
         ],
         [
-          7.661,
+          7.864,
           "use"
         ],
         [
-          11.174,
+          11.536,
           "hero"
         ],
         [
-          14.602,
+          15.038,
           "depth"
         ]
       ]
@@ -123,8 +123,8 @@
   },
   "cairn": {
     "runner": "terminal",
-    "commit": "3d67f0c7ea57",
-    "takenAt": "2026-09-20T05:14:23.657Z",
+    "commit": "e82f996a8a06",
+    "takenAt": "2026-10-04T02:39:10.070Z",
     "background": "#0d0d0c",
     "shots": [
       {
@@ -159,24 +159,24 @@
     "cast": {
       "src": "/media/casts/cairn.cast",
       "cols": 125,
-      "rows": 29,
-      "duration": 12.104,
-      "bytes": 14578,
+      "rows": 31,
+      "duration": 15.129,
+      "bytes": 14587,
       "markers": [
         [
-          2.309,
+          2.438,
           "hero"
         ],
         [
-          7.519,
+          8.521,
           "start"
         ],
         [
-          9.785,
+          12.619,
           "use"
         ],
         [
-          12.104,
+          15.129,
           "depth"
         ]
       ]
@@ -184,8 +184,8 @@
   },
   "caligula": {
     "runner": "terminal",
-    "commit": "18210d54f619",
-    "takenAt": "2026-09-20T05:10:12.508Z",
+    "commit": "896f54f336a7",
+    "takenAt": "2026-10-04T02:29:16.249Z",
     "background": "#0d0d0c",
     "shots": [
       {
@@ -220,24 +220,24 @@
     "cast": {
       "src": "/media/casts/caligula.cast",
       "cols": 125,
-      "rows": 29,
-      "duration": 10.555,
-      "bytes": 36186,
+      "rows": 31,
+      "duration": 17.386,
+      "bytes": 40178,
       "markers": [
         [
-          3.65,
+          4.873,
           "hero"
         ],
         [
-          5.1,
+          7.488,
           "start"
         ],
         [
-          7.195,
+          11.912,
           "use"
         ],
         [
-          9.29,
+          16.033,
           "depth"
         ]
       ]
@@ -451,8 +451,8 @@
   },
   "fontina": {
     "runner": "terminal",
-    "commit": "5092f1c69053",
-    "takenAt": "2026-09-22T04:07:05.723Z",
+    "commit": "106c94f5bbd8",
+    "takenAt": "2026-10-04T02:47:48.367Z",
     "background": "#0d0d0c",
     "shots": [
       {
@@ -487,24 +487,24 @@
     "cast": {
       "src": "/media/casts/fontina.cast",
       "cols": 125,
-      "rows": 36,
-      "duration": 17.412,
-      "bytes": 32483,
+      "rows": 38,
+      "duration": 17.441,
+      "bytes": 32948,
       "markers": [
         [
-          3.735,
+          3.734,
           "start"
         ],
         [
-          8.728,
+          8.75,
           "use"
         ],
         [
-          11.96,
+          12.016,
           "depth"
         ],
         [
-          15.912,
+          15.941,
           "hero"
         ]
       ]
@@ -514,42 +514,42 @@
         "src": "/media/gallery/fontina/01-dejavu-serif.webp",
         "caption": "DejaVu Serif, the workhorse on most Linux machines.",
         "width": 1600,
-        "height": 1143,
+        "height": 1190,
         "source": "family:DejaVu Serif"
       },
       {
         "src": "/media/gallery/fontina/02-eb-garamond.webp",
         "caption": "EB Garamond: a revival of a sixteenth-century face, still under an open licence.",
         "width": 1600,
-        "height": 1569,
+        "height": 1550,
         "source": "family:EB Garamond"
       },
       {
         "src": "/media/gallery/fontina/03-cantarell.webp",
         "caption": "Cantarell, a humanist sans.",
         "width": 1600,
-        "height": 871,
+        "height": 818,
         "source": "family:Cantarell"
       },
       {
         "src": "/media/gallery/fontina/04-dejavu-sans.webp",
         "caption": "DejaVu Sans, the same skeleton as the serif with the serifs taken off.",
         "width": 1600,
-        "height": 1110,
+        "height": 1159,
         "source": "family:DejaVu Sans"
       },
       {
         "src": "/media/gallery/fontina/05-fira-code.webp",
         "caption": "Fira Code, a monospace with programming ligatures.",
         "width": 1600,
-        "height": 1340,
+        "height": 1333,
         "source": "family:Fira Code"
       },
       {
         "src": "/media/gallery/fontina/06-jetbrains-mono.webp",
         "caption": "JetBrains Mono, which is the face this whole site is set in.",
         "width": 1600,
-        "height": 1449,
+        "height": 1366,
         "source": "family:JetBrains Mono"
       }
     ]
@@ -557,7 +557,7 @@
   "gummyworm": {
     "runner": "terminal",
     "commit": "bf1de6671f37",
-    "takenAt": "2026-09-22T04:05:34.504Z",
+    "takenAt": "2026-10-04T02:43:51.629Z",
     "background": "#0d0d0c",
     "shots": [
       {
@@ -592,24 +592,24 @@
     "cast": {
       "src": "/media/casts/gummyworm.cast",
       "cols": 125,
-      "rows": 29,
-      "duration": 17.644,
-      "bytes": 80954,
+      "rows": 31,
+      "duration": 18.13,
+      "bytes": 80530,
       "markers": [
         [
-          3.725,
+          3.716,
           "hero"
         ],
         [
-          7.726,
+          7.717,
           "start"
         ],
         [
-          12.275,
+          12.343,
           "use"
         ],
         [
-          16.144,
+          16.63,
           "depth"
         ]
       ]
@@ -619,77 +619,77 @@
         "src": "/media/gallery/gummyworm/01-mono.webp",
         "caption": "Characters alone: each cell takes the glyph whose weight matches the pixels under it.",
         "width": 1446,
-        "height": 1844,
+        "height": 1846,
         "source": "gummyworm"
       },
       {
         "src": "/media/gallery/gummyworm/02-standard.webp",
         "caption": "The same thing in colour, from the terminal’s own palette.",
         "width": 1446,
-        "height": 1841,
+        "height": 1843,
         "source": "-c"
       },
       {
         "src": "/media/gallery/gummyworm/03-detailed.webp",
         "caption": "Seventy-one characters, for as much detail as type can hold.",
         "width": 1446,
-        "height": 1841,
+        "height": 1843,
         "source": "-p detailed"
       },
       {
         "src": "/media/gallery/gummyworm/04-shades.webp",
         "caption": "Symmetric shading: the ramp runs up and back down again.",
-        "width": 1447,
-        "height": 1841,
+        "width": 1448,
+        "height": 1843,
         "source": "-p shades"
       },
       {
         "src": "/media/gallery/gummyworm/05-retro.webp",
         "caption": "Dots and blocks mixed, the way a home computer would have drawn it.",
         "width": 1448,
-        "height": 1841,
+        "height": 1843,
         "source": "-p retro"
       },
       {
         "src": "/media/gallery/gummyworm/06-blocks.webp",
         "caption": "Four blocks, filling the whole cell rather than sitting inside it.",
         "width": 1448,
-        "height": 1841,
+        "height": 1843,
         "source": "-p blocks"
       },
       {
         "src": "/media/gallery/gummyworm/07-dots.webp",
         "caption": "Braille, which halves the cell again and doubles the resolution.",
-        "width": 1447,
-        "height": 1841,
+        "width": 1443,
+        "height": 1843,
         "source": "-p dots"
       },
       {
         "src": "/media/gallery/gummyworm/08-binary.webp",
         "caption": "Two tones and nothing in between: a silhouette.",
         "width": 1448,
-        "height": 1841,
+        "height": 1843,
         "source": "-p binary"
       },
       {
         "src": "/media/gallery/gummyworm/09-matrix.webp",
         "caption": "Ones and zeroes, for the obvious reason.",
         "width": 1445,
-        "height": 1841,
+        "height": 1843,
         "source": "-p matrix"
       },
       {
         "src": "/media/gallery/gummyworm/10-simple.webp",
         "caption": "Four characters, for a preview that renders instantly.",
         "width": 1446,
-        "height": 1841,
+        "height": 1843,
         "source": "-p simple"
       },
       {
         "src": "/media/gallery/gummyworm/11-emoji.webp",
         "caption": "Moon phases, at half the width, because the glyphs are twice as wide.",
         "width": 1054,
-        "height": 1658,
+        "height": 1556,
         "source": "-p emoji"
       }
     ]
@@ -697,7 +697,7 @@
   "hackney": {
     "runner": "terminal",
     "commit": "4af97aa4c4e5",
-    "takenAt": "2026-09-20T00:02:28.295Z",
+    "takenAt": "2026-10-04T02:34:32.201Z",
     "background": "#0d0d0c",
     "shots": [
       {
@@ -732,24 +732,24 @@
     "cast": {
       "src": "/media/casts/hackney.cast",
       "cols": 125,
-      "rows": 29,
-      "duration": 43.354,
-      "bytes": 126886,
+      "rows": 31,
+      "duration": 43.335,
+      "bytes": 131665,
       "markers": [
         [
-          5.269,
+          5.28,
           "hero"
         ],
         [
-          15.177,
+          15.094,
           "start"
         ],
         [
-          31.42,
+          31.369,
           "use"
         ],
         [
-          41.837,
+          41.835,
           "depth"
         ]
       ]
@@ -757,8 +757,8 @@
   },
   "harrow": {
     "runner": "terminal",
-    "commit": "be7f1f391a13",
-    "takenAt": "2026-09-20T05:14:44.976Z",
+    "commit": "a619df939d17",
+    "takenAt": "2026-10-04T02:24:43.896Z",
     "background": "#0d0d0c",
     "shots": [
       {
@@ -793,24 +793,24 @@
     "cast": {
       "src": "/media/casts/harrow.cast",
       "cols": 125,
-      "rows": 29,
-      "duration": 8.625,
-      "bytes": 42410,
+      "rows": 31,
+      "duration": 9.525,
+      "bytes": 45075,
       "markers": [
         [
-          3.062,
+          3.069,
           "hero"
         ],
         [
-          4.468,
+          5.152,
           "start"
         ],
         [
-          6.361,
+          7.176,
           "use"
         ],
         [
-          7.976,
+          9.048,
           "depth"
         ]
       ]
@@ -819,7 +819,7 @@
   "jerk": {
     "runner": "terminal",
     "commit": "c43e7e8280ff",
-    "takenAt": "2026-09-20T05:44:03.167Z",
+    "takenAt": "2026-10-04T02:44:18.285Z",
     "background": "#0d0d0c",
     "shots": [
       {
@@ -854,24 +854,24 @@
     "cast": {
       "src": "/media/casts/jerk.cast",
       "cols": 125,
-      "rows": 29,
-      "duration": 14.517,
-      "bytes": 29903,
+      "rows": 31,
+      "duration": 15.078,
+      "bytes": 31178,
       "markers": [
         [
-          4.586,
+          4.793,
           "hero"
         ],
         [
-          6.424,
+          6.619,
           "start"
         ],
         [
-          10.968,
+          11.218,
           "use"
         ],
         [
-          13.563,
+          13.947,
           "depth"
         ]
       ]
@@ -1001,8 +1001,8 @@
   },
   "nun": {
     "runner": "terminal",
-    "commit": "0b8535f9af64",
-    "takenAt": "2026-09-20T05:13:00.295Z",
+    "commit": "8b3eaf3780fd",
+    "takenAt": "2026-10-04T02:37:39.933Z",
     "background": "#0d0d0c",
     "shots": [
       {
@@ -1037,24 +1037,24 @@
     "cast": {
       "src": "/media/casts/nun.cast",
       "cols": 125,
-      "rows": 29,
-      "duration": 13.334,
-      "bytes": 37645,
+      "rows": 31,
+      "duration": 14.045,
+      "bytes": 40514,
       "markers": [
         [
-          3.021,
+          3.004,
           "hero"
         ],
         [
-          7.014,
+          7.377,
           "use"
         ],
         [
-          10.865,
+          11.295,
           "start"
         ],
         [
-          13.334,
+          14.045,
           "depth"
         ]
       ]
@@ -1063,7 +1063,7 @@
   "polkadot": {
     "runner": "desk",
     "commit": null,
-    "takenAt": "2026-09-20T14:43:10.792Z",
+    "takenAt": "2026-10-04T02:44:30.051Z",
     "shots": [
       {
         "beat": "hero",
@@ -1076,8 +1076,8 @@
   },
   "poptop": {
     "runner": "terminal",
-    "commit": "d8000ec8a8ad",
-    "takenAt": "2026-09-22T04:09:50.107Z",
+    "commit": "efaacbead588",
+    "takenAt": "2026-10-04T02:32:06.046Z",
     "background": "#0d0d0c",
     "shots": [
       {
@@ -1112,24 +1112,24 @@
     "cast": {
       "src": "/media/casts/poptop.cast",
       "cols": 125,
-      "rows": 29,
-      "duration": 37.117,
-      "bytes": 180775,
+      "rows": 31,
+      "duration": 45.073,
+      "bytes": 207617,
       "markers": [
         [
-          9.166,
+          9.432,
           "hero"
         ],
         [
-          11.33,
+          12.491,
           "start"
         ],
         [
-          18.354,
+          20.93,
           "use"
         ],
         [
-          35.617,
+          43.573,
           "depth"
         ]
       ]
@@ -1138,7 +1138,7 @@
   "quarry": {
     "runner": "terminal",
     "commit": "df2a8882a5fd",
-    "takenAt": "2026-09-20T05:24:36.651Z",
+    "takenAt": "2026-10-04T02:33:41.398Z",
     "background": "#0d0d0c",
     "shots": [
       {
@@ -1173,24 +1173,24 @@
     "cast": {
       "src": "/media/casts/quarry.cast",
       "cols": 125,
-      "rows": 29,
-      "duration": 46.491,
-      "bytes": 51817,
+      "rows": 31,
+      "duration": 52.342,
+      "bytes": 57156,
       "markers": [
         [
-          4.753,
+          5.034,
           "hero"
         ],
         [
-          12.431,
+          14.549,
           "start"
         ],
         [
-          16.794,
+          20.113,
           "use"
         ],
         [
-          46.491,
+          52.342,
           "depth"
         ]
       ]
@@ -1199,7 +1199,7 @@
   "rigor": {
     "runner": "terminal",
     "commit": "0ac56f027895",
-    "takenAt": "2026-09-20T16:29:28.176Z",
+    "takenAt": "2026-10-04T02:48:14.178Z",
     "background": "#0d0d0c",
     "shots": [
       {
@@ -1234,24 +1234,24 @@
     "cast": {
       "src": "/media/casts/rigor.cast",
       "cols": 125,
-      "rows": 36,
-      "duration": 14.262,
-      "bytes": 50390,
+      "rows": 38,
+      "duration": 14.373,
+      "bytes": 50615,
       "markers": [
         [
-          4.973,
+          5.377,
           "hero"
         ],
         [
-          6.856,
+          7.21,
           "start"
         ],
         [
-          10.907,
+          11.082,
           "use"
         ],
         [
-          14.069,
+          14.204,
           "depth"
         ]
       ]
@@ -1260,7 +1260,7 @@
   "rsst": {
     "runner": "terminal",
     "commit": "84652db25086",
-    "takenAt": "2026-09-20T05:22:12.773Z",
+    "takenAt": "2026-10-04T02:34:52.860Z",
     "background": "#0d0d0c",
     "shots": [
       {
@@ -1295,24 +1295,24 @@
     "cast": {
       "src": "/media/casts/rsst.cast",
       "cols": 125,
-      "rows": 29,
-      "duration": 8.625,
-      "bytes": 34391,
+      "rows": 31,
+      "duration": 9.858,
+      "bytes": 35630,
       "markers": [
         [
-          2.772,
+          2.851,
           "hero"
         ],
         [
-          4.291,
+          4.698,
           "start"
         ],
         [
-          6.826,
+          7.741,
           "use"
         ],
         [
-          8.625,
+          9.858,
           "depth"
         ]
       ]
@@ -1356,7 +1356,7 @@
   "starward": {
     "runner": "terminal",
     "commit": "68db8d3b67f2",
-    "takenAt": "2026-09-20T00:58:01.170Z",
+    "takenAt": "2026-10-04T02:42:17.806Z",
     "background": "#0d0d0c",
     "shots": [
       {
@@ -1391,24 +1391,24 @@
     "cast": {
       "src": "/media/casts/starward.cast",
       "cols": 125,
-      "rows": 29,
-      "duration": 23.209,
-      "bytes": 14161,
+      "rows": 31,
+      "duration": 23.296,
+      "bytes": 13980,
       "markers": [
         [
           4.365,
           "hero"
         ],
         [
-          11.265,
+          11.07,
           "start"
         ],
         [
-          15.771,
+          15.5,
           "use"
         ],
         [
-          23.209,
+          23.296,
           "depth"
         ]
       ]
@@ -1417,7 +1417,7 @@
   "trafford": {
     "runner": "terminal",
     "commit": "4483f82422d5",
-    "takenAt": "2026-09-20T05:17:11.236Z",
+    "takenAt": "2026-10-04T02:35:10.725Z",
     "background": "#0d0d0c",
     "shots": [
       {
@@ -1452,24 +1452,24 @@
     "cast": {
       "src": "/media/casts/trafford.cast",
       "cols": 125,
-      "rows": 29,
-      "duration": 13.8,
-      "bytes": 42323,
+      "rows": 31,
+      "duration": 13.698,
+      "bytes": 43557,
       "markers": [
         [
-          2.967,
+          2.887,
           "start"
         ],
         [
-          7.754,
+          7.544,
           "hero"
         ],
         [
-          10.564,
+          10.43,
           "use"
         ],
         [
-          12.477,
+          12.365,
           "depth"
         ]
       ]
@@ -1477,8 +1477,8 @@
   },
   "tsi": {
     "runner": "terminal",
-    "commit": "c7107f6f0dea",
-    "takenAt": "2026-09-20T01:00:33.885Z",
+    "commit": "698fb0c48f13",
+    "takenAt": "2026-10-04T02:41:40.243Z",
     "background": "#0d0d0c",
     "shots": [
       {
@@ -1513,24 +1513,24 @@
     "cast": {
       "src": "/media/casts/tsi.cast",
       "cols": 125,
-      "rows": 46,
-      "duration": 43.22,
-      "bytes": 29711,
+      "rows": 49,
+      "duration": 43.535,
+      "bytes": 31845,
       "markers": [
         [
-          9.446,
+          9.559,
           "hero"
         ],
         [
-          13.14,
+          13.117,
           "start"
         ],
         [
-          31.585,
+          31.778,
           "use"
         ],
         [
-          43.22,
+          43.535,
           "depth"
         ]
       ]
@@ -1600,7 +1600,7 @@
   "turborust": {
     "runner": "terminal",
     "commit": "46277fa8b57a",
-    "takenAt": "2026-09-20T05:50:24.355Z",
+    "takenAt": "2026-10-04T02:49:41.757Z",
     "background": "#0d0d0c",
     "shots": [
       {
@@ -1635,24 +1635,24 @@
     "cast": {
       "src": "/media/casts/turborust.cast",
       "cols": 125,
-      "rows": 29,
-      "duration": 16.946,
-      "bytes": 139772,
+      "rows": 31,
+      "duration": 16.863,
+      "bytes": 142298,
       "markers": [
         [
-          3.093,
+          3.124,
           "start"
         ],
         [
-          6.076,
+          6.112,
           "use"
         ],
         [
-          9.142,
+          9.123,
           "depth"
         ],
         [
-          16.702,
+          16.637,
           "hero"
         ]
       ]
@@ -1980,7 +1980,7 @@
   "yoghurt": {
     "runner": "terminal",
     "commit": "3897000cf88c",
-    "takenAt": "2026-09-22T04:10:49.723Z",
+    "takenAt": "2026-10-04T02:40:35.163Z",
     "background": "#0d0d0c",
     "shots": [
       {
@@ -2015,24 +2015,24 @@
     "cast": {
       "src": "/media/casts/yoghurt.cast",
       "cols": 125,
-      "rows": 29,
-      "duration": 29.456,
-      "bytes": 44993,
+      "rows": 31,
+      "duration": 29.45,
+      "bytes": 46904,
       "markers": [
         [
-          5.566,
+          5.543,
           "hero"
         ],
         [
-          9.061,
+          9.021,
           "start"
         ],
         [
-          17.287,
+          17.184,
           "use"
         ],
         [
-          27.956,
+          27.95,
           "depth"
         ]
       ]

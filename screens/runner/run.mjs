@@ -29,6 +29,48 @@ const which = (cmd) =>
 		.toString()
 		.trim();
 const TTYD = which('ttyd');
+
+// rustup's home, moved onto the cache volume the first time it is needed.
+//
+// A project may pin a toolchain the image does not carry (turborust asks for
+// a newer stable), and rustup installs it by renaming directories inside its
+// home. Renaming a directory that came from the image's own layers fails on
+// overlayfs with EXDEV, so the install rolls back and the build dies. A copy
+// on the volume is one filesystem throughout, and it keeps the toolchains it
+// downloads between runs rather than fetching them again every time.
+let rustupHome = null;
+function rustup() {
+	if (rustupHome) return rustupHome;
+	const home = path.join(CACHE, 'rustup');
+	if (!fs.existsSync(path.join(home, 'toolchains'))) {
+		log('rig', 'copying rustup onto the cache volume');
+		fs.mkdirSync(CACHE, { recursive: true });
+		sh(`cp -a /opt/rustup ${JSON.stringify(home)}`, { label: 'rustup-copy', timeout: 300_000 });
+	}
+	rustupHome = home;
+	return home;
+}
+
+// The row, as a multiple of the font's own line box. The glyph font is drawn
+// for this exact cell, so it is one number for the studio and the player both:
+// src/lib/terminal/theme.ts holds the other copy, and a test keeps them equal.
+const LINE = 1.12;
+
+// Puts the site's generated glyph font where fontconfig will find it, so the
+// terminal in the container can use the same box drawing the site does. The
+// file is read from the mounted checkout rather than baked into the image, so
+// a change to it is one `npm run glyphs` away from the next shot.
+let fontInstalled = false;
+function installGlyphFont() {
+	if (fontInstalled) return;
+	const src = path.join(SITE, 'src/lib/assets/term-glyphs.otf');
+	if (!fs.existsSync(src)) throw new Error(`the glyph font is missing: ${src}`);
+	fs.mkdirSync('/usr/local/share/fonts', { recursive: true });
+	fs.copyFileSync(src, '/usr/local/share/fonts/term-glyphs.otf');
+	sh('fc-cache -f /usr/local/share/fonts', { label: 'fc-cache' });
+	fontInstalled = true;
+}
+
 const RUNUSER = which('runuser');
 const CACHE = '/cache';
 
@@ -103,6 +145,7 @@ async function terminal(name, story) {
 	const env = {
 		...process.env,
 		CARGO_TARGET_DIR: path.join(CACHE, 'target', name),
+		RUSTUP_HOME: rustup(),
 		HOME: '/root'
 	};
 	// The GitHub token reaches exactly one story: the one that says it reads
@@ -417,10 +460,15 @@ async function openTerminal(cwd, env, story = {}, rec = null) {
 	// prints forty lines is read in a forty-line terminal, not scrolled past
 	// in a twenty-nine-line one.
 	const t = { ...TERMINAL, ...(story.terminal ?? {}) };
+	installGlyphFont();
 	const opts = {
-		fontFamily: 'JetBrains Mono',
+		// The glyph font first, for the characters a terminal draws itself
+		// (installGlyphFont); JetBrains Mono for the letters. Same stack, same
+		// line height and same cell as the player on the site, so a screenshot
+		// and the recording of it are the same picture.
+		fontFamily: 'Term Glyphs, JetBrains Mono',
 		fontSize: t.fontSize,
-		lineHeight: 1.2,
+		lineHeight: LINE,
 		rendererType: 'dom',
 		cursorBlink: false,
 		disableLeaveAlert: true,

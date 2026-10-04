@@ -30,6 +30,9 @@
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
+	<!-- Which build this is. scripts/ship reads it back off the published site
+	     to tell a fresh deploy from a cached one. -->
+	<meta name="commit" content={__COMMIT__} />
 </svelte:head>
 
 <div class="page">

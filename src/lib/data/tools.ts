@@ -39,10 +39,7 @@ export const sections: Section[] = [
 				kind: 'terminal',
 				line: 'A system monitor you can rewind.',
 				more: 'Keeps every sample it takes, process table included, so you can scrub back and ask what was eating the box forty seconds ago. No daemon, no config, no logfiles.',
-				state: {
-					kind: 'source',
-					version: '0.1.0'
-				},
+				state: { kind: 'source', version: '0.2.0' },
 				license: 'GPL-3.0',
 				lang: 'Rust',
 				install: 'cargo install --git https://github.com/oddurs/poptop',
@@ -68,7 +65,7 @@ export const sections: Section[] = [
 				kind: 'terminal',
 				line: 'Where developer tooling hides your disk space.',
 				more: 'Container disk images, package caches, language toolchains, Xcode leftovers, simulator disks, model weights and every target directory you have ever built — found, measured, ranked, and each with the command that would reclaim it. It never deletes anything: running the command is your decision. One file of Python, no dependencies. macOS.',
-				state: { kind: 'source' },
+				state: { kind: 'source', version: '2.0.0' },
 				license: 'MIT',
 				lang: 'Python',
 				install:
@@ -120,10 +117,7 @@ export const sections: Section[] = [
 				kind: 'terminal',
 				line: 'A terminal browser for git worktrees.',
 				more: 'Finds every checkout on the machine, groups them by repository, and answers the question that matters before you delete one: is there anything in here worth saving?',
-				state: {
-					kind: 'source',
-					version: '0.1.0'
-				},
+				state: { kind: 'source', version: '0.2.0' },
 				license: 'MIT',
 				lang: 'Rust',
 				install: 'cargo install --git https://github.com/oddurs/caligula',
@@ -162,9 +156,7 @@ export const sections: Section[] = [
 				kind: 'terminal',
 				line: 'Which of these projects is actually alive, complete, and effective?',
 				more: 'A terminal dashboard for a projects directory. It scans every local Git repository at once, then fills in GitHub and deployment data in the background: momentum, readiness, pull requests and releases, whether the site is up, the Cairn roadmap, and a transparent 100-point score built from all of it.',
-				state: {
-					kind: 'source'
-				},
+				state: { kind: 'source', version: '0.5.1' },
 				license: 'MIT',
 				lang: 'Rust',
 				install: 'cargo install --locked --git https://github.com/oddurs/jerk',
@@ -205,10 +197,7 @@ export const sections: Section[] = [
 				kind: 'cli',
 				line: 'A roadmap and issue manager that lives in your repository.',
 				more: 'Every item is a Markdown file with YAML frontmatter, under a schema you define in cairn.toml. Versioned with the code, reviewable in a pull request, and exposed to agents over MCP. The roadmap for this site is kept in it.',
-				state: {
-					kind: 'released',
-					version: '0.2.1'
-				},
+				state: { kind: 'released', version: '0.3.0' },
 				license: 'MIT',
 				lang: 'Rust',
 				install: 'curl -fsSL https://raw.githubusercontent.com/oddurs/cairn/main/install.sh | sh',
@@ -220,10 +209,7 @@ export const sections: Section[] = [
 				kind: 'terminal',
 				line: 'Work a cairn backlog from the terminal.',
 				more: 'Reading cairn items one at a time is fine; deciding what forty of them are worth is not. A backlog by milestone with claim, status and close on single keys.',
-				state: {
-					kind: 'source',
-					version: '0.1.0'
-				},
+				state: { kind: 'source', version: '0.2.0-alpha.1' },
 				license: 'MIT',
 				lang: 'Rust',
 				install: 'brew install oddurs/tap/harrow',
@@ -369,10 +355,7 @@ export const sections: Section[] = [
 				kind: 'cli',
 				line: 'Turn images into ASCII art.',
 				more: 'A playful command-line tool with 256-colour and true-colour output, a dozen palettes from plain to braille and emoji, animated GIFs, and export to HTML, SVG, PNG and GIF. Bash 3.2 or zsh, and ImageMagick.',
-				state: {
-					kind: 'released',
-					version: '2.1.0'
-				},
+				state: { kind: 'released', version: '2.3.0' },
 				license: 'MIT',
 				lang: 'Shell',
 				install: 'brew tap oddurs/gummyworm && brew install gummyworm',
@@ -412,7 +395,7 @@ export const sections: Section[] = [
 				kind: 'cli',
 				line: 'Rocket staging, worked out.',
 				more: 'Finds the engine configuration and propellant split that reaches a delta-v target, from a database of eleven real engines, with Monte Carlo uncertainty analysis and the rocket drawn in ASCII. Named for Tsiolkovsky, whose equation it solves.',
-				state: { kind: 'released', version: '0.6.0' },
+				state: { kind: 'released', version: '0.8.0' },
 				license: 'MIT',
 				lang: 'Rust',
 				install: 'cargo install --git https://github.com/oddurs/tsi',

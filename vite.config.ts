@@ -1,3 +1,4 @@
+import { execSync } from 'node:child_process';
 import adapter from '@sveltejs/adapter-static';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vitest/config';
@@ -12,6 +13,18 @@ const port = 4817;
 // path is handed to the app separately. One knob, still: BASE_PATH.
 const basePath = (process.env.BASE_PATH ?? '') as '' | `/${string}`;
 
+// The commit the site was built from, written into every page. It is what
+// `scripts/ship` asks the published site for: a green workflow says a build
+// finished, and only this says which one is being served. Unknown outside a
+// checkout (a tarball, a sandbox without git), which is not worth failing for.
+const commit = (() => {
+	try {
+		return execSync('git rev-parse --short=12 HEAD', { encoding: 'utf8' }).trim();
+	} catch {
+		return 'unknown';
+	}
+})();
+
 export default defineConfig({
 	plugins: [
 		sveltekit({
@@ -25,7 +38,7 @@ export default defineConfig({
 			paths: { base: basePath }
 		})
 	],
-	define: { __BASE_PATH__: JSON.stringify(basePath) },
+	define: { __BASE_PATH__: JSON.stringify(basePath), __COMMIT__: JSON.stringify(commit) },
 	// Building while the dev server is up otherwise reloads the page once per
 	// file written: it watches its own output.
 	server: { port, strictPort: true, watch: { ignored: ['**/build/**'] } },

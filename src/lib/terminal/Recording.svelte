@@ -15,7 +15,7 @@
 	import type { Terminal } from '@xterm/xterm';
 	import { asset } from '$app/paths';
 	import type { Cast } from '$lib/data/projects';
-	import { ADVANCE, ROW, font, theme } from './theme';
+	import { ADVANCE, LINE, ROW, font, theme } from './theme';
 	import {
 		chapterAt,
 		clock,
@@ -210,7 +210,7 @@
 					fontSize: theme.font.size,
 					fontWeight: theme.font.thicken ? '500' : '400',
 					fontWeightBold: '700',
-					lineHeight: 1.12,
+					lineHeight: LINE,
 					letterSpacing: 0,
 					cursorBlink: false,
 					cursorInactiveStyle: 'block',
