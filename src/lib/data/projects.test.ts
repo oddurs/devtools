@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { identities } from '$lib/design/identity';
+import { shelves } from './tools';
 import {
 	find,
 	groups,
@@ -199,5 +200,31 @@ describe('views', () => {
 
 	it('is empty when a tool has nothing to show', () => {
 		expect(views(project(bare))).toEqual([]);
+	});
+});
+
+describe('shelves', () => {
+	it('puts every group on a shelf that exists', () => {
+		const ids = shelves.map((s) => s.id);
+		for (const g of groups) expect(ids).toContain(g.shelf);
+	});
+
+	it('offers no shelf with nothing on it', () => {
+		// The rail only draws the shelves that have groups, but an unused one
+		// in the list is a label nobody wrote a section for — say so here
+		// rather than leaving it to be noticed on the page.
+		for (const s of shelves) {
+			expect(
+				groups.some((g) => g.shelf === s.id),
+				`the ${s.label} shelf has no sections on it`
+			).toBe(true);
+		}
+	});
+
+	it('describes each shelf by what is on it, not by what it is called', () => {
+		for (const s of shelves) {
+			expect(s.of).not.toBe('');
+			expect(s.of.toLowerCase()).not.toContain(s.label.toLowerCase());
+		}
 	});
 });

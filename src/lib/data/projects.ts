@@ -1,7 +1,7 @@
 // A tool as the site shows it: its entry (tools.ts) joined to what the
 // screens runner shot of it (screens.json, `npm run screens`).
 import index from './screens.json';
-import { sections, type Media, type State, type Tool } from './tools';
+import { sections, type Media, type Shelf, type State, type Tool } from './tools';
 
 export type { Media, State };
 
@@ -89,7 +89,7 @@ export type Project = Omit<Tool, 'install' | 'site' | 'recording' | 'poster'> & 
 	commit: string | null;
 };
 
-export type Group = { label: string; projects: Project[] };
+export type Group = { label: string; shelf: Shelf; projects: Project[] };
 
 // Written by the runner in this shape; JSON cannot say [number, string], so
 // the shape is asserted here rather than proved. screens.test.ts is the proof:
@@ -117,6 +117,7 @@ function project(t: Tool): Project {
 
 export const groups: Group[] = sections.map((s) => ({
 	label: s.label,
+	shelf: s.shelf,
 	projects: s.tools.map(project)
 }));
 export const projects: Project[] = groups.flatMap((g) => g.projects);

@@ -6,8 +6,10 @@
 
 **[oddurs.github.io/devtools](https://oddurs.github.io/devtools/)**
 
-The tools I build for my own terminal, each one running. A rail of tools on
-the left; on the right, the tool: a recording of it at work and its screens —
+Everything I build, each one running. Mostly terminal tools; also the Mac apps
+on this desk, the things that run in a browser, and a couple made for their own
+sake. A rail of them on the left, narrowable to one shelf; on the right, the
+tool: a recording of it at work and its screens —
 and, for the ones a terminal cannot carry, a gallery of what it made or a
 sample of what it sounds like.
 

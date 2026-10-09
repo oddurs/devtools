@@ -28,11 +28,30 @@ export type Tool = {
 	poster?: string;
 };
 
-export type Section = { label: string; tools: Tool[] };
+// What a section is made of, rather than what it is about. The labels below
+// say the second thing — Reading, Science, Roadmap — and that is the right way
+// to look for a tool you half remember. But most of this shelf is a terminal
+// program, and the rest is not: a Mac app, a website, a game, a thing made for
+// its own sake. A reader deciding whether to open a page wants to know which,
+// because it is what the demo will be, and the rail can be narrowed to one.
+// A shelf arrives with its first section and not before: an empty one is a
+// label promising something that is not there, and the test below says so.
+// 'play' is the next one, and it goes in with the first game.
+export type Shelf = 'terminal' | 'desk' | 'web' | 'pieces';
+
+export const shelves: { id: Shelf; label: string; of: string }[] = [
+	{ id: 'terminal', label: 'Terminal', of: 'programs that run in one' },
+	{ id: 'desk', label: 'Desk', of: 'the machine itself, and the Mac apps on it' },
+	{ id: 'web', label: 'Web', of: 'sites, and what builds them' },
+	{ id: 'pieces', label: 'Pieces', of: 'made for their own sake' }
+];
+
+export type Section = { label: string; shelf: Shelf; tools: Tool[] };
 
 export const sections: Section[] = [
 	{
 		label: 'System',
+		shelf: 'terminal',
 		tools: [
 			{
 				name: 'poptop',
@@ -111,6 +130,7 @@ export const sections: Section[] = [
 	},
 	{
 		label: 'Code',
+		shelf: 'terminal',
 		tools: [
 			{
 				name: 'caligula',
@@ -191,6 +211,7 @@ export const sections: Section[] = [
 	},
 	{
 		label: 'Roadmap',
+		shelf: 'terminal',
 		tools: [
 			{
 				name: 'cairn',
@@ -230,6 +251,7 @@ export const sections: Section[] = [
 	},
 	{
 		label: 'Reading',
+		shelf: 'terminal',
 		tools: [
 			{
 				name: 'trafford',
@@ -291,6 +313,7 @@ export const sections: Section[] = [
 	},
 	{
 		label: 'Desk',
+		shelf: 'desk',
 		tools: [
 			{
 				name: 'polkadot',
@@ -377,6 +400,7 @@ export const sections: Section[] = [
 	},
 	{
 		label: 'Science',
+		shelf: 'terminal',
 		tools: [
 			{
 				name: 'starward',
@@ -416,6 +440,7 @@ export const sections: Section[] = [
 	},
 	{
 		label: 'Art',
+		shelf: 'pieces',
 		tools: [
 			{
 				name: 'windsor',
@@ -443,6 +468,7 @@ export const sections: Section[] = [
 	},
 	{
 		label: 'Web',
+		shelf: 'web',
 		tools: [
 			{
 				name: 'turborust',

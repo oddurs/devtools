@@ -2,13 +2,35 @@
 	The rail: every tool, grouped by what it is for. Type on the page, not a
 	panel on top of it: no card, no border, no shadow, no highlight box. The
 	current tool is told by its ink and its mark taking colour.
+
+	Above the groups, the shelves: terminal, desk, web, play, pieces — what a
+	thing is rather than what it is about. Most of this list is a terminal
+	program and some of it is not, and a reader deciding whether to open a page
+	wants to know which. Picking one narrows the rail; it is a view of the list,
+	not a page of its own, so it holds no state anyone can link to and the page
+	you are on is always in it.
 -->
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import { AppIcon, Badge } from '$lib/design';
 	import { prerelease, type Group } from '$lib/data/projects';
+	import { shelves, type Shelf } from '$lib/data/tools';
 
 	let { groups, current }: { groups: Group[]; current: string | null } = $props();
+
+	let shelf = $state<Shelf | null>(null);
+
+	// Only the shelves that have something on them, so an empty one is never
+	// offered — the day the first game lands, Play appears by itself.
+	const offered = $derived(shelves.filter((s) => groups.some((g) => g.shelf === s.id)));
+	const shown = $derived(shelf ? groups.filter((g) => g.shelf === shelf) : groups);
+
+	// Pressing the shelf you are on puts the whole list back. Narrowing can
+	// hide the page you are reading, which is fine: the rail is where you are
+	// going, not where you are, and the page itself has not moved.
+	function pick(id: Shelf) {
+		shelf = shelf === id ? null : id;
+	}
 </script>
 
 <nav class="rail" aria-label="Tools">
@@ -17,7 +39,21 @@
 		<span class="by">oddurs</span>
 	</a>
 
-	{#each groups as group (group.label)}
+	{#if offered.length > 1}
+		<div class="shelves" role="group" aria-label="Narrow by what a thing is">
+			{#each offered as s (s.id)}
+				<button
+					type="button"
+					class:on={shelf === s.id}
+					aria-pressed={shelf === s.id}
+					title={s.of}
+					onclick={() => pick(s.id)}>{s.label}</button
+				>
+			{/each}
+		</div>
+	{/if}
+
+	{#each shown as group (group.label)}
 		<div class="group">
 			<h2>{group.label}</h2>
 			<ul>
@@ -50,6 +86,29 @@
 		padding: var(--gutter-top) var(--space-2) var(--space-6) var(--gutter);
 		overflow-y: auto;
 		scrollbar-width: none;
+	}
+	.shelves {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-1);
+		padding-inline: var(--space-2);
+		margin-top: calc(var(--space-2) * -1);
+	}
+	.shelves button {
+		padding: 0.125rem 0.5rem;
+		border-radius: 999px;
+		color: var(--faint);
+		font-size: var(--size-xs);
+		transition:
+			color var(--quick),
+			background var(--quick);
+	}
+	.shelves button:hover {
+		color: var(--ink);
+	}
+	.shelves button.on {
+		background: var(--lifted);
+		color: var(--ink);
 	}
 	.mark {
 		display: flex;
@@ -115,6 +174,11 @@
 		}
 		.group {
 			display: contents;
+		}
+		/* On a phone the rail is one scrolling strip, and a row of filters
+		   above a row of tools is two things to miss. The strip stays whole. */
+		.shelves {
+			display: none;
 		}
 		h2 {
 			display: none;
