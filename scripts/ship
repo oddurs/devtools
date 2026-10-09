@@ -45,7 +45,9 @@ if [ "$(git rev-parse '@{u}' 2>/dev/null || echo none)" = "$sha" ]; then
   say "push — already on origin ($short)"
 else
   say "push"
-  timeout 300 git push origin main || die "push failed or timed out — is your ssh key loaded? Try: ssh-add"
+  # No `timeout` here: it is GNU coreutils, and this runs on a Mac. A push
+  # that hangs hangs at the key, and the message below is the fix for that.
+  git push origin main || die "push failed — is your ssh key loaded? Try: ssh-add"
 fi
 
 # 4. Watch the deploy this push started, keyed to the commit rather than to
