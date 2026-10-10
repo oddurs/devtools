@@ -12,11 +12,12 @@
 -->
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import { AppIcon, Badge } from '$lib/design';
+	import { AppIcon, Badge, Kbd } from '$lib/design';
 	import { prerelease, type Group } from '$lib/data/projects';
 	import { shelves, type Shelf } from '$lib/data/tools';
 
-	let { groups, current }: { groups: Group[]; current: string | null } = $props();
+	let { groups, current, onfind }: { groups: Group[]; current: string | null; onfind: () => void } =
+		$props();
 
 	let shelf = $state<Shelf | null>(null);
 
@@ -38,6 +39,14 @@
 		<span class="name">devtools</span>
 		<span class="by">oddurs</span>
 	</a>
+
+	<!-- The way across fifty names without reading them. On a phone this is
+	     the rail: a strip of every name is a thing to scroll past, not a way
+	     to get anywhere. -->
+	<button type="button" class="find" onclick={onfind}>
+		<span>Find a tool</span>
+		<span class="hint"><Kbd>/</Kbd></span>
+	</button>
 
 	{#if offered.length > 1}
 		<div class="shelves" role="group" aria-label="Narrow by what a thing is">
@@ -86,6 +95,25 @@
 		padding: var(--gutter-top) var(--space-2) var(--space-6) var(--gutter);
 		overflow-y: auto;
 		scrollbar-width: none;
+	}
+	.find {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--space-2);
+		margin-top: calc(var(--space-2) * -1);
+		padding: 0.3125rem var(--space-2);
+		border-radius: var(--radius-s);
+		color: var(--faint);
+		font-size: var(--size-m);
+		text-align: left;
+		transition:
+			color var(--quick),
+			background var(--quick);
+	}
+	.find:hover {
+		background: var(--lifted);
+		color: var(--ink);
 	}
 	.shelves {
 		display: flex;
@@ -162,36 +190,35 @@
 	}
 
 	@media (max-width: 52rem) {
+		/* A bar, not a rail. Fifty names in a horizontal strip is a thing to
+		   scroll past rather than a way to get anywhere, so the list goes and
+		   the two ways through it stay: the index, which the wordmark leads
+		   to, and the finder. */
 		.rail {
 			flex-direction: row;
 			align-items: center;
+			justify-content: space-between;
 			gap: var(--space-4);
 			height: auto;
 			padding: var(--space-3) var(--space-4);
-			overflow-x: auto;
-			/* More to the right: the strip says so by fading into the edge. */
-			mask-image: linear-gradient(to right, black calc(100% - 3rem), transparent);
+			overflow: visible;
+			box-shadow: inset 0 -1px 0 var(--rule);
 		}
-		.group {
-			display: contents;
-		}
-		/* On a phone the rail is one scrolling strip, and a row of filters
-		   above a row of tools is two things to miss. The strip stays whole. */
+		.group,
 		.shelves {
 			display: none;
 		}
-		h2 {
-			display: none;
-		}
-		ul {
-			display: flex;
-			gap: var(--space-1);
-		}
-		li a {
-			white-space: nowrap;
-		}
 		.mark {
 			flex: none;
+			padding-inline: 0;
+		}
+		.find {
+			flex: none;
+			margin-top: 0;
+		}
+		/* A key to press, on a thing with no keys. */
+		.hint {
+			display: none;
 		}
 	}
 </style>

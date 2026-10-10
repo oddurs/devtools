@@ -5,21 +5,37 @@
 	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
 	import favicon from '$lib/assets/favicon.svg';
+	import Find from '$lib/components/Find.svelte';
 	import Rail from '$lib/components/Rail.svelte';
 	import { groups, neighbours, projects } from '$lib/data/projects';
 
 	let { children } = $props();
 
-	// The home page is the first tool, so something is always running.
-	const current = $derived(page.params.name ?? (page.route.id === '/' ? projects[0].name : null));
+	// The index is a page of its own now, so on it no tool is current.
+	const current = $derived(page.params.name ?? null);
 
-	// j/k walk the tools from anywhere a keystroke is not text.
+	let finding = $state(false);
+
+	// The keys, from anywhere a keystroke is not already text: ⌘K or / opens
+	// the finder, j and k walk the shelf one at a time.
 	function onkeydown(e: KeyboardEvent) {
 		const t = e.target as HTMLElement;
-		if (t.closest('input, textarea, [contenteditable]') || e.metaKey || e.ctrlKey || e.altKey)
+		const typing = Boolean(t.closest('input, textarea, [contenteditable]'));
+		if ((e.key === 'k' || e.key === 'K') && (e.metaKey || e.ctrlKey)) {
+			e.preventDefault();
+			finding = !finding;
 			return;
+		}
+		if (typing || e.metaKey || e.ctrlKey || e.altKey) return;
+		if (e.key === '/') {
+			e.preventDefault();
+			finding = true;
+			return;
+		}
 		if (e.key !== 'j' && e.key !== 'k') return;
-		const { prev, next } = neighbours(current ?? projects[0].name);
+		// From the index, j starts at the top of the shelf rather than
+		// nowhere; from a tool, it steps to the next one.
+		const { prev, next } = neighbours(current ?? projects[projects.length - 1].name);
 		const to = e.key === 'j' ? next : prev;
 		e.preventDefault();
 		goto(resolve('/[name]', { name: to.name }), { keepFocus: true, noScroll: true });
@@ -36,9 +52,11 @@
 </svelte:head>
 
 <div class="page">
-	<aside><Rail {groups} {current} /></aside>
+	<aside><Rail {groups} {current} onfind={() => (finding = true)} /></aside>
 	<main>{@render children()}</main>
 </div>
+
+<Find bind:open={finding} />
 
 <style>
 	.page {

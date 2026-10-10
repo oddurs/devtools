@@ -1,11 +1,13 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import { AppIcon, Badge, Command } from '$lib/design';
 	import { owner } from '$lib/data/site';
-	import { prerelease, stateLabel, type Project } from '$lib/data/projects';
+	import { neighbours, prerelease, stateLabel, type Project } from '$lib/data/projects';
 	import Demo from './Demo.svelte';
 
 	let { project }: { project: Project } = $props();
 	const source = $derived(`https://github.com/${owner}/${project.name}`);
+	const around = $derived(neighbours(project.name));
 </script>
 
 <article class="project">
@@ -55,6 +57,20 @@
 	</div>
 
 	<div class="demo-slot"><Demo {project} /></div>
+
+	<!-- Where to go when this one is read. The rail is across the page and
+	     the index is a click away, but the thing nearest to hand should be
+	     the next tool along — which is also what j and k do. -->
+	<nav class="along" aria-label="The tools either side of this one">
+		<a class="back" href={resolve('/[name]', { name: around.prev.name })}>
+			<span class="dir"><span aria-hidden="true">←</span> previous</span>
+			<span class="who"><AppIcon name={around.prev.name} size="s" />{around.prev.name}</span>
+		</a>
+		<a class="on" href={resolve('/[name]', { name: around.next.name })}>
+			<span class="dir">next <span aria-hidden="true">→</span></span>
+			<span class="who">{around.next.name}<AppIcon name={around.next.name} size="s" /></span>
+		</a>
+	</nav>
 </article>
 
 <style>
@@ -176,5 +192,43 @@
 	.demo-slot {
 		min-width: 0;
 		margin-top: clamp(var(--space-8), 5vw, var(--space-12));
+	}
+
+	.along {
+		display: flex;
+		justify-content: space-between;
+		gap: var(--space-4);
+		margin-top: var(--space-12);
+		padding-top: var(--space-4);
+		box-shadow: inset 0 1px 0 var(--rule);
+	}
+	.along a {
+		display: grid;
+		gap: 0.25rem;
+		padding: var(--space-2);
+		border-radius: var(--radius-s);
+		color: var(--muted);
+		text-decoration: none;
+		transition:
+			color var(--quick),
+			background var(--quick);
+	}
+	.along a:hover {
+		background: var(--lifted);
+		color: var(--ink);
+	}
+	.along .on {
+		text-align: right;
+	}
+	.dir {
+		color: var(--faint);
+		font-size: var(--size-xs);
+	}
+	.who {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		color: var(--ink);
+		font-size: var(--size-m);
 	}
 </style>
