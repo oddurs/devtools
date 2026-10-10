@@ -60,7 +60,6 @@ describe('every tool', () => {
 		brevity: 'has no interface: a clipboard, a key and a chime',
 		triblenka: 'design stage: nothing is implemented yet',
 		foldr: 'early: the CLI answers --help and little else yet',
-		rockaway: 'pre-release: the frame engine that would be shown is next',
 		// New to the site in wave 4 (cairn 0039 on). Each has an item.
 		humanoid: 'needs a story: a scratch repository and an agent pushing into it',
 		'ag-test': 'a framework: shown through a failing suite, in a story not written yet',
@@ -71,7 +70,6 @@ describe('every tool', () => {
 		loadstar: 'needs a story: it installs real things, so the container is the place for it',
 		windflow: 'a macOS screensaver: needs a desk capture',
 		backpage: 'macOS only, and it draws on the wallpaper: needs a desk capture',
-		systema: 'its documentation site is not deployed yet',
 		arkonk: 'a native Mac game: needs a desk capture',
 		rim: 'a desktop game, early: needs a desk capture once it is playable',
 		bushy: 'needs a face in front of a camera; without one it is a permission prompt',

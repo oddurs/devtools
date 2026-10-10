@@ -62,9 +62,9 @@ Checked on 2026-10-09 against every live address the new pages link to.
 
 - [ ] [`0061`](https://github.com/oddurs/devtools/blob/main/cairn/items/0061-traintime-an-address-of-its-own-not-a-platform-default.md) traintime: an address of its own, not a platform default <sup>chore · p1 · traintime</sup>
 - [ ] [`0064`](https://github.com/oddurs/devtools/blob/main/cairn/items/0064-portfolio-paycheck-gap-deploy-the-site-it-already-builds.md) portfolio-paycheck-gap: deploy the site it already builds <sup>chore · p1 · portfolio-paycheck-gap</sup>
-- [ ] [`0065`](https://github.com/oddurs/devtools/blob/main/cairn/items/0065-systema-a-documentation-site-now-systema-dev-does-not-resolve.md) systema: a documentation site, now systema.dev does not resolve <sup>chore · p2 · systema</sup>
 - [ ] [`0066`](https://github.com/oddurs/devtools/blob/main/cairn/items/0066-joy-of-randomness-publish-the-course-as-a-book.md) joy-of-randomness: publish the course as a book <sup>chore · p3 · joy-of-randomness</sup>
 - [ ] [`0067`](https://github.com/oddurs/devtools/blob/main/cairn/items/0067-check-every-linked-address-every-week.md) Check every linked address, every week <sup>feature · p2</sup>
+- [ ] [`0070`](https://github.com/oddurs/devtools/blob/main/cairn/items/0070-rockaway-deploy-the-site-the-readme-links.md) rockaway: deploy the site the README links <sup>chore · p2 · rockaway</sup>
 
 ### done
 
@@ -107,9 +107,9 @@ Reading all twenty-four pages side by side, looking for drift.
 
 ## wave-4 — The rest of what I build
 
-`##········` 19% · 4 of 21 done · due 2026-12-13
+`##········` 20% · 4 of 20 done · due 2026-12-13
 
-Forty-eight more, from the repositories that had no page: the games and toys
+Forty-seven more, from the repositories that had no page: the games and toys
 
 ### backlog
 
@@ -124,7 +124,6 @@ Forty-eight more, from the repositories that had no page: the games and toys
 - [ ] [`0051`](https://github.com/oddurs/devtools/blob/main/cairn/items/0051-loadstar-a-story-from-nothing.md) loadstar: a story from nothing <sup>page · p1 · loadstar</sup>
 - [ ] [`0052`](https://github.com/oddurs/devtools/blob/main/cairn/items/0052-windflow-capture-it-on-the-mac.md) windflow: capture it on the Mac <sup>page · p1 · windflow</sup>
 - [ ] [`0053`](https://github.com/oddurs/devtools/blob/main/cairn/items/0053-backpage-capture-it-on-the-mac.md) backpage: capture it on the Mac <sup>page · p2 · backpage</sup>
-- [ ] [`0054`](https://github.com/oddurs/devtools/blob/main/cairn/items/0054-systema-a-still-once-it-is-live.md) systema: a still, once it is live <sup>page · p2 · systema</sup>
 - [ ] [`0055`](https://github.com/oddurs/devtools/blob/main/cairn/items/0055-arkonk-capture-it-on-the-mac.md) arkonk: capture it on the Mac <sup>page · p1 · arkonk</sup>
 - [ ] [`0056`](https://github.com/oddurs/devtools/blob/main/cairn/items/0056-rim-capture-it-on-the-mac.md) rim: capture it on the Mac <sup>page · p3 · rim</sup>
 - [ ] [`0057`](https://github.com/oddurs/devtools/blob/main/cairn/items/0057-bushy-a-story-from-nothing.md) bushy: a story from nothing <sup>page · p2 · bushy</sup>

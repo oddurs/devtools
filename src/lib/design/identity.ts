@@ -54,7 +54,6 @@ import StickyNote from '@lucide/svelte/icons/sticky-note';
 import Wind from '@lucide/svelte/icons/wind';
 import Wallpaper from '@lucide/svelte/icons/wallpaper';
 import Binary from '@lucide/svelte/icons/binary';
-import Component from '@lucide/svelte/icons/component';
 import Plane from '@lucide/svelte/icons/plane';
 import Smartphone from '@lucide/svelte/icons/smartphone';
 import Flame from '@lucide/svelte/icons/flame';
@@ -222,7 +221,6 @@ export const identities: Record<string, Identity> = {
 	turborust: { icon: Zap, tint: 'coral', why: 'fast rebuilds' },
 	triblenka: { icon: TreePalm, tint: 'green', why: 'islands' },
 	rockaway: { icon: Grid3x3, tint: 'amber', why: 'the character grid' },
-	systema: { icon: Component, tint: 'indigo', why: 'components' },
 	rummy: { icon: Binary, tint: 'lime', why: 'text, rendered' },
 
 	// languages and libraries

@@ -1150,22 +1150,19 @@ export const sections: Section[] = [
 				name: 'rockaway',
 				kind: 'library',
 				line: 'A TUI design system for the web.',
-				more: 'Everything sits on a character grid: one cell wide, one row tall, no halves. An integer geometry engine with no DOM in it, four painters over one geometry — glyphs, CSS hairlines, ANSI, plain text — tokens as data with a contrast gate, and components on React Aria. Boxes close at every zoom because the cell draws them, and a screen still copies as `┌──┐`. Pre-release: the tokens and the CSS layers are built, the frame engine is next.',
-				state: { kind: 'design' },
-				license: 'MIT',
-				lang: 'TypeScript',
-				tags: ['design system', 'character grid', 'react']
-			},
-			{
-				name: 'systema',
-				kind: 'library',
-				line: 'A design system built on nothing but the web platform.',
-				more: 'Web Components, W3C design tokens and modern CSS, with no framework underneath: OKLCH palettes with P3 gamut support and contrast guaranteed by the algorithm, forty-odd accessible components, and tokens compiled to custom properties you can override at the root or on any subtree.',
+				more: 'Everything sits on a character grid: one cell wide, one row tall, no halves. An integer geometry engine with no DOM in it, four painters over one geometry — glyphs, CSS hairlines, ANSI, plain text — tokens as data with ten themes and a contrast gate, and components on React Aria: Frame, Tree, List, Button, Badge, KeyHint and the fields forms are built from. Boxes close at every zoom because the cell draws them, and a screen still copies as `┌──┐`. Not on npm yet; 0.1.0 is next.',
 				state: { kind: 'source' },
 				license: 'MIT',
 				lang: 'TypeScript',
-				install: 'git clone https://github.com/oddurs/systema && cd systema && npm install',
-				tags: ['design system', 'web components', 'tokens']
+				install:
+					'git clone https://github.com/oddurs/rockaway && cd rockaway && pnpm install && pnpm site',
+				tags: ['design system', 'character grid', 'react'],
+				recording: {
+					src: '/media/captures/rockaway.webp',
+					alt: 'A real screen from the workbench: Frame, Tree, List, Badge, Button and KeyHint at the default density.',
+					width: 694,
+					height: 360
+				}
 			},
 			{
 				name: 'rummy',

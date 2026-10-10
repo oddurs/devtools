@@ -3,7 +3,7 @@ id: 65
 uid: 0e60d4c2-364f-463f-8037-d18100664935
 title: 'systema: a documentation site, now systema.dev does not resolve'
 type: chore
-status: backlog
+status: dropped
 milestone: hosting
 created: 2026-10-09
 updated: 2026-10-09
@@ -21,3 +21,7 @@ judged by its documentation, so it needs one that is up.
 - [ ] Either the domain renewed, or the docs on GitHub Pages and the README's links changed
 - [ ] The components rendered live, not as screenshots
 - [ ] Repository homepage set
+
+## 2026-10-09
+
+Dropped 2026-10-10 with systema's page.

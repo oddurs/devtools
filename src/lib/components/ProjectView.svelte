@@ -40,7 +40,11 @@
 
 	<div class="about">
 		<p class="line">{project.line}</p>
-		<p class="more">{project.more}</p>
+		<!-- A command or a glyph in backticks is set as code, as the captions are. -->
+		<p class="more">
+			{#each project.more.split('`') as part, i (i)}{#if i % 2}<code>{part}</code
+					>{:else}{part}{/if}{/each}
+		</p>
 	</div>
 
 	{#if prerelease(project)}
@@ -146,6 +150,9 @@
 		color: var(--muted);
 		line-height: 1.6;
 		text-wrap: pretty;
+	}
+	.more code {
+		color: var(--ink);
 	}
 	.notice {
 		max-width: var(--measure);
