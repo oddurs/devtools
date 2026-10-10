@@ -199,11 +199,13 @@ describe('tools.ts', () => {
 		// A site belongs to the tool whose entry it sits in. gummyworm.dev
 		// once advertised itself from clackson's page for a day, because an
 		// insertion landed one entry out and nothing was watching.
+		// A domain cannot always carry the hyphen: sessioncontext.org is
+		// session-context's, so the host is compared without them.
 		if (t.site) {
 			const host = new URL(t.site).hostname.replace(/^www\./, '');
 			const path = new URL(t.site).pathname;
 			expect(
-				host.startsWith(name) || path.includes(name),
+				host.startsWith(name.replaceAll('-', '')) || host.startsWith(name) || path.includes(name),
 				`${name} links to ${t.site}, which does not name it`
 			).toBe(true);
 		}

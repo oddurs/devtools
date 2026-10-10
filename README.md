@@ -6,12 +6,14 @@
 
 **[oddurs.github.io/devtools](https://oddurs.github.io/devtools/)**
 
-Everything I build, each one running. Mostly terminal tools; also the Mac apps
-on this desk, the things that run in a browser, and a couple made for their own
-sake. A rail of them on the left, narrowable to one shelf; on the right, the
-tool: a recording of it at work and its screens —
-and, for the ones a terminal cannot carry, a gallery of what it made or a
-sample of what it sounds like.
+Everything I build, each one running. Terminal tools, where most of it
+started; the Mac apps on this desk; games and toys; maps and simulations;
+things to read; and the libraries and languages the rest is built with. A rail
+of them on the left, narrowable to one shelf (Terminal, Desk, Play, Look, Read,
+Build); on the right, the thing itself, laid out by what kind of thing it is: a
+terminal tool is read and then watched, a game is seen and then played — and,
+for the ones nothing else can carry, a gallery of what it made or a sample of
+what it sounds like.
 
 SvelteKit (Svelte 5, runes), TypeScript strict, static output.
 
@@ -28,9 +30,11 @@ npm run screens -- quarry   # shoot and record a tool, in Docker (screens/README
 ## Where things live
 
     src/lib/data/tools.ts          every tool: its entry, its section; edit here
+    src/lib/data/templates.ts      how a page is laid out for each kind of thing
     src/lib/data/screens.json      what the runner shot of each; written by npm run screens
     src/lib/data/captures/         real output, kept for a page that cannot be shot yet
     static/media/                  screenshots, casts, other captures
+    static/media/posters/          a still of each browser piece at its live address
     screens/                       the studio: Dockerfile, runner, one story per tool
     docs/recordings.md             how tools are recorded, and which are done
 

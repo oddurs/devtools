@@ -131,8 +131,8 @@ description = "The tool whose page this is"
 [[field]]
 name = "section"
 kind = "enum"
-values = ["System", "Code", "Roadmap", "Reading", "Desk", "Science", "Web", "site"]
-description = "Where it sits in the rail; `site` for work on the site itself"
+values = ["System", "Code", "Agents", "Projects", "Machines", "News and notes", "Science", "Art and life", "Apps", "Look and sound", "Games", "Toys", "Maps", "Simulations", "Instruments", "Explainers", "Research", "Books and courses", "Web", "Languages and libraries", "Languages", "Roadmap", "Reading", "Desk", "Mac", "Art", "Essays", "site"]
+description = "Where it sits in the rail; `site` for work on the site itself. Older items keep the sections of their day"
 
 [[field]]
 name = "shows"

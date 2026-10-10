@@ -61,16 +61,21 @@ export function search(projects: Project[], query: string): Hit[] {
 
 	for (const p of projects) {
 		const name = p.name.toLowerCase();
+		// A thing is found by either of its names: the repository's, which is
+		// the address, and the one it is shown by (The Cow is chess-strat).
+		const names = p.title ? [name, p.title.toLowerCase()] : [name];
 		const line = p.line.toLowerCase();
 		const tags = p.tags.map((t) => t.toLowerCase());
+		const starts = names.find((n) => n.startsWith(q));
+		const inside = names.find((n) => n.includes(q));
 
 		// The name, best first: the whole of it, then the start of it, then
 		// somewhere inside it, then its letters in order.
-		if (name === q) hits.push({ project: p, where: 'name', why: p.line, score: 1000 });
-		else if (name.startsWith(q))
-			hits.push({ project: p, where: 'name', why: p.line, score: 900 - name.length });
-		else if (name.includes(q))
-			hits.push({ project: p, where: 'name', why: p.line, score: 800 - name.length });
+		if (names.includes(q)) hits.push({ project: p, where: 'name', why: p.line, score: 1000 });
+		else if (starts)
+			hits.push({ project: p, where: 'name', why: p.line, score: 900 - starts.length });
+		else if (inside)
+			hits.push({ project: p, where: 'name', why: p.line, score: 800 - inside.length });
 		else {
 			const tag = tags.find((t) => t.startsWith(q)) ?? tags.find((t) => t.includes(q));
 			if (tag) hits.push({ project: p, where: 'tag', tag, why: tag, score: 700 - tag.indexOf(q) });

@@ -6,7 +6,7 @@
 	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
 	import { AppIcon } from '$lib/design';
-	import { projects } from '$lib/data/projects';
+	import { label, projects } from '$lib/data/projects';
 	import { title } from '$lib/data/site';
 
 	const asked = $derived(
@@ -48,7 +48,7 @@
 				<li>
 					<a href={resolve('/[name]', { name: p.name })}>
 						<AppIcon name={p.name} size="m" />
-						<span class="name">{p.name}</span>
+						<span class="name">{label(p)}</span>
 						<span class="line">{p.line}</span>
 					</a>
 				</li>

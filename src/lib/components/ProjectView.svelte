@@ -2,24 +2,41 @@
 	import { resolve } from '$app/paths';
 	import { AppIcon, Badge, Command } from '$lib/design';
 	import { owner } from '$lib/data/site';
-	import { neighbours, prerelease, stateLabel, type Project } from '$lib/data/projects';
+	import { identity } from '$lib/design/identity';
+	import {
+		label,
+		neighbours,
+		prerelease,
+		stateLabel,
+		title,
+		type Project
+	} from '$lib/data/projects';
+	import { page } from '$lib/data/templates';
 	import Demo from './Demo.svelte';
 
 	let { project }: { project: Project } = $props();
 	const source = $derived(`https://github.com/${owner}/${project.name}`);
 	const around = $derived(neighbours(project.name));
+	// How this kind of thing is shown: which comes first, and what to press.
+	const t = $derived(page(project));
 </script>
 
 <article class="project">
 	<!--
 		What it is, then how to get it, then the tool running. The text is short
 		enough to read before the window, and the window has room to be the
-		biggest thing on the page once you reach it.
+		biggest thing on the page once you reach it. A thing judged by looking at
+		it — a game, a map — turns that round: the picture comes straight after
+		its name, and the words follow.
 	-->
 	<header>
-		<h1><AppIcon name={project.name} size="l" />{project.name}</h1>
+		<h1><AppIcon name={project.name} size="l" />{title(project)}</h1>
 		{#if prerelease(project)}<Badge tone="amber">pre-release</Badge>{/if}
 	</header>
+
+	{#if t.lead === 'picture'}
+		<div class="demo-slot first"><Demo {project} go={t.go} /></div>
+	{/if}
 
 	<div class="about">
 		<p class="line">{project.line}</p>
@@ -35,28 +52,41 @@
 	{/if}
 
 	<div class="facts">
-		{#if project.install}
+		{#if t.go}
+			<!-- The way in, for a thing you go to: in its own colour, the one
+			     loud thing on the page. -->
+			<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -- external -->
+			<a class="go" href={t.go.href} style="--h: var(--tint-{identity(project.name).tint})"
+				>{t.go.verb}<span aria-hidden="true">↗</span></a
+			>
+		{:else if project.install}
 			<div class="install"><Command command={project.install} /></div>
 		{/if}
-		<p class="meta">
-			<!-- A pre-release says so in the badge above; not twice. -->
-			{#if !prerelease(project)}
-				<span class="figures" class:released={project.state.kind === 'released'}
-					>{stateLabel(project.state)}</span
-				>
-			{/if}
-			<span>{project.lang}</span>
-			{#if project.license !== 'none'}<span>{project.license}</span>{/if}
-		</p>
-		<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -- external -->
-		<a class="out" href={source}>Source<span aria-hidden="true">↗</span></a>
-		{#if project.site}
+		<!-- The facts and the ways out wrap as one, so a narrow page never
+		     strands the links on a line of their own. -->
+		<div class="about-it">
+			<p class="meta">
+				<!-- A pre-release says so in the badge above; not twice. -->
+				{#if !prerelease(project)}
+					<span class="figures" class:released={project.state.kind === 'released'}
+						>{stateLabel(project.state)}</span
+					>
+				{/if}
+				<span>{project.lang}</span>
+				{#if project.license !== 'none'}<span>{project.license}</span>{/if}
+			</p>
 			<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -- external -->
-			<a class="out" href={project.site}>Site<span aria-hidden="true">↗</span></a>
-		{/if}
+			<a class="out" href={source}>Source<span aria-hidden="true">↗</span></a>
+			{#if project.site && !t.go}
+				<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -- external -->
+				<a class="out" href={project.site}>Site<span aria-hidden="true">↗</span></a>
+			{/if}
+		</div>
 	</div>
 
-	<div class="demo-slot"><Demo {project} /></div>
+	{#if t.lead === 'words'}
+		<div class="demo-slot"><Demo {project} go={t.go} /></div>
+	{/if}
 
 	<!-- Where to go when this one is read. The rail is across the page and
 	     the index is a click away, but the thing nearest to hand should be
@@ -64,11 +94,11 @@
 	<nav class="along" aria-label="The tools either side of this one">
 		<a class="back" href={resolve('/[name]', { name: around.prev.name })}>
 			<span class="dir"><span aria-hidden="true">←</span> previous</span>
-			<span class="who"><AppIcon name={around.prev.name} size="s" />{around.prev.name}</span>
+			<span class="who"><AppIcon name={around.prev.name} size="s" />{label(around.prev)}</span>
 		</a>
 		<a class="on" href={resolve('/[name]', { name: around.next.name })}>
 			<span class="dir">next <span aria-hidden="true">→</span></span>
-			<span class="who">{around.next.name}<AppIcon name={around.next.name} size="s" /></span>
+			<span class="who">{label(around.next)}<AppIcon name={around.next.name} size="s" /></span>
 		</a>
 	</nav>
 </article>
@@ -147,6 +177,12 @@
 		flex: 1 1 22rem;
 		min-width: 0;
 	}
+	.about-it {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: var(--space-3) var(--space-6);
+	}
 	/* One line of facts, one separator: a dot the page draws, not typed. */
 	.meta {
 		display: flex;
@@ -192,6 +228,40 @@
 	.demo-slot {
 		min-width: 0;
 		margin-top: clamp(var(--space-8), 5vw, var(--space-12));
+	}
+	/* Straight under the name, when the picture leads; the words then sit a
+	   step below it rather than the widest gap on the page. */
+	.demo-slot.first {
+		margin-top: var(--space-6);
+	}
+	.demo-slot.first + .about {
+		margin-top: var(--space-8);
+	}
+
+	/* The main button: the tool's own tint, dark ink on it. */
+	.go {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.375em;
+		padding: 0.5rem 1.125rem;
+		border-radius: 999px;
+		background: oklch(var(--tint-l) var(--tint-c) var(--h));
+		color: var(--paper);
+		font-weight: 600;
+		text-decoration: none;
+		transition:
+			filter var(--quick),
+			transform var(--quick) var(--ease);
+	}
+	.go span {
+		font-size: 0.85em;
+		font-weight: 400;
+	}
+	.go:hover {
+		filter: brightness(1.08);
+	}
+	.go:active {
+		transform: translateY(1px);
 	}
 
 	.along {

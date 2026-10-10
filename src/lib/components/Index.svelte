@@ -14,7 +14,7 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import { AppIcon, Badge } from '$lib/design';
-	import { prerelease, type Group } from '$lib/data/projects';
+	import { label, prerelease, type Group } from '$lib/data/projects';
 	import { shelves, type Shelf } from '$lib/data/tools';
 
 	let { groups }: { groups: Group[] } = $props();
@@ -30,10 +30,11 @@
 	<header>
 		<h1>Everything I build, each one running.</h1>
 		<p class="sub">
-			Mostly terminal tools; also the Mac apps on this desk, the things that run in a browser, and a
-			couple made for their own sake. Every page here shows the thing working: a recording of a real
-			session, the screens it was taken from, and — where a terminal cannot carry it — what it drew
-			or what it sounds like.
+			Terminal tools, where most of it started; the Mac apps on this desk; games and toys; maps and
+			simulations; things to read; and the libraries and languages the rest is built with. Every
+			page shows the thing working: a recording of a real session, the screens it was taken from,
+			the site itself as it runs, or — where none of those can carry it — what it drew or what it
+			sounds like.
 		</p>
 	</header>
 
@@ -63,7 +64,7 @@
 						<a href={resolve('/[name]', { name: p.name })}>
 							<span class="mark"><AppIcon name={p.name} size="s" /></span>
 							<span class="name">
-								{p.name}
+								{label(p)}
 								{#if prerelease(p)}<Badge tone="amber">pre</Badge>{/if}
 							</span>
 							<span class="line">{p.line}</span>
@@ -79,6 +80,9 @@
 <style>
 	.index {
 		max-width: 68rem;
+		/* The rows fold by the list's own width: beside the rail on a tablet,
+		   one line per tool left the sentences a couple of words long. */
+		container-type: inline-size;
 	}
 	h1 {
 		max-width: 24ch;
@@ -186,8 +190,8 @@
 		text-align: right;
 	}
 
-	@media (max-width: 52rem) {
-		/* Two lines per tool, and the language goes: on a narrow screen the
+	@container (max-width: 48rem) {
+		/* Two lines per tool, and the language goes: on a narrow list the
 		   sentence is worth more than the column it would cost. */
 		li a {
 			grid-template-columns: 1.25rem minmax(0, 1fr);

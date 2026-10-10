@@ -6,13 +6,9 @@ The tools I build for my own terminal, each one running.
 
 ## platform — The site can show what the tools need
 
-`#########·` 86% · 6 of 7 done · due 2026-10-04
+`##########` 100% · 7 of 7 done · due 2026-10-04
 
 Two views, not three: a recording and the screens. The typed session goes.
-
-### backlog
-
-- [ ] [`0038`](https://github.com/oddurs/devtools/blob/main/cairn/items/0038-draw-braille-and-blocks-in-the-container-the-way-the-site-does.md) Draw braille and blocks in the container the way the site does <sup>chore · p2</sup>
 
 ### done
 
@@ -22,6 +18,7 @@ Two views, not three: a recording and the screens. The typed session goes.
 - [x] [`0009`](https://github.com/oddurs/devtools/blob/main/cairn/items/0009-an-audio-sample-for-tools-you-hear.md) An audio sample, for tools you hear <sup>feature · p0</sup>
 - [x] [`0010`](https://github.com/oddurs/devtools/blob/main/cairn/items/0010-link-every-tool-that-has-a-site-of-its-own.md) Link every tool that has a site of its own <sup>feature · p1</sup>
 - [x] [`0011`](https://github.com/oddurs/devtools/blob/main/cairn/items/0011-bring-the-recordings-doc-up-to-date.md) Bring the recordings doc up to date <sup>docs · p2</sup>
+- [x] [`0038`](https://github.com/oddurs/devtools/blob/main/cairn/items/0038-draw-braille-and-blocks-in-the-container-the-way-the-site-does.md) Draw braille and blocks in the container the way the site does <sup>chore · p2</sup>
 
 ## wave-1 — The seven that are already shot
 
@@ -55,6 +52,23 @@ Seven stories that need their missing beats filled and a recording made.
 - [x] [`0024`](https://github.com/oddurs/devtools/blob/main/cairn/items/0024-trafford-fill-the-beats-and-record-it.md) trafford: fill the beats and record it <sup>page · p1 · trafford</sup>
 - [x] [`0025`](https://github.com/oddurs/devtools/blob/main/cairn/items/0025-rsst-fill-the-beats-and-record-it.md) rsst: fill the beats and record it <sup>page · p1 · rsst</sup>
 
+## hosting — Every site up, at an address that will last
+
+`··········` 0% · 0 of 8 done · due 2026-10-25
+
+Checked on 2026-10-09 against every live address the new pages link to.
+
+### backlog
+
+- [ ] [`0060`](https://github.com/oddurs/devtools/blob/main/cairn/items/0060-einstein-the-site-lost-its-styles-when-the-repository-was-renamed.md) einstein: the site lost its styles when the repository was renamed <sup>chore · p0 · einstein</sup>
+- [ ] [`0061`](https://github.com/oddurs/devtools/blob/main/cairn/items/0061-traintime-an-address-of-its-own-not-a-platform-default.md) traintime: an address of its own, not a platform default <sup>chore · p1 · traintime</sup>
+- [ ] [`0062`](https://github.com/oddurs/devtools/blob/main/cairn/items/0062-coalesce-point-the-repository-at-its-own-domain-not-a-preview-url.md) coalesce: point the repository at its own domain, not a preview URL <sup>chore · p2 · coalesce</sup>
+- [ ] [`0063`](https://github.com/oddurs/devtools/blob/main/cairn/items/0063-a-dozen-repositories-link-nowhere-set-their-homepage-to-the-live-site.md) A dozen repositories link nowhere: set their homepage to the live site <sup>chore · p2</sup>
+- [ ] [`0064`](https://github.com/oddurs/devtools/blob/main/cairn/items/0064-portfolio-paycheck-gap-deploy-the-site-it-already-builds.md) portfolio-paycheck-gap: deploy the site it already builds <sup>chore · p1 · portfolio-paycheck-gap</sup>
+- [ ] [`0065`](https://github.com/oddurs/devtools/blob/main/cairn/items/0065-systema-a-documentation-site-now-systema-dev-does-not-resolve.md) systema: a documentation site, now systema.dev does not resolve <sup>chore · p2 · systema</sup>
+- [ ] [`0066`](https://github.com/oddurs/devtools/blob/main/cairn/items/0066-joy-of-randomness-publish-the-course-as-a-book.md) joy-of-randomness: publish the course as a book <sup>chore · p3 · joy-of-randomness</sup>
+- [ ] [`0067`](https://github.com/oddurs/devtools/blob/main/cairn/items/0067-check-every-linked-address-every-week.md) Check every linked address, every week <sup>feature · p2</sup>
+
 ## wave-3 — The ten with nothing to show yet
 
 `#######···` 70% · 7 of 10 done · due 2026-11-22
@@ -87,4 +101,37 @@ Reading all twenty-four pages side by side, looking for drift.
 
 - [x] [`0036`](https://github.com/oddurs/devtools/blob/main/cairn/items/0036-a-pass-over-all-twenty-four-pages-side-by-side.md) A pass over all twenty-four pages, side by side <sup>chore · p0</sup>
 - [x] [`0037`](https://github.com/oddurs/devtools/blob/main/cairn/items/0037-say-how-the-site-is-made-now-that-it-is-made.md) Say how the site is made, now that it is made <sup>docs · p2</sup>
+
+## wave-4 — The rest of what I build
+
+`##········` 19% · 4 of 21 done · due 2026-12-13
+
+Forty-eight more, from the repositories that had no page: the games and toys
+
+### backlog
+
+- [ ] [`0043`](https://github.com/oddurs/devtools/blob/main/cairn/items/0043-retake-the-stills-from-a-script-not-by-hand.md) Retake the stills from a script, not by hand <sup>chore · p2</sup>
+- [ ] [`0044`](https://github.com/oddurs/devtools/blob/main/cairn/items/0044-web-stories-for-the-browser-pieces.md) Web stories for the browser pieces <sup>feature · p3</sup>
+- [ ] [`0045`](https://github.com/oddurs/devtools/blob/main/cairn/items/0045-humanoid-a-story-from-nothing.md) humanoid: a story from nothing <sup>page · p1 · humanoid</sup>
+- [ ] [`0046`](https://github.com/oddurs/devtools/blob/main/cairn/items/0046-ag-test-a-story-from-nothing.md) ag-test: a story from nothing <sup>page · p2 · ag-test</sup>
+- [ ] [`0047`](https://github.com/oddurs/devtools/blob/main/cairn/items/0047-subcell-a-story-from-nothing.md) subcell: a story from nothing <sup>page · p3 · subcell</sup>
+- [ ] [`0048`](https://github.com/oddurs/devtools/blob/main/cairn/items/0048-tzguard-a-story-from-nothing.md) tzguard: a story from nothing <sup>page · p2 · tzguard</sup>
+- [ ] [`0049`](https://github.com/oddurs/devtools/blob/main/cairn/items/0049-x-post-a-story-from-nothing.md) x-post: a story from nothing <sup>page · p3 · x-post</sup>
+- [ ] [`0050`](https://github.com/oddurs/devtools/blob/main/cairn/items/0050-oath-a-story-from-nothing.md) oath: a story from nothing <sup>page · p3 · oath</sup>
+- [ ] [`0051`](https://github.com/oddurs/devtools/blob/main/cairn/items/0051-loadstar-a-story-from-nothing.md) loadstar: a story from nothing <sup>page · p1 · loadstar</sup>
+- [ ] [`0052`](https://github.com/oddurs/devtools/blob/main/cairn/items/0052-windflow-capture-it-on-the-mac.md) windflow: capture it on the Mac <sup>page · p1 · windflow</sup>
+- [ ] [`0053`](https://github.com/oddurs/devtools/blob/main/cairn/items/0053-backpage-capture-it-on-the-mac.md) backpage: capture it on the Mac <sup>page · p2 · backpage</sup>
+- [ ] [`0054`](https://github.com/oddurs/devtools/blob/main/cairn/items/0054-systema-a-still-once-it-is-live.md) systema: a still, once it is live <sup>page · p2 · systema</sup>
+- [ ] [`0055`](https://github.com/oddurs/devtools/blob/main/cairn/items/0055-arkonk-capture-it-on-the-mac.md) arkonk: capture it on the Mac <sup>page · p1 · arkonk</sup>
+- [ ] [`0056`](https://github.com/oddurs/devtools/blob/main/cairn/items/0056-rim-capture-it-on-the-mac.md) rim: capture it on the Mac <sup>page · p3 · rim</sup>
+- [ ] [`0057`](https://github.com/oddurs/devtools/blob/main/cairn/items/0057-bushy-a-story-from-nothing.md) bushy: a story from nothing <sup>page · p2 · bushy</sup>
+- [ ] [`0058`](https://github.com/oddurs/devtools/blob/main/cairn/items/0058-portfolio-paycheck-gap-a-still-once-it-is-live.md) portfolio-paycheck-gap: a still, once it is live <sup>page · p1 · portfolio-paycheck-gap</sup>
+- [ ] [`0059`](https://github.com/oddurs/devtools/blob/main/cairn/items/0059-joy-of-randomness-a-still-once-it-is-live.md) joy-of-randomness: a still, once it is live <sup>page · p3 · joy-of-randomness</sup>
+
+### done
+
+- [x] [`0041`](https://github.com/oddurs/devtools/blob/main/cairn/items/0041-six-shelves-by-what-a-visitor-does-with-a-thing.md) Six shelves, by what a visitor does with a thing <sup>chore · p0</sup>
+- [x] [`0042`](https://github.com/oddurs/devtools/blob/main/cairn/items/0042-a-still-of-every-browser-piece-at-its-live-address.md) A still of every browser piece, at its live address <sup>chore · p1</sup>
+- [x] [`0068`](https://github.com/oddurs/devtools/blob/main/cairn/items/0068-a-page-laid-out-by-what-kind-of-thing-it-is.md) A page laid out by what kind of thing it is <sup>feature · p0</sup>
+- [x] [`0069`](https://github.com/oddurs/devtools/blob/main/cairn/items/0069-names-a-page-is-shown-by-not-only-the-repository-s.md) Names a page is shown by, not only the repository’s <sup>chore · p1</sup>
 

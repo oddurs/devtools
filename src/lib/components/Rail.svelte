@@ -3,8 +3,8 @@
 	panel on top of it: no card, no border, no shadow, no highlight box. The
 	current tool is told by its ink and its mark taking colour.
 
-	Above the groups, the shelves: terminal, desk, web, play, pieces — what a
-	thing is rather than what it is about. Most of this list is a terminal
+	Above the groups, the shelves: terminal, desk, play, look, read, build —
+	what a thing is rather than what it is about. Most of this list is a terminal
 	program and some of it is not, and a reader deciding whether to open a page
 	wants to know which. Picking one narrows the rail; it is a view of the list,
 	not a page of its own, so it holds no state anyone can link to and the page
@@ -12,8 +12,9 @@
 -->
 <script lang="ts">
 	import { resolve } from '$app/paths';
+	import Search from '@lucide/svelte/icons/search';
 	import { AppIcon, Badge, Kbd } from '$lib/design';
-	import { prerelease, type Group } from '$lib/data/projects';
+	import { label, prerelease, type Group } from '$lib/data/projects';
 	import { shelves, type Shelf } from '$lib/data/tools';
 
 	let { groups, current, onfind }: { groups: Group[]; current: string | null; onfind: () => void } =
@@ -44,7 +45,10 @@
 	     the rail: a strip of every name is a thing to scroll past, not a way
 	     to get anywhere. -->
 	<button type="button" class="find" onclick={onfind}>
-		<span>Find a tool</span>
+		<!-- In the marks' column, so the words line up with the names below;
+		     and on a phone, where there is no key, it says this is a button. -->
+		<span class="glass" aria-hidden="true"><Search size={14} strokeWidth={2} /></span>
+		<span class="label">Find a tool</span>
 		<span class="hint"><Kbd>/</Kbd></span>
 	</button>
 
@@ -74,7 +78,7 @@
 							title={p.line}
 						>
 							<AppIcon name={p.name} size="s" muted={p.name !== current} />
-							{p.name}
+							{label(p)}
 							{#if prerelease(p)}<span class="pre"><Badge tone="amber">pre</Badge></span>{/if}
 						</a>
 					</li>
@@ -99,8 +103,7 @@
 	.find {
 		display: flex;
 		align-items: center;
-		justify-content: space-between;
-		gap: var(--space-2);
+		gap: 0.625rem;
 		margin-top: calc(var(--space-2) * -1);
 		padding: 0.3125rem var(--space-2);
 		border-radius: var(--radius-s);
@@ -115,15 +118,31 @@
 		background: var(--lifted);
 		color: var(--ink);
 	}
+	/* The same box as a mark in the list, so the glass sits over the icons. */
+	.glass {
+		display: inline-grid;
+		flex: none;
+		place-items: center;
+		width: 1.375rem;
+		height: 1.375rem;
+	}
+	.hint {
+		margin-left: auto;
+	}
 	.shelves {
-		display: flex;
-		flex-wrap: wrap;
-		gap: var(--space-1);
-		padding-inline: var(--space-2);
+		/* Six shelves, three to a row, in columns: two even rows read as a
+		   choice, where a row that wraps leaves one name stranded. */
+		display: grid;
+		grid-template-columns: repeat(3, max-content);
+		justify-items: start;
+		gap: 0.125rem 0.25rem;
+		/* The pills' own padding brings the first label back to the rail's
+		   text edge. */
+		padding-inline: 0.25rem;
 		margin-top: calc(var(--space-2) * -1);
 	}
 	.shelves button {
-		padding: 0.125rem 0.5rem;
+		padding: 0.125rem 0.25rem;
 		border-radius: 999px;
 		color: var(--faint);
 		font-size: var(--size-xs);

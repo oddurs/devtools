@@ -17,9 +17,20 @@
 	import Screens from '$lib/terminal/Screens.svelte';
 	import Sound from '$lib/terminal/Sound.svelte';
 	import Window from '$lib/terminal/Window.svelte';
-	import { MEDIA, prerelease, stills, views, type Project, type View } from '$lib/data/projects';
+	import {
+		MEDIA,
+		prerelease,
+		stills,
+		title,
+		views,
+		type Project,
+		type View
+	} from '$lib/data/projects';
+	import { address, type Page } from '$lib/data/templates';
 
-	let { project }: { project: Project } = $props();
+	// `go` is the page's main way in, when there is one: a still of a thing at
+	// its own address opens it.
+	let { project, go = null }: { project: Project; go?: Page['go'] } = $props();
 
 	const shots = $derived(stills(project));
 	const available = $derived(views(project));
@@ -44,8 +55,16 @@
 	});
 
 	const shot = $derived(shots[index]);
-	// Real terminal screens sit in a terminal; a poster of a web page does not.
-	const isTerminal = $derived(project.screens.length > 0);
+	// Real terminal screens sit in a terminal. A poster, or the studio's
+	// pictures of a web page, sit in a browser with the address in its bar.
+	const isTerminal = $derived(project.screens.length > 0 && project.source !== 'web');
+	const atAddress = $derived(!isTerminal && Boolean(project.site));
+	const windowTitle = $derived(
+		isTerminal ? `${project.name} — fish` : project.site ? address(project.site) : title(project)
+	);
+	// One still and nothing to choose between: no row of controls over it,
+	// and the picture is a way in rather than a thing to enlarge.
+	const posterOnly = $derived(available.length === 1 && !project.screens.length && !project.cast);
 	// The row is there when there is something in it to choose: another view,
 	// or more than one screen or chapter. Key hints alone are not a reason.
 	const hasControls = $derived(
@@ -103,7 +122,7 @@
 <svelte:window {onkeydown} />
 
 <section class="demo" class:expanded aria-label="{project.name}, running">
-	{#if hasControls || available.length}
+	{#if hasControls || (available.length && !posterOnly)}
 		<div class="controls">
 			{#if available.length > 1}
 				<Choice
@@ -182,12 +201,24 @@
 			{/if}
 		</p>
 	{:else if view === 'screens' && shot}
-		<Window
-			title={isTerminal ? `${project.name} — fish` : project.name}
-			background={isTerminal ? (project.screenBackground ?? undefined) : undefined}
-		>
-			<Screens {shots} {index} />
-		</Window>
+		{#if posterOnly && go}
+			<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -- external -->
+			<a class="live" href={go.href}>
+				<Window title={windowTitle} address>
+					<Screens {shots} {index} />
+				</Window>
+				<span class="open" aria-hidden="true">{go.verb} <span>↗</span></span>
+				<span class="sr">{go.verb}: {title(project)}, at {windowTitle}</span>
+			</a>
+		{:else}
+			<Window
+				title={windowTitle}
+				address={atAddress}
+				background={isTerminal ? (project.screenBackground ?? undefined) : undefined}
+			>
+				<Screens {shots} {index} />
+			</Window>
+		{/if}
 		<p class="caption">
 			{#each shot.caption.split('`') as part, i (i)}{#if i % 2}<code>{part}</code
 					>{:else}{part}{/if}{/each}
@@ -226,6 +257,9 @@
 	.demo {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);
+		/* The controls fold by the room the demo has, not the screen's: with
+		   the rail beside it, a tablet's demo is a phone's width. */
+		container-type: inline-size;
 	}
 	/* Expanded, the demo is the page: the rail and the rest of the article are
 	   behind it, and the ground drops a shade so the window still floats. */
@@ -318,6 +352,51 @@
 	.demo:focus-within .keys {
 		opacity: 1;
 	}
+	/* A still that opens the thing: the window lifts a little when pointed at,
+	   and says what pressing it does. */
+	.live {
+		position: relative;
+		display: block;
+		border-radius: var(--radius-m);
+		color: inherit;
+		text-decoration: none;
+		transition: transform 200ms var(--ease);
+	}
+	.live:hover {
+		transform: translateY(-2px);
+	}
+	.open {
+		position: absolute;
+		right: var(--space-4);
+		bottom: var(--space-4);
+		padding: 0.375rem 0.875rem;
+		border-radius: 999px;
+		background: rgb(10 10 9 / 0.78);
+		backdrop-filter: blur(8px);
+		color: var(--ink);
+		font-size: var(--size-s);
+		opacity: 0;
+		transform: translateY(4px);
+		transition:
+			opacity 200ms var(--ease),
+			transform 200ms var(--ease);
+	}
+	.open span {
+		color: var(--faint);
+	}
+	.live:hover .open,
+	.live:focus-visible .open {
+		opacity: 1;
+		transform: none;
+	}
+	.sr {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		clip-path: inset(50%);
+		white-space: nowrap;
+	}
 	/* Where a picture came from, when it is not the studio. Said once, under
 	   the caption, rather than repeated on every beat. */
 	.where {
@@ -343,10 +422,10 @@
 		font-size: var(--size-m);
 		text-wrap: pretty;
 	}
-	/* Two lines on a phone rather than four: the view and the expand control
+	/* Two lines when narrow rather than four: the view and the expand control
 	   share the first, and the chapters get the second to themselves,
 	   scrolling sideways rather than stranding a label on a line of its own. */
-	@media (max-width: 40rem) {
+	@container (max-width: 60rem) {
 		.keys {
 			display: none;
 		}

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Meta from '$lib/components/Meta.svelte';
 	import ProjectView from '$lib/components/ProjectView.svelte';
-	import { stills } from '$lib/data/projects';
+	import { stills, title } from '$lib/data/projects';
 
 	let { data } = $props();
 
@@ -9,7 +9,7 @@
 </script>
 
 <Meta
-	name={data.project.name}
+	name={title(data.project)}
 	description={data.project.more}
 	path="/{data.project.name}"
 	image={hero?.src}

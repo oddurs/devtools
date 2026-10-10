@@ -49,7 +49,7 @@
 	{/if}
 
 	<!-- The browser's own chrome, in the site's ground rather than white. -->
-	<meta name="theme-color" content="#0d0d0c" />
+	<meta name="theme-color" content="#121211" />
 </svelte:head>
 
 <!--

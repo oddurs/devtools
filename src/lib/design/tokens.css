@@ -88,7 +88,7 @@
 	--gutter: clamp(1.25rem, 3vw, 2.5rem);
 	--gutter-top: clamp(2.25rem, 5vw, 4.5rem);
 	--measure: 42rem; /* the longest line of prose */
-	--rail: 15rem;
+	--rail: 17rem;
 
 	--quick: 120ms;
 	--ease: cubic-bezier(0.2, 0.7, 0.2, 1);

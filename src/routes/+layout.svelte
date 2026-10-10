@@ -61,7 +61,7 @@
 <style>
 	.page {
 		display: grid;
-		grid-template-columns: 15rem minmax(0, 1fr);
+		grid-template-columns: var(--rail) minmax(0, 1fr);
 		min-height: 100dvh;
 	}
 	aside {

@@ -7,8 +7,10 @@
 	import type { Snippet } from 'svelte';
 	import { vars } from './theme';
 
-	type Props = { title: string; background?: string; children: Snippet };
-	let { title, background, children }: Props = $props();
+	// A browser's window carries an address rather than a title: what is in it
+	// is a page somewhere, and the address says where.
+	type Props = { title: string; background?: string; address?: boolean; children: Snippet };
+	let { title, background, address = false, children }: Props = $props();
 </script>
 
 <div
@@ -19,7 +21,7 @@
 >
 	<div class="bar">
 		<span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>
-		<span class="title">{title}</span>
+		<span class="title" class:address>{title}</span>
 	</div>
 	<div class="body">
 		{@render children()}
@@ -65,5 +67,15 @@
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
+	}
+	/* An address field: a pill a little darker than the bar, the way a
+	   browser's toolbar holds its URL. */
+	.title.address {
+		max-width: min(28rem, 60%);
+		padding: 0.1875rem 0.875rem;
+		border-radius: 999px;
+		background: color-mix(in oklab, var(--window-bar) 70%, black);
+		font-family: var(--mono);
+		font-size: 0.6875rem;
 	}
 </style>

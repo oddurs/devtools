@@ -145,6 +145,14 @@ export function stateLabel(state: State): string {
 	}
 }
 
+// What a page is headed with, and what the rail and the lists call it.
+export function title(p: Pick<Project, 'name' | 'title'>): string {
+	return p.title ?? p.name;
+}
+export function label(p: Pick<Project, 'name' | 'title' | 'short'>): string {
+	return p.short ?? p.title ?? p.name;
+}
+
 // Not released in any form yet: designed in the open, docs before code.
 export function prerelease(p: Project): boolean {
 	return p.state.kind === 'design';
@@ -157,9 +165,16 @@ export type View = 'recording' | 'screens' | 'gallery' | 'audio';
 
 export function stills(p: Project): Shot[] {
 	if (p.screens.length) return p.screens;
-	const media =
-		p.recording ?? (p.poster ? { src: p.poster, alt: p.line, width: 1600, height: 1000 } : null);
-	return media ? [{ beat: 'hero', caption: media.alt, ...media }] : [];
+	if (p.recording) return [{ beat: 'hero', caption: p.recording.alt, ...p.recording }];
+	if (!p.poster) return [];
+	// The picture is described by the tool's line; the caption says where it
+	// was taken, which is the one thing the page above it has not said.
+	const media = { src: p.poster, alt: p.line, width: 1600, height: 1000 };
+	const at = p.site ? new URL(p.site) : null;
+	const caption = at
+		? `Captured from ${at.host}${at.pathname.replace(/\/$/, '')}, where it runs.`
+		: p.line;
+	return [{ beat: 'hero', caption, ...media }];
 }
 
 // One table rather than four places. A view earns its own entry when what it

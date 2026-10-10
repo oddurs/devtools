@@ -60,7 +60,23 @@ describe('every tool', () => {
 		brevity: 'has no interface: a clipboard, a key and a chime',
 		triblenka: 'design stage: nothing is implemented yet',
 		foldr: 'early: the CLI answers --help and little else yet',
-		rockaway: 'pre-release: the frame engine that would be shown is next'
+		rockaway: 'pre-release: the frame engine that would be shown is next',
+		// New to the site in wave 4 (cairn 0039 on). Each has an item.
+		humanoid: 'needs a story: a scratch repository and an agent pushing into it',
+		'ag-test': 'a framework: shown through a failing suite, in a story not written yet',
+		subcell: 'pre-release: the terminal half that would be shown is next',
+		tzguard: 'needs a story: two tz releases and a dataset that one of them touches',
+		'x-post': 'posts to X, so its story has to stop at --dry-run; not written yet',
+		oath: 'design stage: oath run and oath swear arrive with v0.1',
+		loadstar: 'needs a story: it installs real things, so the container is the place for it',
+		windflow: 'a macOS screensaver: needs a desk capture',
+		backpage: 'macOS only, and it draws on the wallpaper: needs a desk capture',
+		systema: 'its documentation site is not deployed yet',
+		arkonk: 'a native Mac game: needs a desk capture',
+		rim: 'a desktop game, early: needs a desk capture once it is playable',
+		bushy: 'needs a face in front of a camera; without one it is a permission prompt',
+		'portfolio-paycheck-gap': 'its site is built in the repository but not deployed yet',
+		'joy-of-randomness': 'a course in notebooks, not published as a site yet'
 	};
 
 	it.each(projects.map((p) => [p.name, p] as const))('%s has something to show', (name, p) => {
@@ -159,13 +175,27 @@ describe('stills', () => {
 		]);
 	});
 
-	it('falls back again to a poster, captioned with the tool’s own line', () => {
+	it('falls back again to a poster, described by the tool’s own line', () => {
 		const p = project({ screens: [], recording: null, poster: 'p.png', line: 'a line' });
 		// A poster is wrapped as media first, so it carries an `alt` along with
-		// the caption made from it.
+		// the caption.
 		expect(stills(p)).toEqual([
 			{ beat: 'hero', caption: 'a line', alt: 'a line', src: 'p.png', width: 1600, height: 1000 }
 		]);
+	});
+
+	it('captions a poster with the address it was taken from', () => {
+		const p = project({
+			screens: [],
+			recording: null,
+			poster: 'p.png',
+			line: 'a line',
+			site: 'https://example.org/rover/'
+		});
+		expect(stills(p)[0]).toMatchObject({
+			alt: 'a line',
+			caption: 'Captured from example.org/rover, where it runs.'
+		});
 	});
 
 	it('shows nothing when there is nothing', () => {

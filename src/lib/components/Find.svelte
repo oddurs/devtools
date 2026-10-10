@@ -16,7 +16,7 @@
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import { AppIcon, Kbd } from '$lib/design';
-	import { projects } from '$lib/data/projects';
+	import { label, projects } from '$lib/data/projects';
 	import { search } from '$lib/data/search';
 
 	let { open = $bindable(false) }: { open?: boolean } = $props();
@@ -119,7 +119,7 @@
 							onclick={() => go(hit.project.name)}
 						>
 							<AppIcon name={hit.project.name} size="s" muted={i !== at} />
-							<span class="name">{hit.project.name}</span>
+							<span class="name">{label(hit.project)}</span>
 							<span class="why">{hit.why}</span>
 						</button>
 					</li>

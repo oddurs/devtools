@@ -6,7 +6,7 @@
 	import { onMount } from 'svelte';
 	import { AppIcon, Badge, Choice, Command, Kbd, identity, tints } from '$lib/design';
 	import Meta from '$lib/components/Meta.svelte';
-	import { groups } from '$lib/data/projects';
+	import { groups, label } from '$lib/data/projects';
 	import { contrast } from '$lib/design/color';
 	import { scheme, theme, vars } from '$lib/terminal/theme';
 	import { ghosttyTheme } from '$lib/terminal/themes';
@@ -120,7 +120,7 @@
 			{#each group.projects as p (p.name)}
 				<div class="app">
 					<AppIcon name={p.name} />
-					<span class="name">{p.name}</span>
+					<span class="name">{label(p)}</span>
 					<span class="why">{identity(p.name).tint} · {identity(p.name).why}</span>
 				</div>
 			{/each}
