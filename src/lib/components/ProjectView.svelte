@@ -35,11 +35,14 @@
 	</header>
 
 	{#if t.lead === 'picture'}
-		<div class="demo-slot first"><Demo {project} go={t.go} /></div>
+		<!-- The line stays with the name, so the picture under it has a
+		     caption before it has a frame. -->
+		<p class="line under">{project.line}</p>
+		<div class="demo-slot first"><Demo {project} go={t.go} lead="picture" /></div>
 	{/if}
 
 	<div class="about">
-		<p class="line">{project.line}</p>
+		{#if t.lead === 'words'}<p class="line">{project.line}</p>{/if}
 		<!-- A command or a glyph in backticks is set as code, as the captions are. -->
 		<p class="more">
 			{#each project.more.split('`') as part, i (i)}{#if i % 2}<code>{part}</code
@@ -230,16 +233,25 @@
 		transform: translate(1px, -1px);
 	}
 
-	/* Reading stops and watching starts: the widest gap on the page, though
-	   less of it on a phone, where every row is already a long way down. */
+	/* Reading stops and watching starts, and a hairline says so: the panel
+	   sits between this rule and the one above the tools either side, rather
+	   than hanging in a wide gap. */
 	.demo-slot {
 		min-width: 0;
-		margin-top: clamp(var(--space-8), 5vw, var(--space-12));
+		margin-top: var(--space-8);
+		padding-top: var(--space-6);
+		box-shadow: inset 0 1px 0 var(--rule);
 	}
-	/* Straight under the name, when the picture leads; the words then sit a
-	   step below it rather than the widest gap on the page. */
+	/* When the picture leads it hangs from the name and its line, with no
+	   rule: it is the start of the page, not a change of subject. */
+	.line.under {
+		max-width: var(--measure);
+		margin-top: var(--space-4);
+	}
 	.demo-slot.first {
 		margin-top: var(--space-6);
+		padding-top: 0;
+		box-shadow: none;
 	}
 	.demo-slot.first + .about {
 		margin-top: var(--space-8);

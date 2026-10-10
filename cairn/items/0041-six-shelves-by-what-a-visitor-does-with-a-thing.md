@@ -29,7 +29,7 @@ what it is about.
 - **Play**: Games, Toys
 - **Look**: Maps, Simulations, Instruments
 - **Read**: Explainers, Research, Books and courses
-- **Build**: Web, Languages and libraries
+- **Build**: Web, Languages
 
 Web used to hold both what builds a site and sites that are the point in
 themselves; the second kind is now on Play, Look or Read. Pieces is gone:

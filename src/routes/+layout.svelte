@@ -52,7 +52,7 @@
 </svelte:head>
 
 <div class="page">
-	<aside><Rail {groups} {current} onfind={() => (finding = true)} /></aside>
+	<aside><Rail {groups} {current} /></aside>
 	<main>{@render children()}</main>
 </div>
 

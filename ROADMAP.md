@@ -107,9 +107,9 @@ Reading all twenty-four pages side by side, looking for drift.
 
 ## wave-4 — The rest of what I build
 
-`##········` 20% · 4 of 20 done · due 2026-12-13
+`###·······` 21% · 4 of 19 done · due 2026-12-13
 
-Forty-seven more, from the repositories that had no page: the games and toys
+Forty-six more, from the repositories that had no page: the games and toys
 
 ### backlog
 
@@ -117,7 +117,6 @@ Forty-seven more, from the repositories that had no page: the games and toys
 - [ ] [`0044`](https://github.com/oddurs/devtools/blob/main/cairn/items/0044-web-stories-for-the-browser-pieces.md) Web stories for the browser pieces <sup>feature · p3</sup>
 - [ ] [`0045`](https://github.com/oddurs/devtools/blob/main/cairn/items/0045-humanoid-a-story-from-nothing.md) humanoid: a story from nothing <sup>page · p1 · humanoid</sup>
 - [ ] [`0046`](https://github.com/oddurs/devtools/blob/main/cairn/items/0046-ag-test-a-story-from-nothing.md) ag-test: a story from nothing <sup>page · p2 · ag-test</sup>
-- [ ] [`0047`](https://github.com/oddurs/devtools/blob/main/cairn/items/0047-subcell-a-story-from-nothing.md) subcell: a story from nothing <sup>page · p3 · subcell</sup>
 - [ ] [`0048`](https://github.com/oddurs/devtools/blob/main/cairn/items/0048-tzguard-a-story-from-nothing.md) tzguard: a story from nothing <sup>page · p2 · tzguard</sup>
 - [ ] [`0049`](https://github.com/oddurs/devtools/blob/main/cairn/items/0049-x-post-a-story-from-nothing.md) x-post: a story from nothing <sup>page · p3 · x-post</sup>
 - [ ] [`0050`](https://github.com/oddurs/devtools/blob/main/cairn/items/0050-oath-a-story-from-nothing.md) oath: a story from nothing <sup>page · p3 · oath</sup>

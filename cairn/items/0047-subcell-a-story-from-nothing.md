@@ -3,14 +3,14 @@ id: 47
 uid: 668cdd88-d82c-414b-b3d1-e75f33ce0704
 title: 'subcell: a story from nothing'
 type: page
-status: backlog
+status: dropped
 milestone: wave-4
 created: 2026-10-09
 updated: 2026-10-09
 priority: p3
 effort: m
 tool: subcell
-section: Languages and libraries
+section: Languages
 shows:
 - recording
 - screens
@@ -33,3 +33,7 @@ renderer to draw something. Until then the page says so.
 - [ ] Captions say what the beat shows, not what was typed
 - [ ] `line` and `more` finished, and the state and version true
 - [ ] Off the `unshot` list in `src/lib/data/projects.test.ts`
+
+## 2026-10-09
+
+Dropped 2026-10-10: subcell is off the site.

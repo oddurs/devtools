@@ -63,7 +63,6 @@ describe('every tool', () => {
 		// New to the site in wave 4 (cairn 0039 on). Each has an item.
 		humanoid: 'needs a story: a scratch repository and an agent pushing into it',
 		'ag-test': 'a framework: shown through a failing suite, in a story not written yet',
-		subcell: 'pre-release: the terminal half that would be shown is next',
 		tzguard: 'needs a story: two tz releases and a dataset that one of them touches',
 		'x-post': 'posts to X, so its story has to stop at --dry-run; not written yet',
 		oath: 'design stage: oath run and oath swear arrive with v0.1',

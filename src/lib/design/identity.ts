@@ -41,7 +41,6 @@ import Worm from '@lucide/svelte/icons/worm';
 import Zap from '@lucide/svelte/icons/zap';
 import GitCommitHorizontal from '@lucide/svelte/icons/git-commit-horizontal';
 import FlaskConical from '@lucide/svelte/icons/flask-conical';
-import Grid2x2 from '@lucide/svelte/icons/grid-2x2';
 import ClockAlert from '@lucide/svelte/icons/clock-alert';
 import Megaphone from '@lucide/svelte/icons/megaphone';
 import Tags from '@lucide/svelte/icons/tags';
@@ -223,10 +222,9 @@ export const identities: Record<string, Identity> = {
 	rockaway: { icon: Grid3x3, tint: 'amber', why: 'the character grid' },
 	rummy: { icon: Binary, tint: 'lime', why: 'text, rendered' },
 
-	// languages and libraries
+	// languages
 	'nether-c': { icon: Shovel, tint: 'amber', why: 'buried, not run' },
-	oath: { icon: ScrollText, tint: 'sky', why: 'a sworn statement' },
-	subcell: { icon: Grid2x2, tint: 'cyan', why: 'a cell, divided' }
+	oath: { icon: ScrollText, tint: 'sky', why: 'a sworn statement' }
 };
 
 // An app without a mark yet still gets one, never a hole in the rail.

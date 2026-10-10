@@ -1,6 +1,7 @@
 <!--
-	A terminal window, floating. No drawn border: the edge is the shadow and a
-	hairline of light, as the rest of the site. The title strip is Ghostty's
+	A terminal window, set into the page. No drawn border: the edge is a near
+	shadow and a hairline of light; the panel sits on the page, not above it.
+	The title strip is Ghostty's
 	with its tabs folded away: where you are, and nothing to click.
 -->
 <script lang="ts">
@@ -35,7 +36,7 @@
 		overflow: hidden;
 		border-radius: var(--radius-m);
 		background: var(--window-bg);
-		box-shadow: var(--float);
+		box-shadow: var(--float-near);
 		transition: background 240ms var(--ease);
 	}
 	.bar {

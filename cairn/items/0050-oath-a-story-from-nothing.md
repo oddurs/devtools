@@ -10,7 +10,7 @@ updated: 2026-10-09
 priority: p3
 effort: m
 tool: oath
-section: Languages and libraries
+section: Languages
 shows:
 - recording
 - screens

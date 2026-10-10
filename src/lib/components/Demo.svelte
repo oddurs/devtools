@@ -30,7 +30,13 @@
 
 	// `go` is the page's main way in, when there is one: a still of a thing at
 	// its own address opens it.
-	let { project, go = null }: { project: Project; go?: Page['go'] } = $props();
+	// `lead` is whether the picture comes before the words: if it does, the
+	// page's button is a long way down, so the panel's head carries the link.
+	let {
+		project,
+		go = null,
+		lead = 'words'
+	}: { project: Project; go?: Page['go']; lead?: Page['lead'] } = $props();
 
 	const shots = $derived(stills(project));
 	const available = $derived(views(project));
@@ -183,6 +189,18 @@
 				{expanded ? 'close' : 'expand'}
 			</button>
 		</div>
+	{:else if posterOnly}
+		<!-- A still has no views to choose between, but it still has a head:
+		     what it is, and the way to the real thing. -->
+		<div class="controls">
+			<span class="what">{project.site ? 'The live site' : 'A capture'}</span>
+			{#if project.site && (lead === 'picture' || !go)}
+				<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -- external -->
+				<a class="expand" href={project.site}
+					>{go?.verb ?? 'Visit'} <span aria-hidden="true">↗</span></a
+				>
+			{/if}
+		</div>
 	{/if}
 
 	{#if view === 'recording' && project.cast}
@@ -202,13 +220,13 @@
 		</p>
 	{:else if view === 'screens' && shot}
 		{#if posterOnly && go}
+			<!-- The picture is a second way to the same place, for the pointer;
+			     the head's link is the one in the tab order. -->
 			<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -- external -->
-			<a class="live" href={go.href}>
+			<a class="live" href={go.href} tabindex="-1" aria-hidden="true">
 				<Window title={windowTitle} address>
 					<Screens {shots} {index} />
 				</Window>
-				<span class="open" aria-hidden="true">{go.verb} <span>↗</span></span>
-				<span class="sr">{go.verb}: {title(project)}, at {windowTitle}</span>
 			</a>
 		{:else}
 			<Window
@@ -287,6 +305,17 @@
 		font-size: var(--size-s);
 		transition: color var(--quick);
 	}
+	.what {
+		color: var(--faint);
+		font-size: var(--size-s);
+	}
+	a.expand {
+		margin-left: auto;
+		text-decoration: none;
+	}
+	a.expand span {
+		color: var(--faint);
+	}
 	.expand:hover,
 	.expand[aria-pressed='true'] {
 		color: var(--ink);
@@ -352,8 +381,7 @@
 	.demo:focus-within .keys {
 		opacity: 1;
 	}
-	/* A still that opens the thing: the window lifts a little when pointed at,
-	   and says what pressing it does. */
+	/* A still that opens the thing: the window lifts a little when pointed at. */
 	.live {
 		position: relative;
 		display: block;
@@ -364,38 +392,6 @@
 	}
 	.live:hover {
 		transform: translateY(-2px);
-	}
-	.open {
-		position: absolute;
-		right: var(--space-4);
-		bottom: var(--space-4);
-		padding: 0.375rem 0.875rem;
-		border-radius: 999px;
-		background: rgb(10 10 9 / 0.78);
-		backdrop-filter: blur(8px);
-		color: var(--ink);
-		font-size: var(--size-s);
-		opacity: 0;
-		transform: translateY(4px);
-		transition:
-			opacity 200ms var(--ease),
-			transform 200ms var(--ease);
-	}
-	.open span {
-		color: var(--faint);
-	}
-	.live:hover .open,
-	.live:focus-visible .open {
-		opacity: 1;
-		transform: none;
-	}
-	.sr {
-		position: absolute;
-		width: 1px;
-		height: 1px;
-		overflow: hidden;
-		clip-path: inset(50%);
-		white-space: nowrap;
 	}
 	/* Where a picture came from, when it is not the studio. Said once, under
 	   the caption, rather than repeated on every beat. */

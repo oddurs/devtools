@@ -22,8 +22,14 @@
 	let shelf = $state<Shelf | null>(null);
 
 	const offered = $derived(shelves.filter((s) => groups.some((g) => g.shelf === s.id)));
-	const shown = $derived(shelf ? groups.filter((g) => g.shelf === shelf) : groups);
-	const counted = $derived(shown.reduce((n, g) => n + g.projects.length, 0));
+	const total = $derived(groups.reduce((n, g) => n + g.projects.length, 0));
+	// Shelf, then section, then row: eighty names read as six kinds of thing
+	// rather than twenty headings in a run.
+	const shown = $derived(
+		offered
+			.filter((s) => !shelf || s.id === shelf)
+			.map((s) => ({ ...s, groups: groups.filter((g) => g.shelf === s.id) }))
+	);
 </script>
 
 <div class="index">
@@ -40,7 +46,7 @@
 
 	<div class="filter" role="group" aria-label="Narrow by what a thing is">
 		<button type="button" class:on={shelf === null} onclick={() => (shelf = null)}>
-			Everything <span class="n">{counted}</span>
+			Everything <span class="n">{total}</span>
 		</button>
 		{#each offered as s (s.id)}
 			{@const n = groups.filter((g) => g.shelf === s.id).reduce((t, g) => t + g.projects.length, 0)}
@@ -55,25 +61,33 @@
 		{/each}
 	</div>
 
-	{#each shown as group (group.label)}
-		<section>
-			<h2>{group.label}</h2>
-			<ul>
-				{#each group.projects as p (p.name)}
-					<li>
-						<a href={resolve('/[name]', { name: p.name })}>
-							<span class="mark"><AppIcon name={p.name} size="s" /></span>
-							<span class="name">
-								{label(p)}
-								{#if prerelease(p)}<Badge tone="amber">pre</Badge>{/if}
-							</span>
-							<span class="line">{p.line}</span>
-							<span class="lang">{p.lang}</span>
-						</a>
-					</li>
-				{/each}
-			</ul>
-		</section>
+	{#each shown as s (s.id)}
+		<div class="shelf">
+			<header class="shelf-head">
+				<h2>{s.label}</h2>
+				<p>{s.of}</p>
+			</header>
+			{#each s.groups as group (group.label)}
+				<section>
+					<h3>{group.label}</h3>
+					<ul>
+						{#each group.projects as p (p.name)}
+							<li>
+								<a href={resolve('/[name]', { name: p.name })}>
+									<span class="mark"><AppIcon name={p.name} size="s" /></span>
+									<span class="name">
+										{label(p)}
+										{#if prerelease(p)}<Badge tone="amber">pre</Badge>{/if}
+									</span>
+									<span class="line">{p.line}</span>
+									<span class="lang">{p.lang}</span>
+								</a>
+							</li>
+						{/each}
+					</ul>
+				</section>
+			{/each}
+		</div>
 	{/each}
 </div>
 
@@ -134,10 +148,38 @@
 		font-variant-numeric: tabular-nums;
 	}
 
-	section {
+	/* A shelf opens with its name and what is on it, over a hairline; its
+	   sections follow at the old, quieter level. */
+	.shelf {
+		margin-top: var(--space-12);
+	}
+	.shelf:first-of-type {
 		margin-top: var(--space-8);
 	}
-	h2 {
+	.shelf-head {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		gap: var(--space-1) var(--space-3);
+		padding-bottom: var(--space-3);
+		box-shadow: inset 0 -1px 0 var(--rule);
+	}
+	.shelf-head h2 {
+		margin: 0;
+		color: var(--ink);
+		font-size: var(--size-lead);
+		font-weight: 600;
+		letter-spacing: -0.012em;
+	}
+	.shelf-head p {
+		margin: 0;
+		color: var(--faint);
+		font-size: var(--size-s);
+	}
+	section {
+		margin-top: var(--space-6);
+	}
+	h3 {
 		margin: 0 0 var(--space-2);
 		color: var(--faint);
 		font-size: var(--size-xs);

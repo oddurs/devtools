@@ -1179,7 +1179,7 @@ export const sections: Section[] = [
 		]
 	},
 	{
-		label: 'Languages and libraries',
+		label: 'Languages',
 		shelf: 'build',
 		tools: [
 			{
@@ -1204,18 +1204,6 @@ export const sections: Section[] = [
 				license: 'MIT',
 				lang: 'Rust',
 				tags: ['language design', 'specification']
-			},
-			{
-				name: 'subcell',
-				kind: 'library',
-				line: 'A terminal renderer where resolution is a runtime property.',
-				more: 'A terminal cell offers sixteen million colours and very few pixels, so subcell spends colour precision to buy back spatial precision: the screen is described in continuous coordinates and quantised down to whatever this terminal can actually draw, and nothing is allowed to assume a tier. Pre-release: the pure, tested half is built, and the terminal I/O half is next.',
-				state: { kind: 'source', version: '0.0.1' },
-				license: 'Apache-2.0',
-				lang: 'Rust',
-				install:
-					'git clone https://github.com/oddurs/subcell && cd subcell && cargo run --bin subcell-probe',
-				tags: ['rendering', 'glyphs', 'ratatui']
 			}
 		]
 	}
