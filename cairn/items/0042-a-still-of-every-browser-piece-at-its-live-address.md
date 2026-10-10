@@ -21,3 +21,7 @@ captioned with the address it came from, and its alt text is the tool's line.
 einstein was taken with its broken asset paths rewritten (see its hosting
 item), and yggdrasil with its welcome tour dismissed. bushy was left out: with
 no camera it is a permission error, and a face is the whole point.
+
+## 2026-10-09
+
+2026-10-10: einstein retaken from its fixed live page, without the path rewrite.

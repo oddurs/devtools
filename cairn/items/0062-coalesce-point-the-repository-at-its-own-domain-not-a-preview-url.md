@@ -3,10 +3,11 @@ id: 62
 uid: 284a9c30-ee96-4f9b-8856-3460a63bc172
 title: 'coalesce: point the repository at its own domain, not a preview URL'
 type: chore
-status: backlog
+status: done
 milestone: hosting
 created: 2026-10-09
 updated: 2026-10-09
+closed_at: 2026-10-09
 priority: p2
 effort: s
 tool: coalesce
@@ -18,4 +19,4 @@ black-hole-ten-liard.vercel.app, a deployment URL that can change.
 
 ## Acceptance criteria
 
-- [ ] Repository homepage set to https://coalesce.oddurs.com
+- [x] Repository homepage set to https://coalesce.oddurs.com

@@ -23,5 +23,9 @@ build cannot replay or score. Give it a custom domain instead.
 ## Acceptance criteria
 
 - [ ] A custom domain on the Railway service (traintime.oddurs.com, say)
-- [ ] The repository's homepage set to it
+- [x] The repository's homepage set to it
 - [ ] `site` in tools.ts updated, and the poster retaken
+
+## 2026-10-09
+
+2026-10-10: the repository's homepage now points at the Railway address that works, rather than the Pages 404, until the custom domain exists.

@@ -3,10 +3,11 @@ id: 63
 uid: f908e42e-6346-41da-ba27-a6c636c16f40
 title: 'A dozen repositories link nowhere: set their homepage to the live site'
 type: chore
-status: backlog
+status: done
 milestone: hosting
 created: 2026-10-09
 updated: 2026-10-09
+closed_at: 2026-10-09
 priority: p2
 effort: s
 section: site
@@ -18,4 +19,8 @@ titi, srt-08, quantii, milky and measure-of-the-world.
 
 ## Acceptance criteria
 
-- [ ] `gh repo edit oddurs/<name> --homepage <url>` for each, from `site` in tools.ts
+- [x] `gh repo edit oddurs/<name> --homepage <url>` for each, from `site` in tools.ts
+
+## 2026-10-09
+
+Done 2026-10-10 for all thirteen, from `site` in tools.ts.

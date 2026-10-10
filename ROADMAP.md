@@ -54,20 +54,23 @@ Seven stories that need their missing beats filled and a recording made.
 
 ## hosting — Every site up, at an address that will last
 
-`··········` 0% · 0 of 8 done · due 2026-10-25
+`####······` 38% · 3 of 8 done · due 2026-10-25
 
 Checked on 2026-10-09 against every live address the new pages link to.
 
 ### backlog
 
-- [ ] [`0060`](https://github.com/oddurs/devtools/blob/main/cairn/items/0060-einstein-the-site-lost-its-styles-when-the-repository-was-renamed.md) einstein: the site lost its styles when the repository was renamed <sup>chore · p0 · einstein</sup>
 - [ ] [`0061`](https://github.com/oddurs/devtools/blob/main/cairn/items/0061-traintime-an-address-of-its-own-not-a-platform-default.md) traintime: an address of its own, not a platform default <sup>chore · p1 · traintime</sup>
-- [ ] [`0062`](https://github.com/oddurs/devtools/blob/main/cairn/items/0062-coalesce-point-the-repository-at-its-own-domain-not-a-preview-url.md) coalesce: point the repository at its own domain, not a preview URL <sup>chore · p2 · coalesce</sup>
-- [ ] [`0063`](https://github.com/oddurs/devtools/blob/main/cairn/items/0063-a-dozen-repositories-link-nowhere-set-their-homepage-to-the-live-site.md) A dozen repositories link nowhere: set their homepage to the live site <sup>chore · p2</sup>
 - [ ] [`0064`](https://github.com/oddurs/devtools/blob/main/cairn/items/0064-portfolio-paycheck-gap-deploy-the-site-it-already-builds.md) portfolio-paycheck-gap: deploy the site it already builds <sup>chore · p1 · portfolio-paycheck-gap</sup>
 - [ ] [`0065`](https://github.com/oddurs/devtools/blob/main/cairn/items/0065-systema-a-documentation-site-now-systema-dev-does-not-resolve.md) systema: a documentation site, now systema.dev does not resolve <sup>chore · p2 · systema</sup>
 - [ ] [`0066`](https://github.com/oddurs/devtools/blob/main/cairn/items/0066-joy-of-randomness-publish-the-course-as-a-book.md) joy-of-randomness: publish the course as a book <sup>chore · p3 · joy-of-randomness</sup>
 - [ ] [`0067`](https://github.com/oddurs/devtools/blob/main/cairn/items/0067-check-every-linked-address-every-week.md) Check every linked address, every week <sup>feature · p2</sup>
+
+### done
+
+- [x] [`0060`](https://github.com/oddurs/devtools/blob/main/cairn/items/0060-einstein-the-site-lost-its-styles-when-the-repository-was-renamed.md) einstein: the site lost its styles when the repository was renamed <sup>chore · p0 · einstein</sup>
+- [x] [`0062`](https://github.com/oddurs/devtools/blob/main/cairn/items/0062-coalesce-point-the-repository-at-its-own-domain-not-a-preview-url.md) coalesce: point the repository at its own domain, not a preview URL <sup>chore · p2 · coalesce</sup>
+- [x] [`0063`](https://github.com/oddurs/devtools/blob/main/cairn/items/0063-a-dozen-repositories-link-nowhere-set-their-homepage-to-the-live-site.md) A dozen repositories link nowhere: set their homepage to the live site <sup>chore · p2</sup>
 
 ## wave-3 — The ten with nothing to show yet
 
