@@ -1,5 +1,6 @@
 ---
 id: 7
+uid: e75ceb86-025c-4e42-82e9-753015be68a3
 title: Take the typed sessions out of the data and the docs
 type: chore
 status: done

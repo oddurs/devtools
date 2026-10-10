@@ -1,5 +1,6 @@
 ---
 id: 40
+uid: a298619d-193b-41d4-9976-f74fd5725877
 key: hosting
 title: Every site up, at an address that will last
 type: milestone

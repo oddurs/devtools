@@ -1,5 +1,6 @@
 ---
 id: 56
+uid: 616f7200-96d2-499e-ba3a-4d44fde865b2
 title: 'rim: capture it on the Mac'
 type: page
 status: backlog

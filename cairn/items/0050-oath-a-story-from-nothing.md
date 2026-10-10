@@ -1,5 +1,6 @@
 ---
 id: 50
+uid: 15e41077-e105-46a9-acdf-6520e144dc9e
 title: 'oath: a story from nothing'
 type: page
 status: backlog

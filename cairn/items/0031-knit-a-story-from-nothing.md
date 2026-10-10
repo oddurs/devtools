@@ -1,5 +1,6 @@
 ---
 id: 31
+uid: 72e28f82-5fe0-4f28-842e-7a62f9484bf2
 title: 'knit: a story from nothing'
 type: page
 status: blocked

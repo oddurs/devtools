@@ -1,5 +1,6 @@
 ---
 id: 45
+uid: ee948719-1a08-4ac9-8366-4d72c0b1c87c
 title: 'humanoid: a story from nothing'
 type: page
 status: backlog

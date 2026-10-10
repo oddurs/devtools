@@ -1,5 +1,6 @@
 ---
 id: 52
+uid: 87b45c36-b232-4a57-ab25-5e9132fb40d4
 title: 'windflow: capture it on the Mac'
 type: page
 status: backlog

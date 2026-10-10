@@ -8,7 +8,7 @@
 #   cairn list --view unshot      the pages with nothing to show yet
 #   cairn check                   validate every item against this file
 
-format = 3
+format = 5
 
 [project]
 name = "devtools"

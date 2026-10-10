@@ -1,5 +1,6 @@
 ---
 id: 6
+uid: 0e544fff-dcc9-45c7-aa12-8c9605fd78e0
 title: 'Drop the typed session: two views, not three'
 type: feature
 status: done

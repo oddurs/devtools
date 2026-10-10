@@ -1,5 +1,6 @@
 ---
 id: 51
+uid: cf6a2e25-73ac-41e8-93bd-737ce2345b75
 title: 'loadstar: a story from nothing'
 type: page
 status: backlog

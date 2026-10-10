@@ -1,5 +1,6 @@
 ---
 id: 63
+uid: f908e42e-6346-41da-ba27-a6c636c16f40
 title: 'A dozen repositories link nowhere: set their homepage to the live site'
 type: chore
 status: backlog

@@ -1,5 +1,6 @@
 ---
 id: 60
+uid: ceb999f8-a601-42e2-be3f-e8ed7c6cf178
 title: 'einstein: the site lost its styles when the repository was renamed'
 type: chore
 status: backlog

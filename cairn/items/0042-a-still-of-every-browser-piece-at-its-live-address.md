@@ -1,5 +1,6 @@
 ---
 id: 42
+uid: 0eacfc7d-2ca8-4c83-a7ad-9f8779478d8b
 title: A still of every browser piece, at its live address
 type: chore
 status: done

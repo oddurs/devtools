@@ -1,5 +1,6 @@
 ---
 id: 26
+uid: 75b29b12-deb4-4a57-b632-36b4a30c21e4
 title: 'andy: a story from nothing'
 type: page
 status: done

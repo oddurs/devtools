@@ -1,5 +1,6 @@
 ---
 id: 68
+uid: 3b2a30df-0127-4b47-bdb4-02c883975a29
 title: A page laid out by what kind of thing it is
 type: feature
 status: done

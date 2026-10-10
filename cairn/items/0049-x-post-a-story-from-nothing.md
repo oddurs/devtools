@@ -1,5 +1,6 @@
 ---
 id: 49
+uid: 8662f3c8-7d8b-4f6a-9371-0749daa744f8
 title: 'x-post: a story from nothing'
 type: page
 status: backlog

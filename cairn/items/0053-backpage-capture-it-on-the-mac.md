@@ -1,5 +1,6 @@
 ---
 id: 53
+uid: 2176683b-a9ca-45c3-9e0a-244d02aa9d2a
 title: 'backpage: capture it on the Mac'
 type: page
 status: backlog

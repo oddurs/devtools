@@ -1,5 +1,6 @@
 ---
 id: 41
+uid: 27a63f1b-6b01-4e76-8f27-1231f47cf4fb
 title: 'Six shelves, by what a visitor does with a thing'
 type: chore
 status: done

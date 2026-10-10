@@ -1,5 +1,6 @@
 ---
 id: 62
+uid: 284a9c30-ee96-4f9b-8856-3460a63bc172
 title: 'coalesce: point the repository at its own domain, not a preview URL'
 type: chore
 status: backlog

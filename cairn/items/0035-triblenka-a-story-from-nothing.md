@@ -1,5 +1,6 @@
 ---
 id: 35
+uid: 574ad273-60e5-44a1-bb7a-942db6a4889e
 title: 'triblenka: a story from nothing'
 type: page
 status: done

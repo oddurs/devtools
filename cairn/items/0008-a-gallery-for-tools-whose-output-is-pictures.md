@@ -1,5 +1,6 @@
 ---
 id: 8
+uid: a8501f00-d9db-4f11-aa3f-c080b4d161b6
 title: A gallery, for tools whose output is pictures
 type: feature
 status: done

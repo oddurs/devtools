@@ -1,5 +1,6 @@
 ---
 id: 64
+uid: eda485a0-d7f4-4a16-86e8-07d9a93e0748
 title: 'portfolio-paycheck-gap: deploy the site it already builds'
 type: chore
 status: backlog

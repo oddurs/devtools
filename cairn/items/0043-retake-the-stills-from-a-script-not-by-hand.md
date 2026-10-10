@@ -1,5 +1,6 @@
 ---
 id: 43
+uid: 43f13f28-b40d-4c1d-b9ff-1d1587cc5f59
 title: Retake the stills from a script, not by hand
 type: chore
 status: backlog

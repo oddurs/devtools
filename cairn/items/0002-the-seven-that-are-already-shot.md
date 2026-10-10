@@ -1,5 +1,6 @@
 ---
 id: 2
+uid: 0db43303-42ed-4b9f-8db9-31a094db261c
 key: wave-1
 title: The seven that are already shot
 type: milestone

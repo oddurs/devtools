@@ -1,5 +1,6 @@
 ---
 id: 48
+uid: e9ba29a4-4eb3-424e-9620-aa73aff35315
 title: 'tzguard: a story from nothing'
 type: page
 status: backlog

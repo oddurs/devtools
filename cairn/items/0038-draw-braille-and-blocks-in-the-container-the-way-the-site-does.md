@@ -1,5 +1,6 @@
 ---
 id: 38
+uid: edacbd4d-b5b8-4532-9cda-5452cbaa15d9
 title: Draw braille and blocks in the container the way the site does
 type: chore
 status: done

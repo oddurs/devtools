@@ -1,5 +1,6 @@
 ---
 id: 44
+uid: 8726b30b-4d8d-4299-a50b-ac48695841e4
 title: Web stories for the browser pieces
 type: feature
 status: backlog

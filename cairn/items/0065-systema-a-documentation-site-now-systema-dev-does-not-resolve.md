@@ -1,5 +1,6 @@
 ---
 id: 65
+uid: 0e60d4c2-364f-463f-8037-d18100664935
 title: 'systema: a documentation site, now systema.dev does not resolve'
 type: chore
 status: backlog

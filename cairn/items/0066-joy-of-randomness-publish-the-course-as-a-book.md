@@ -1,5 +1,6 @@
 ---
 id: 66
+uid: 327c7227-dcab-4261-bf8d-ac2a6b87ccbb
 title: 'joy-of-randomness: publish the course as a book'
 type: chore
 status: backlog

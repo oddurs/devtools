@@ -1,5 +1,6 @@
 ---
 id: 59
+uid: 9ba4f323-e046-4a2e-b742-eaee44e9b66a
 title: 'joy-of-randomness: a still, once it is live'
 type: page
 status: backlog

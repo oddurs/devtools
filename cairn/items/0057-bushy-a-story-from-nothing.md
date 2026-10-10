@@ -1,5 +1,6 @@
 ---
 id: 57
+uid: a9a7a8c4-053a-4f17-ac5c-371d3c6ec4a5
 title: 'bushy: a story from nothing'
 type: page
 status: backlog

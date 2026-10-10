@@ -1,5 +1,6 @@
 ---
 id: 54
+uid: 9cda345b-69ab-4d5c-b2c0-1b9446e6003c
 title: 'systema: a still, once it is live'
 type: page
 status: backlog

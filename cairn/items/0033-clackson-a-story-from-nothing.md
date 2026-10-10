@@ -1,5 +1,6 @@
 ---
 id: 33
+uid: 6342bd71-0e9f-4ae4-bbda-88c13ac8a2e6
 title: 'clackson: a story from nothing'
 type: page
 status: blocked

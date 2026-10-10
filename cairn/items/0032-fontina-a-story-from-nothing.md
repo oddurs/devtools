@@ -1,5 +1,6 @@
 ---
 id: 32
+uid: d816c0fc-25c0-44a4-a467-053904783510
 title: 'fontina: a story from nothing'
 type: page
 status: done

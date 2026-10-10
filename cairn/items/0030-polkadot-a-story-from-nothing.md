@@ -1,5 +1,6 @@
 ---
 id: 30
+uid: eeb14655-b46c-4e93-9076-68d4a1a56675
 title: 'polkadot: a story from nothing'
 type: page
 status: done

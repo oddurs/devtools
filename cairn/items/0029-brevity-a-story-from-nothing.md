@@ -1,5 +1,6 @@
 ---
 id: 29
+uid: 5d9bdc7e-954c-46c7-9e92-0d9feb76581b
 title: 'brevity: a story from nothing'
 type: page
 status: blocked

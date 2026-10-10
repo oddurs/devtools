@@ -1,5 +1,6 @@
 ---
 id: 24
+uid: 0e02a67c-cd90-4b2b-85ec-064d2a83e9d5
 title: 'trafford: fill the beats and record it'
 type: page
 status: done

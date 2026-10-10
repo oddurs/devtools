@@ -1,5 +1,6 @@
 ---
 id: 27
+uid: 0652f407-85d9-4439-9e4d-20f0027800d7
 title: 'rigor: a story from nothing'
 type: page
 status: done

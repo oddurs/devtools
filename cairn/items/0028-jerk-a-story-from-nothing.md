@@ -1,5 +1,6 @@
 ---
 id: 28
+uid: b859af4b-fa90-4eb9-a39a-4f4714aac800
 title: 'jerk: a story from nothing'
 type: page
 status: done

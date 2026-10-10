@@ -1,5 +1,6 @@
 ---
 id: 34
+uid: 1bafe20a-cede-4ded-91c3-9d72802775ec
 title: 'turborust: a story from nothing'
 type: page
 status: done

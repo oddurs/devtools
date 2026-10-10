@@ -1,5 +1,6 @@
 ---
 id: 3
+uid: 4ec7a0a3-33cb-49b9-99b7-bf8cbf0d2f92
 key: wave-2
 title: The seven with a story but no recording
 type: milestone
