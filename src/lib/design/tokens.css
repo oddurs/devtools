@@ -87,10 +87,10 @@
 
 	/* layout */
 	/* The page's margins. The top is a little deeper than the sides — a page
-	   sits slightly low in its frame, the way a picture is hung — but nowhere
-	   near the ceiling it used to hang from. */
+	   sits slightly low in its frame, the way a picture is hung — but only a
+	   little: any more and every page opens on a forehead. */
 	--gutter: clamp(1.25rem, 3vw, 2.5rem);
-	--gutter-top: clamp(2.25rem, 5vw, 4.5rem);
+	--gutter-top: clamp(1.5rem, 3.5vw, 3rem);
 	--measure: 42rem; /* the longest line of prose */
 	--rail: 17rem;
 
