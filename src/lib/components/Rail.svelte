@@ -5,12 +5,12 @@
 
 	Nothing above the groups but the wordmark; finding by name is the / key,
 	from anywhere. The groups sit under their shelf's name, small and set in
-	capitals, so twenty headings read as six kinds of thing.
+	capitals, so twenty headings read as seven kinds of thing.
 -->
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import { AppIcon, Badge } from '$lib/design';
-	import { label, prerelease, type Group } from '$lib/data/projects';
+	import { AppIcon } from '$lib/design';
+	import { label, type Group } from '$lib/data/projects';
 	import { shelves } from '$lib/data/tools';
 
 	let { groups, current }: { groups: Group[]; current: string | null } = $props();
@@ -44,7 +44,6 @@
 								>
 									<AppIcon name={p.name} size="s" muted={p.name !== current} />
 									{label(p)}
-									{#if prerelease(p)}<span class="pre"><Badge tone="amber">pre</Badge></span>{/if}
 								</a>
 							</li>
 						{/each}
@@ -124,9 +123,6 @@
 	}
 	li a:hover {
 		color: var(--ink);
-	}
-	.pre {
-		margin-left: auto;
 	}
 	li a[aria-current='page'] {
 		color: var(--ink);

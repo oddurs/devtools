@@ -69,15 +69,27 @@ export type Tool = {
 // to play, something to read), and the rail can be narrowed to one.
 // A shelf arrives with its first section and not before: an empty one is a
 // label promising something that is not there, and the test below says so.
-export type Shelf = 'terminal' | 'desk' | 'play' | 'look' | 'read' | 'build';
+// The last shelf is the exception to what-kind-of-thing: whatever is still
+// only a design goes there, whatever it will be, because its page can show
+// nothing running yet.
+export type Shelf = 'terminal' | 'desk' | 'play' | 'look' | 'read' | 'build' | 'pre';
 
 export const shelves: { id: Shelf; label: string; of: string }[] = [
 	{ id: 'terminal', label: 'Terminal', of: 'programs that run in one' },
-	{ id: 'desk', label: 'Desk', of: 'Mac apps, and what changes how the machine looks and sounds' },
+	{ id: 'desk', label: 'Desk', of: 'Mac apps, and what changes how the Mac looks and sounds' },
 	{ id: 'play', label: 'Play', of: 'games and toys, most of them in a browser' },
 	{ id: 'look', label: 'Look', of: 'maps, simulations and instruments to explore' },
 	{ id: 'read', label: 'Read', of: 'explainers, research, books and courses' },
-	{ id: 'build', label: 'Build', of: 'libraries, frameworks and languages for making other things' }
+	{
+		id: 'build',
+		label: 'Build',
+		of: 'libraries, frameworks and languages to make other things with'
+	},
+	{
+		id: 'pre',
+		label: 'Pre-release',
+		of: 'designed in the open, docs first; nothing to install yet'
+	}
 ];
 
 export type Section = { label: string; shelf: Shelf; tools: Tool[] };
@@ -149,16 +161,6 @@ export const sections: Section[] = [
 				lang: 'Rust',
 				install: 'cargo install --git https://github.com/oddurs/findr',
 				tags: ['files', 'git', 'ratatui']
-			},
-			{
-				name: 'foldr',
-				kind: 'cli',
-				line: 'Everything a folder carries besides its name.',
-				more: 'Permissions, extended attributes, native flags, inherited access rules and filesystem policies — found, explained, and edited deliberately, with previews, partial presets and a conflict-aware undo. Early: the workspace, the CLI entry points and the plan are in place, and the inspection commands are not written yet.',
-				state: { kind: 'design' },
-				license: 'MIT',
-				lang: 'Rust',
-				tags: ['permissions', 'xattrs', 'macos']
 			}
 		]
 	},
@@ -324,17 +326,6 @@ export const sections: Section[] = [
 				lang: 'Rust',
 				install: 'brew install oddurs/tap/harrow',
 				tags: ['cairn', 'backlog', 'ratatui']
-			},
-			{
-				name: 'sprig',
-				kind: 'language',
-				line: 'A plain-text format for plans.',
-				more: 'A shopping list and an eighteen-month build use the same handful of marks: a dash to do, a tilde doing, an x done, a question and its answer, and a double bracket to graft another file in as a branch. Indentation is the structure, and progress, estimates and what is blocked are computed rather than written. People and coding agents read and edit the same file. The spec and the playground are up; the Rust parser is not written yet.',
-				state: { kind: 'design' },
-				license: 'MIT (CC0 for the spec)',
-				lang: 'Rust',
-				tags: ['plans', 'plain text', 'agents'],
-				site: 'https://oddurs.github.io/sprig/'
 			},
 			{
 				name: 'jerk',
@@ -1135,18 +1126,6 @@ export const sections: Section[] = [
 				tags: ['build', 'watch', 'monorepo']
 			},
 			{
-				name: 'triblenka',
-				kind: 'library',
-				line: 'An Astro-shaped web framework for Rust.',
-				more: 'Server-first HTML, zero JavaScript by default, islands of interactivity, typed content collections, and a single static binary at the end. Design stage: the docs come first so the API can be criticised before it is coded.',
-				state: {
-					kind: 'design'
-				},
-				license: 'MIT/Apache-2.0',
-				lang: 'Rust',
-				tags: ['web framework', 'islands']
-			},
-			{
 				name: 'rockaway',
 				kind: 'library',
 				line: 'A TUI design system for the web.',
@@ -1194,16 +1173,55 @@ export const sections: Section[] = [
 				tags: ['language design', 'provenance'],
 				site: 'https://oddurs.github.io/nether-c/',
 				poster: '/media/posters/nether-c.webp'
+			}
+		]
+	},
+	{
+		label: 'In design',
+		shelf: 'pre',
+		tools: [
+			{
+				name: 'sprig',
+				kind: 'language',
+				line: 'A plain-text format for plans.',
+				more: 'A shopping list and an eighteen-month build use the same handful of marks: a dash to do, a tilde doing, an x done, a question and its answer, and a double bracket to graft another file in as a branch. Indentation is the structure, and progress, estimates and what is blocked are computed rather than written. People and coding agents read and edit the same file. The spec and the playground are up; the Rust parser is not written yet.',
+				state: { kind: 'design' },
+				license: 'MIT (CC0 for the spec)',
+				lang: 'Rust',
+				tags: ['plans', 'plain text', 'agents'],
+				site: 'https://oddurs.github.io/sprig/'
 			},
 			{
 				name: 'oath',
 				kind: 'language',
 				line: 'A language where a definition is a promise.',
-				more: 'In most languages a function is its name, and in Unison the hash of its body. In Oath it is the hash of its specification — the type, the laws it must satisfy, the examples it must reproduce — and any number of implementations compete to keep it; one that demonstrably does is sworn. Design stage: `oath run` and `oath swear` arrive with v0.1.',
+				more: 'In most languages a function is its name, and in Unison the hash of its body. In Oath it is the hash of its specification — the type, the laws it must satisfy, the examples it must reproduce — and any number of implementations compete to keep it; one that demonstrably does is sworn. `oath run` and `oath swear` arrive with v0.1.',
 				state: { kind: 'design' },
 				license: 'MIT',
 				lang: 'Rust',
 				tags: ['language design', 'specification']
+			},
+			{
+				name: 'triblenka',
+				kind: 'library',
+				line: 'An Astro-shaped web framework for Rust.',
+				more: 'Server-first HTML, zero JavaScript by default, islands of interactivity, typed content collections, and a single static binary at the end.',
+				state: {
+					kind: 'design'
+				},
+				license: 'MIT/Apache-2.0',
+				lang: 'Rust',
+				tags: ['web framework', 'islands']
+			},
+			{
+				name: 'foldr',
+				kind: 'cli',
+				line: 'Everything a folder carries besides its name.',
+				more: 'Permissions, extended attributes, native flags, inherited access rules and filesystem policies — found, explained, and edited deliberately, with previews, partial presets and a conflict-aware undo. So far the workspace, the CLI entry points and the plan are in place; the inspection commands are not written yet.',
+				state: { kind: 'design' },
+				license: 'MIT',
+				lang: 'Rust',
+				tags: ['permissions', 'xattrs', 'macos']
 			}
 		]
 	}

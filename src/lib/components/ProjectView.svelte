@@ -52,9 +52,9 @@
 
 	{#if prerelease(project)}
 		<p class="notice">
-			<strong>Pre-release.</strong> Designed in the open: the documentation comes first, so the API can
-			be argued with before it is built. There is nothing to install yet, and what you see is the design,
-			not a program running.
+			<strong>Pre-release.</strong> Designed in the open: the documentation comes first, so the idea can
+			be argued with before it is built. There is nothing to install yet; what is here is the plan, not
+			a program running.
 		</p>
 	{/if}
 

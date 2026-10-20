@@ -6,11 +6,11 @@
 
 **[oddurs.github.io/devtools](https://oddurs.github.io/devtools/)**
 
-Everything I build, each one running. Terminal tools, where most of it
-started; the Mac apps on this desk; games and toys; maps and simulations;
-things to read; and the libraries and languages the rest is built with. A rail
-of them on the left, narrowable to one shelf (Terminal, Desk, Play, Look, Read,
-Build); on the right, the thing itself, laid out by what kind of thing it is: a
+Everything I build. Terminal tools, where most of it
+started; Mac apps; games and toys; maps, simulations and instruments; things
+to read; the libraries and languages the rest is built on; and, on a shelf of
+their own, the designs not yet built. A rail of them on the left, narrowable to
+one shelf (Terminal, Desk, Play, Look, Read, Build, Pre-release); on the right, the thing itself, laid out by what kind of thing it is: a
 terminal tool is read and then watched, a game is seen and then played — and,
 for the ones nothing else can carry, a gallery of what it made or a sample of
 what it sounds like.

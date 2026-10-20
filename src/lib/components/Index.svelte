@@ -13,8 +13,8 @@
 -->
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import { AppIcon, Badge } from '$lib/design';
-	import { label, prerelease, type Group } from '$lib/data/projects';
+	import { AppIcon } from '$lib/design';
+	import { label, type Group } from '$lib/data/projects';
 	import { shelves, type Shelf } from '$lib/data/tools';
 
 	let { groups }: { groups: Group[] } = $props();
@@ -23,7 +23,7 @@
 
 	const offered = $derived(shelves.filter((s) => groups.some((g) => g.shelf === s.id)));
 	const total = $derived(groups.reduce((n, g) => n + g.projects.length, 0));
-	// Shelf, then section, then row: eighty names read as six kinds of thing
+	// Shelf, then section, then row: eighty names read as seven kinds of thing
 	// rather than twenty headings in a run.
 	const shown = $derived(
 		offered
@@ -34,13 +34,10 @@
 
 <div class="index">
 	<header>
-		<h1>Everything I build, each one running.</h1>
+		<h1>Built by Oddur</h1>
 		<p class="sub">
-			Terminal tools, where most of it started; the Mac apps on this desk; games and toys; maps and
-			simulations; things to read; and the libraries and languages the rest is built with. Every
-			page shows the thing working: a recording of a real session, the screens it was taken from,
-			the site itself as it runs, or — where none of those can carry it — what it drew or what it
-			sounds like.
+			Terminal tools, Mac apps, games, maps, simulations, writing, and the libraries underneath.
+			Every page shows the thing running, except the last shelf, which is ideas I haven't built yet.
 		</p>
 	</header>
 
@@ -75,10 +72,7 @@
 							<li>
 								<a href={resolve('/[name]', { name: p.name })}>
 									<span class="mark"><AppIcon name={p.name} size="s" /></span>
-									<span class="name">
-										{label(p)}
-										{#if prerelease(p)}<Badge tone="amber">pre</Badge>{/if}
-									</span>
+									<span class="name">{label(p)}</span>
 									<span class="line">{p.line}</span>
 									<span class="lang">{p.lang}</span>
 								</a>
